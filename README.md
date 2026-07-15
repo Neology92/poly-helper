@@ -83,29 +83,31 @@ Strona główna (karty) i routing zbudują się automatycznie z rejestru.
 Strona jest live: **https://poly-helper.netlify.app** (projekt `poly-helper`,
 zespół `neology92`, siteId `476377dc-65dd-47bf-b14d-0a7db6ada9e0`).
 
-Konfiguracja jest w `netlify.toml`:
+### Auto-deploy z GitHuba — AKTYWNE
+
+Continuous deployment jest **włączone z gałęzi `main`**: każdy `git push` na `main`
+automatycznie buduje się w chmurze Netlify (wg `netlify.toml`) i wjeżdża na produkcję.
+
+Konfiguracja (`netlify.toml`):
 
 - build: `npm run build`, publish: `dist`,
 - SPA fallback (każda ścieżka → `index.html`),
-- `sw.js` i `manifest.webmanifest` bez agresywnego cache (użytkownik nie utknie na starym buildzie).
+- `sw.js` i `manifest.webmanifest` bez agresywnego cache (nikt nie utknie na starym buildzie).
 
-### Deploy ręczny (CLI)
+Połączenie repo↔Netlify zrobione metodą **deploy key + webhook** (bez GitHub App):
+klucz „Netlify poly-helper deploy key" w ustawieniach repo (read-only) oraz webhook
+na `https://api.netlify.com/hooks/github`. Nie usuwaj ich, bo rozłączą CD.
 
-Folder jest już zlinkowany z projektem. Aby wypchnąć aktualny build:
+### Deploy ręczny (awaryjnie, CLI)
+
+Gdyby trzeba wypchnąć build z pominięciem gita:
 
 ```bash
 npm run build
 npx netlify-cli deploy --prod --dir=dist
 ```
 
-(Jednorazowe podpięcie na nowej maszynie: `npx netlify-cli link --id 476377dc-65dd-47bf-b14d-0a7db6ada9e0`.)
-
-### Auto-deploy z GitHuba (zalecane, do włączenia raz)
-
-Żeby każdy `git push` budował się i wjeżdżał sam, podłącz repo w panelu Netlify:
-**Site configuration → Build & deploy → Continuous deployment → Link repository** →
-`Neology92/poly-helper`. Ustawienia build zaciągną się z `netlify.toml`.
-Uwaga: produkcyjna gałąź to `main` — pracę z `claude/...` trzeba najpierw zmergować do `main`.
+(Podpięcie folderu na nowej maszynie: `npx netlify-cli link --id 476377dc-65dd-47bf-b14d-0a7db6ada9e0`.)
 
 ## Roadmapa
 
