@@ -15,6 +15,21 @@ export default defineConfig({
         clientsClaim: true,
         skipWaiting: true,
         globPatterns: ['**/*.{js,css,html,svg,png,ico,woff,woff2}'],
+        // Generator PDF (pdfmake + font Roboto, ~2 MB) NIE trafia do precache — instalacja
+        // PWA ma być lekka. Te chunki dogrywają się do cache przy pierwszym eksporcie (niżej).
+        globIgnores: ['**/assets/pdfmake-*.js', '**/assets/vfs_fonts-*.js'],
+        maximumFileSizeToCacheInBytes: 1_000_000,
+        runtimeCaching: [
+          {
+            // Zasoby z /assets są niezmienne (hash w nazwie) — cache-first, offline po 1. użyciu.
+            urlPattern: /\/assets\/.*\.(?:js|css|woff2?)$/,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'ph-assets',
+              expiration: { maxEntries: 80, maxAgeSeconds: 60 * 60 * 24 * 90 },
+            },
+          },
+        ],
       },
       manifest: {
         name: 'poly-helper — narzędzia dla relacji',

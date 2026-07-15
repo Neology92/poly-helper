@@ -91,6 +91,43 @@
 .btn--danger-ghost:hover {
   background: var(--mauve-bg);
 }
+.btn--solid {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: #fff;
+}
+.btn--solid:hover {
+  background: color-mix(in srgb, var(--teal) 88%, #000);
+}
+.btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+/* ---------- Pasek eksportu ---------- */
+.export {
+  margin-top: 22px;
+  padding: 18px 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+.export__label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.export__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
 
 /* ---------- Nagłówek egzemplarza ---------- */
 .meta {

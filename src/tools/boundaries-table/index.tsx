@@ -1,7 +1,9 @@
+import { useState } from 'react'
 import { columns, copyHeaderFields, items } from '../../data'
-import type { CheckboxAnswer } from '../../data'
+import type { BoundaryDocument, CheckboxAnswer } from '../../data'
 import { useCopies } from './useCopies'
 import { ItemRow, CustomRowView } from './Row'
+import { downloadTablePdf } from './pdf'
 import './table.css'
 
 /** Etykieta egzemplarza na pasku wyboru. */
@@ -18,6 +20,19 @@ function copyLabel(osoba: string, index: number): string {
 export default function BoundariesTable() {
   const c = useCopies()
   const doc = c.activeDoc
+  const [pdfBusy, setPdfBusy] = useState<null | 'blank' | 'filled'>(null)
+
+  async function exportPdf(kind: 'blank' | 'filled', activeDoc: BoundaryDocument) {
+    setPdfBusy(kind)
+    try {
+      await downloadTablePdf(kind === 'blank' ? { kind: 'blank' } : { kind: 'filled', doc: activeDoc })
+    } catch (err) {
+      console.error('Nie udało się wygenerować PDF:', err)
+      alert('Nie udało się wygenerować PDF. Spróbuj ponownie.')
+    } finally {
+      setPdfBusy(null)
+    }
+  }
 
   if (!doc) {
     return (
@@ -159,6 +174,28 @@ export default function BoundariesTable() {
         <p className="table-tool__saved" aria-live="polite">
           Zapisano lokalnie
         </p>
+      </div>
+
+      <div className="export">
+        <div className="export__label">Pobierz PDF do druku</div>
+        <div className="export__actions">
+          <button
+            type="button"
+            className="btn btn--ghost"
+            disabled={pdfBusy !== null}
+            onClick={() => exportPdf('blank', doc)}
+          >
+            {pdfBusy === 'blank' ? 'Generuję…' : 'Pusty szablon'}
+          </button>
+          <button
+            type="button"
+            className="btn btn--solid"
+            disabled={pdfBusy !== null}
+            onClick={() => exportPdf('filled', doc)}
+          >
+            {pdfBusy === 'filled' ? 'Generuję…' : 'Ten egzemplarz (wypełniony)'}
+          </button>
+        </div>
       </div>
     </div>
   )

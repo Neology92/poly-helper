@@ -28,8 +28,8 @@ Narzędzia (docelowe, treści i wersje PDF gotowe — patrz `poly-helper-dump.md
 - **vite-plugin-pwa** (`autoUpdate`) — offline + automatyczna aktualizacja do najnowszego buildu.
 - **@fontsource-variable** (Inter + Fraunces) — fonty self-hosted (działają offline).
 - Dane użytkownika: **lokalnie** (localStorage/IndexedDB) — bez backendu, bez kont.
-- Generowanie PDF: **po stronie klienta** (docelowo pdf-lib / react-pdf) — jeden codebase
-  dla wersji online i drukowanej.
+- Generowanie PDF: **po stronie klienta** (pdfmake + font Roboto z pełnymi polskimi znakami,
+  ładowany leniwie) — jeden codebase dla wersji online i drukowanej.
 
 ## Uruchomienie lokalnie
 
@@ -111,8 +111,8 @@ Uwaga: produkcyjna gałąź to `main` — pracę z `claude/...` trzeba najpierw 
 
 - [x] Szkielet: rejestr narzędzi, routing, PWA, deploy na Netlify.
 - [x] Model danych (kanon 25 pozycji + teksty kart) jako typowane dane — `src/data/`.
-- [ ] Interaktywna **Tabela granic informowania** (wypełnianie + zapis lokalny).
-- [ ] Eksport tabeli do PDF (pusty szablon + wersja wypełniona).
+- [x] Interaktywna **Tabela granic informowania** (wypełnianie + zapis lokalny, wiele egzemplarzy).
+- [x] Eksport tabeli do PDF (pusty szablon + wersja wypełniona) — pdfmake, 1×A4, pełne PL znaki.
 - [ ] Teksty i talia **Gry karcianej** + tryb online (mechanizm `[imię]`).
 - [ ] Eksport talii do PDF (grid 2×3, crop marks) — odtworzenie layoutu z ReportLab.
 - [ ] Kolejne narzędzia dla relacji (poli i mono).
