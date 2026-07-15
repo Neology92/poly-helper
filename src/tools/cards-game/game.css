@@ -72,6 +72,33 @@
   gap: 10px;
 }
 
+/* ---------- Sekcja druku ---------- */
+.game__print {
+  margin-top: 28px;
+  padding: 18px 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+.game__print-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+.game__print-desc {
+  font-size: 13px;
+  color: var(--ink-soft);
+  max-width: 52ch;
+  margin: 0;
+}
+
 /* ---------- Przyciski ---------- */
 .btn {
   border-radius: var(--radius-sm);

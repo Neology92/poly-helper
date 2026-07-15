@@ -1,10 +1,7 @@
-import type {
-  Content,
-  TableCell,
-  TDocumentDefinitions,
-} from 'pdfmake/interfaces'
+import type { Content, TableCell, TDocumentDefinitions } from 'pdfmake/interfaces'
 import type { BoundaryDocument, CheckboxAnswer, DetailLevel } from '../../data'
 import { EMPTY_ROWS, columns, copyHeaderFields, items } from '../../data'
+import { getPdfMake } from '../../lib/pdfmake'
 
 /**
  * Generowanie PDF tabeli granic informowania po stronie klienta (pdfmake + Roboto,
@@ -24,19 +21,6 @@ const ACCENT = '#6b6069'
 
 // Szerokości kolumn (pt). Suma stałych + „*" na Czynność.
 const W = { mustSay: 22, num: 13, dontTell: 28, heads: 36, after: 34, detail: 96 }
-
-async function getPdfMake() {
-  const [pdfMakeMod, vfsMod] = await Promise.all([
-    import('pdfmake/build/pdfmake'),
-    import('pdfmake/build/vfs_fonts'),
-  ])
-  const pdfMake = (pdfMakeMod as { default?: unknown }).default ?? pdfMakeMod
-  const vfs = (vfsMod as { default?: unknown }).default ?? vfsMod
-  ;(pdfMake as { vfs: unknown }).vfs = vfs
-  return pdfMake as {
-    createPdf: (def: TDocumentDefinitions) => { download: (name?: string) => void }
-  }
-}
 
 /** Znak „do zamalowania" (! / ×): blady w pustym szablonie, ciemny gdy zaznaczony. */
 function mark(active: boolean, glyph: string): TableCell {

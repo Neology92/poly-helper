@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { applyName, cardItems } from '../../data'
 import type { CheckboxItem } from '../../data'
 import { loadSettings, saveSettings } from './storage'
+import { downloadDeckPdf } from './deckPdf'
 import './game.css'
 
 const CARDS = cardItems() as CheckboxItem[]
@@ -24,6 +25,19 @@ export default function CardsGame() {
   const [order, setOrder] = useState<number[]>(() => CARDS.map((_, i) => i))
   const [pos, setPos] = useState(0)
   const [revealed, setRevealed] = useState(false)
+  const [deckBusy, setDeckBusy] = useState(false)
+
+  async function exportDeck() {
+    setDeckBusy(true)
+    try {
+      await downloadDeckPdf()
+    } catch (err) {
+      console.error('Nie udało się wygenerować talii PDF:', err)
+      alert('Nie udało się wygenerować talii PDF. Spróbuj ponownie.')
+    } finally {
+      setDeckBusy(false)
+    }
+  }
 
   // Wczytaj zapisany pseudonim.
   useEffect(() => {
@@ -85,6 +99,24 @@ export default function CardsGame() {
           </button>
           <button type="button" className="btn btn--ghost" onClick={() => start(true)}>
             Potasuj i zacznij
+          </button>
+        </div>
+
+        <div className="game__print">
+          <div>
+            <div className="game__print-title">Wolicie na papierze?</div>
+            <p className="game__print-desc">
+              Pobierz całą talię (30 kart, 5×A4, grid 2×3 ze znacznikami cięcia). Karty są
+              wielokrotnego użytku — pseudonim „[imię]" wpisujecie kartą „Imiona na czas gry".
+            </p>
+          </div>
+          <button
+            type="button"
+            className="btn btn--ghost"
+            disabled={deckBusy}
+            onClick={exportDeck}
+          >
+            {deckBusy ? 'Generuję…' : 'Pobierz talię PDF'}
           </button>
         </div>
       </div>
