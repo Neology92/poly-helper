@@ -17,7 +17,7 @@ export const tools: Tool[] = [
       tagline:
         'Ustalcie razem, o czym z równoległych relacji chcecie się informować — i jak szczegółowo.',
       icon: '▦',
-      status: 'wip',
+      status: 'ready',
       audience: ['poly'],
     },
     Component: lazy(() => import('./boundaries-table/index')),
