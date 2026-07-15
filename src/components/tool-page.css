@@ -1,0 +1,21 @@
+.tool-page {
+  max-width: var(--wrap-narrow);
+  margin: 0 auto;
+}
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink-soft);
+  margin-bottom: 8px;
+  transition: color 0.15s ease;
+}
+.back-link:hover {
+  color: var(--ink);
+}
+.tool-page__loading {
+  color: var(--ink-soft);
+  padding: 40px 0;
+}

@@ -1,0 +1,60 @@
+.placeholder {
+  max-width: var(--wrap-narrow);
+  margin: 0 auto;
+  padding: clamp(16px, 4vw, 40px) 0;
+}
+.placeholder .badge {
+  display: inline-block;
+  margin-bottom: 16px;
+}
+.placeholder h1 {
+  font-size: clamp(28px, 5vw, 40px);
+  margin: 0 0 16px;
+}
+.placeholder__lede {
+  color: var(--ink-soft);
+  font-size: clamp(16px, 1.8vw, 18px);
+  max-width: 56ch;
+  margin: 0 0 28px;
+}
+.placeholder__label {
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  font-weight: 600;
+  margin: 0 0 10px;
+}
+.placeholder__list {
+  margin: 0 0 28px;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 10px;
+}
+.placeholder__list li {
+  position: relative;
+  padding-left: 26px;
+  color: var(--ink);
+  max-width: 60ch;
+}
+.placeholder__list li::before {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 0.55em;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--teal);
+}
+.placeholder__note {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  color: var(--ink-soft);
+  font-size: 14px;
+  max-width: 60ch;
+  box-shadow: var(--shadow-sm);
+}

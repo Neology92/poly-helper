@@ -1,0 +1,110 @@
+.eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  font-weight: 600;
+  margin: 0 0 12px;
+}
+
+.hero {
+  padding: clamp(16px, 4vw, 40px) 0 clamp(28px, 5vw, 48px);
+  max-width: 40ch;
+}
+.hero h1 {
+  font-size: clamp(30px, 5vw, 48px);
+  margin: 0 0 16px;
+}
+.hero .lede {
+  color: var(--ink-soft);
+  font-size: clamp(15px, 1.7vw, 18px);
+  max-width: 58ch;
+  margin: 0;
+}
+
+/* ---------- Grid ---------- */
+.tool-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+}
+
+.tool-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 22px;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+}
+.tool-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+  border-color: var(--line-strong);
+}
+
+.tool-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.tool-card__icon {
+  font-size: 26px;
+  line-height: 1;
+}
+.tool-card__title {
+  font-size: 21px;
+  margin: 0 0 8px;
+}
+.tool-card__tagline {
+  color: var(--ink-soft);
+  font-size: 15px;
+  margin: 0;
+  flex: 1;
+}
+.tool-card__audience {
+  margin: 16px 0 0;
+  display: flex;
+  gap: 6px;
+}
+
+/* ---------- Badges / tagi ---------- */
+.badge {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 999px;
+}
+.badge--ready {
+  color: var(--teal);
+  background: var(--teal-bg);
+}
+.badge--wip {
+  color: var(--amber);
+  background: var(--amber-bg);
+}
+.badge--planned {
+  color: var(--ink-soft);
+  background: var(--surface-sunken);
+  border: 1px solid var(--line);
+}
+
+.tag {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+  background: var(--surface-sunken);
+  border: 1px solid var(--line);
+  padding: 2px 8px;
+  border-radius: 6px;
+}

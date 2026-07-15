@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gra: O czym chcę wiedzieć</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F1ECE6;
+    --surface:#FFFFFF;
+    --ink:#2C2430;
+    --soft:#6B6069;
+    --line:#E4DAD1;
+    --line2:#EFE7DF;
+    --amber:#BB7B33;
+    --amber-bg:#F6ECDC;
+    --teal:#3F7E72;
+    --teal-bg:#E3EEEA;
+    --mauve:#9C4F68;
+    --mauve-bg:#F3E5EA;
+    --shadow:0 1px 2px rgba(44,36,48,.04), 0 18px 50px rgba(44,36,48,.10);
+    --radius:20px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;}
+  body{
+    background:radial-gradient(120% 80% at 50% -10%, #F8F3ED 0%, var(--paper) 60%) fixed;
+    color:var(--ink);
+    font-family:"Inter",system-ui,sans-serif;
+    line-height:1.5;-webkit-font-smoothing:antialiased;
+    min-height:100vh;
+  }
+  .stage{max-width:680px;margin:0 auto;padding:clamp(16px,4vw,40px) clamp(14px,4vw,28px) 60px;
+    min-height:100vh;display:flex;flex-direction:column;}
+  .screen{display:none;flex:1;flex-direction:column;}
+  .screen.active{display:flex;}
+
+  .eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--soft);font-weight:600;margin:0 0 12px;}
+  h1{font-family:"Fraunces",serif;font-weight:500;font-size:clamp(28px,6vw,40px);line-height:1.07;letter-spacing:-.01em;margin:0 0 16px;}
+  p.lede{color:var(--soft);font-size:16px;margin:0 0 14px;max-width:52ch;}
+
+  /* ---------- intro ---------- */
+  .rules{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px 22px;margin:8px 0 22px;box-shadow:0 1px 2px rgba(44,36,48,.04);}
+  .rules ol{margin:0;padding-left:20px;}
+  .rules li{margin:9px 0;font-size:14.5px;color:var(--ink);}
+  .rules li b{font-weight:600;}
+  .field{display:flex;flex-direction:column;gap:7px;margin:6px 0 22px;}
+  .field label{font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--soft);font-weight:600;}
+  .field input{font-family:inherit;font-size:16px;color:var(--ink);background:var(--surface);
+    border:1px solid var(--line);border-radius:12px;padding:13px 15px;}
+  .field input:focus-visible{outline:2px solid var(--teal);outline-offset:1px;border-color:var(--teal);}
+
+  /* ---------- buttons ---------- */
+  .btn{font-family:inherit;font-size:15px;font-weight:500;cursor:pointer;border-radius:13px;
+    padding:14px 22px;border:1px solid var(--ink);background:var(--ink);color:#fff;transition:transform .12s ease,opacity .15s;}
+  .btn:hover{opacity:.9;}
+  .btn:active{transform:translateY(1px);}
+  .btn:focus-visible{outline:2px solid var(--teal);outline-offset:2px;}
+  .btn.ghost{background:transparent;color:var(--ink);border-color:var(--line);}
+  .btn[disabled]{opacity:.35;cursor:not-allowed;}
+  .btn:disabled:active{transform:none;}
+
+  /* ---------- card screen ---------- */
+  .topbar{display:flex;align-items:center;gap:14px;margin-bottom:18px;}
+  .progress{flex:1;height:6px;background:var(--line2);border-radius:99px;overflow:hidden;}
+  .progress>i{display:block;height:100%;background:var(--mauve);width:0;transition:width .3s ease;}
+  .count{font-size:12.5px;color:var(--soft);font-weight:600;white-space:nowrap;}
+
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    box-shadow:var(--shadow);padding:clamp(24px,5vw,38px);position:relative;overflow:hidden;}
+  .card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--mauve);}
+  .card .cat{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--mauve);font-weight:600;margin-bottom:14px;}
+  .card .scene{font-family:"Fraunces",serif;font-size:clamp(20px,4.4vw,27px);line-height:1.32;color:var(--ink);font-weight:400;margin:0;}
+  .readcue{display:flex;align-items:center;gap:8px;margin-top:18px;font-size:13px;color:var(--soft);font-style:italic;}
+  .readcue::before{content:"";width:18px;height:1px;background:var(--line);}
+
+  .qblock{margin-top:24px;}
+  .q{font-size:14.5px;font-weight:600;color:var(--ink);margin:0 0 11px;}
+  .q .hint{display:block;font-weight:400;color:var(--soft);font-size:13px;margin-top:2px;}
+  .opts{display:flex;flex-wrap:wrap;gap:9px;}
+  .opt{font-family:inherit;font-size:14.5px;cursor:pointer;border-radius:11px;padding:11px 16px;
+    border:1.5px solid var(--line);background:var(--surface);color:var(--ink);transition:all .14s ease;flex:1 1 auto;text-align:center;min-width:90px;}
+  .opt:hover{border-color:var(--soft);}
+  .opt:focus-visible{outline:2px solid var(--teal);outline-offset:2px;}
+  .opt[aria-pressed="true"]{color:#fff;}
+  .opt.a-none[aria-pressed="true"]{background:var(--soft);border-color:var(--soft);}
+  .opt.a-gen[aria-pressed="true"]{background:var(--teal);border-color:var(--teal);}
+  .opt.a-det[aria-pressed="true"]{background:var(--mauve);border-color:var(--mauve);}
+  .opt.a-yes[aria-pressed="true"]{background:var(--amber);border-color:var(--amber);}
+  .opt.a-no[aria-pressed="true"]{background:var(--soft);border-color:var(--soft);}
+
+  .navrow{display:flex;gap:12px;margin-top:26px;align-items:center;}
+  .navrow .spacer{flex:1;}
+
+  /* ---------- summary ---------- */
+  .sumhead{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:4px;}
+  .sumtable{width:100%;border-collapse:collapse;margin-top:14px;background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;}
+  .sumtable th,.sumtable td{padding:10px 12px;text-align:left;font-size:13px;border-bottom:1px solid var(--line2);}
+  .sumtable th{background:#EFE7DF;font-weight:600;color:var(--soft);font-size:11.5px;letter-spacing:.04em;}
+  .sumtable td.c{text-align:center;white-space:nowrap;}
+  .sumtable tr:last-child td{border-bottom:none;}
+  .tag{display:inline-block;font-size:11.5px;font-weight:600;padding:2px 9px;border-radius:99px;}
+  .tag.yes{background:var(--amber-bg);color:#8a5a1e;}
+  .tag.gen{background:var(--teal-bg);color:#2f6358;}
+  .tag.det{background:var(--mauve-bg);color:#7d3a52;}
+  .tag.no{background:#ECECEC;color:#7a7a7a;}
+  .toolbar{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;}
+
+  footer.tiny{margin-top:26px;font-size:12.5px;color:var(--soft);max-width:56ch;}
+
+  @media(prefers-reduced-motion:reduce){*{transition:none !important;}}
+
+  /* print only the summary */
+  @media print{
+    body{background:#fff;}
+    .screen:not(#scr-sum){display:none !important;}
+    .toolbar,.sumhead .btn{display:none;}
+    .sumtable{box-shadow:none;}
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+
+  <!-- ============ INTRO ============ -->
+  <section class="screen active" id="scr-intro">
+    <p class="eyebrow">Gra do dwóch osób</p>
+    <h1>O czym chcę wiedzieć</h1>
+    <p class="lede">Talia scenek pomaga ustalić, o czym z innych relacji chcesz słyszeć — i jak szczegółowo. Na końcu dostajesz gotowe podsumowanie do przepisania do tabeli.</p>
+
+    <div class="rules">
+      <ol>
+        <li>Jedna osoba czyta kartę <b>na głos</b>, tak jakby ta sytuacja właśnie się wydarzyła w którejś z relacji.</li>
+        <li>Druga osoba (słuchająca) decyduje, <b>ile chciałaby o tym usłyszeć</b>, gdyby to było naprawdę — i czy chce wiedzieć z wyprzedzeniem.</li>
+        <li>Czytać możecie na zmianę, ale <b>w jednej rozgrywce odpowiada jedna osoba</b> — to jej egzemplarz tabeli wypełniacie. Potem zamiana.</li>
+        <li>Nie ma złych odpowiedzi. Można się zatrzymać i porozmawiać o każdej karcie.</li>
+      </ol>
+    </div>
+
+    <div class="field">
+      <label for="listener">Kto teraz słucha (czyja to tabela)</label>
+      <input id="listener" type="text" placeholder="np. Bo" autocomplete="off">
+    </div>
+
+    <div class="navrow">
+      <button class="btn" id="start">Zacznij grę</button>
+      <span class="spacer"></span>
+    </div>
+  </section>
+
+  <!-- ============ CARD ============ -->
+  <section class="screen" id="scr-card">
+    <div class="topbar">
+      <div class="progress"><i id="bar"></i></div>
+      <span class="count" id="count">1 / 17</span>
+    </div>
+
+    <div class="card">
+      <div class="cat" id="cat"></div>
+      <p class="scene" id="scene"></p>
+      <div class="readcue">Przeczytajcie na głos — jakby zdarzyło się naprawdę</div>
+    </div>
+
+    <div class="qblock">
+      <p class="q">Gdyby to wydarzyło się naprawdę — ile chcesz usłyszeć?
+        <span class="hint">kolumna „gdy się wydarzyło" + poziom szczegółu</span></p>
+      <div class="opts" id="optsHear">
+        <button class="opt a-none" data-v="none"    aria-pressed="false">Nie chcę o tym wiedzieć</button>
+        <button class="opt a-gen"  data-v="general" aria-pressed="false">Ogólnie</button>
+        <button class="opt a-det"  data-v="details" aria-pressed="false">Ze szczegółami</button>
+      </div>
+    </div>
+
+    <div class="qblock">
+      <p class="q">Czy chcesz wiedzieć już wtedy, gdy pomyślę, że to może się wydarzyć?
+        <span class="hint">kolumna „gdy myślę, że może się wydarzyć"</span></p>
+      <div class="opts" id="optsHeads">
+        <button class="opt a-yes" data-v="yes" aria-pressed="false">Tak, uprzedź mnie</button>
+        <button class="opt a-no"  data-v="no"  aria-pressed="false">Nie trzeba</button>
+      </div>
+    </div>
+
+    <div class="navrow">
+      <button class="btn ghost" id="back">Wstecz</button>
+      <span class="spacer"></span>
+      <button class="btn" id="next" disabled>Dalej</button>
+    </div>
+  </section>
+
+  <!-- ============ SUMMARY ============ -->
+  <section class="screen" id="scr-sum">
+    <div class="sumhead">
+      <div>
+        <p class="eyebrow">Podsumowanie</p>
+        <h1 id="sumTitle">Co zaznaczyć w tabeli</h1>
+      </div>
+    </div>
+    <p class="lede">Przepisz to do egzemplarza osoby słuchającej. <b>✓ uprzedź</b> = kolumna „może się wydarzyć". <b>Ogólnie / Szczegóły</b> = kolumna „wydarzyło się" i jej poziom.</p>
+
+    <table class="sumtable">
+      <thead><tr><th>Sytuacja</th><th>Uprzedzić?</th><th>Gdy się wydarzy</th></tr></thead>
+      <tbody id="sumBody"></tbody>
+    </table>
+
+    <div class="toolbar">
+      <button class="btn" id="print">Drukuj / zapisz PDF</button>
+      <button class="btn ghost" id="again">Jeszcze raz dla drugiej osoby</button>
+      <button class="btn ghost" id="restart">Od nowa</button>
+    </div>
+    <footer class="tiny">Pamiętaj: to zdjęcie chwili, nie umowa na zawsze. Wróćcie do gry, kiedy coś się zmieni.</footer>
+  </section>
+
+</div>
+
+<script>
+const DECK = [
+  {id:"przytulanie", cat:"Bliskość fizyczna",
+   scene:"Po długiej rozmowie z osobą, z którą się widuję, przytuliliśmy się na pożegnanie — dłuższy, ciepły uścisk."},
+  {id:"rece", cat:"Bliskość fizyczna",
+   scene:"Szliśmy razem przez miasto i przez większą część drogi trzymaliśmy się za ręce."},
+  {id:"calowanie", cat:"Bliskość fizyczna",
+   scene:"Na koniec wieczoru doszło do pocałunku — najpierw niepewnego, potem już całkiem swobodnego."},
+  {id:"pieszczoty", cat:"Bliskość fizyczna",
+   scene:"Wieczór zrobił się bardziej zmysłowy: dotyk, pieszczoty, bliskość — choć bez seksu."},
+  {id:"randki", cat:"Relacja i logistyka",
+   scene:"Jest już umówiona kolejna randka — ustalony dzień, miejsce i plan na wieczór we dwoje."},
+  {id:"bliskosc", cat:"Sfera emocjonalna",
+   scene:"Rozmowa zeszła na naprawdę osobiste tematy — lęki, przeszłość, rzeczy, którymi dzielę się z niewieloma osobami."},
+  {id:"nocowanie", cat:"Bliskość fizyczna",
+   scene:"Zostaliśmy razem na noc, w jednym łóżku — zaśnięcie przytulonych obok siebie, bez seksu."},
+  {id:"wyjazdy", cat:"Relacja i logistyka",
+   scene:"Pojawił się konkretny pomysł wspólnego wyjazdu na weekend — we dwoje, z noclegiem."},
+  {id:"seks", cat:"Seks i zdrowie",
+   scene:"Doszło między nami do seksu."},
+  {id:"sti", cat:"Seks i zdrowie",
+   scene:"Pojawiła się kwestia badań na STI/STD — są już zrobione i są wyniki."},
+  {id:"bezzabezpieczen", cat:"Seks i zdrowie",
+   scene:"W tej relacji zmieniły się ustalenia o bezpieczniejszym seksie — pojawił się seks bez zabezpieczenia."},
+  {id:"zauroczenie", cat:"Sfera emocjonalna",
+   scene:"Łapię się na tym, że myślę o tej osobie coraz częściej — jest tu wyraźna fascynacja, zauroczenie."},
+  {id:"zakochanie", cat:"Sfera emocjonalna",
+   scene:"To już nie tylko zauroczenie — pojawia się prawdziwe zakochanie."},
+  {id:"kochamcie", cat:"Sfera emocjonalna",
+   scene:"Padły słowa „kocham Cię” — w którąś stronę albo obie."},
+  {id:"kryzys", cat:"Sfera emocjonalna",
+   scene:"W tej relacji pojawił się poważny konflikt albo kryzys — coś się sypie."},
+  {id:"nowarelacja", cat:"Zmiana i eskalacja",
+   scene:"Zaczyna się coś nowego z jeszcze inną osobą — kolejna relacja."},
+  {id:"status", cat:"Zmiana i eskalacja",
+   scene:"Ta relacja zmienia status — robi się poważniejsza i bardziej zobowiązująca."},
+];
+// short labels for the summary table
+const LABEL = {
+  przytulanie:"Przytulanie", rece:"Trzymanie za rękę", calowanie:"Całowanie",
+  pieszczoty:"Pieszczoty / dotyk", randki:"Randki / umawianie się",
+  bliskosc:"Głęboka bliskość emocjonalna", nocowanie:"Nocowanie razem (bez seksu)",
+  wyjazdy:"Wspólne wyjazdy", seks:"Seks", sti:"Badania STI/STD",
+  bezzabezpieczen:"Seks bez zabezpieczeń", zauroczenie:"Zauroczenie / fascynacja",
+  zakochanie:"Zakochanie", kochamcie:"„Kocham Cię”", kryzys:"Kryzys / konflikt",
+  nowarelacja:"Nowa relacja z inną osobą", status:"Zmiana statusu relacji",
+};
+const KEY = "gra-o-czym-chce-wiedziec-v1";
+
+let state = {listener:"", idx:0, answers:{}};
+
+/* ---------- persistence (best-effort) ---------- */
+async function loadState(){
+  try{ if(window.storage){ const r=await window.storage.get(KEY); if(r&&r.value){ state=JSON.parse(r.value);} } }catch(e){}
+}
+let t=null;
+function saveState(){ clearTimeout(t); t=setTimeout(async()=>{ try{ if(window.storage){ await window.storage.set(KEY, JSON.stringify(state)); } }catch(e){} },300); }
+
+/* ---------- screens ---------- */
+function show(id){ document.querySelectorAll(".screen").forEach(s=>s.classList.toggle("active", s.id===id)); window.scrollTo({top:0,behavior:"instant"}); }
+
+/* ---------- card render ---------- */
+function renderCard(){
+  const c = DECK[state.idx];
+  document.getElementById("cat").textContent = c.cat;
+  document.getElementById("scene").textContent = c.scene;
+  document.getElementById("count").textContent = (state.idx+1)+" / "+DECK.length;
+  document.getElementById("bar").style.width = ((state.idx)/(DECK.length))*100 + "%";
+
+  const a = state.answers[c.id] || {hear:null, heads:null};
+  document.querySelectorAll("#optsHear .opt").forEach(b=>b.setAttribute("aria-pressed", String(b.dataset.v===a.hear)));
+  document.querySelectorAll("#optsHeads .opt").forEach(b=>b.setAttribute("aria-pressed", String(b.dataset.v===a.heads)));
+
+  document.getElementById("back").style.visibility = state.idx===0 ? "hidden" : "visible";
+  const nextBtn = document.getElementById("next");
+  nextBtn.textContent = state.idx===DECK.length-1 ? "Zobacz podsumowanie" : "Dalej";
+  nextBtn.disabled = !(a.hear && a.heads);
+}
+
+function setAnswer(kind, val){
+  const c = DECK[state.idx];
+  const a = state.answers[c.id] || {hear:null, heads:null};
+  a[kind] = val;
+  state.answers[c.id] = a;
+  saveState();
+  renderCard();
+}
+
+/* ---------- summary ---------- */
+function renderSummary(){
+  document.getElementById("sumTitle").textContent =
+    state.listener ? ("Co zaznaczyć — " + state.listener) : "Co zaznaczyć w tabeli";
+  const body = document.getElementById("sumBody");
+  body.innerHTML = "";
+  DECK.forEach(c=>{
+    const a = state.answers[c.id] || {hear:"none", heads:"no"};
+    const heads = a.heads==="yes"
+      ? '<span class="tag yes">✓ uprzedź</span>'
+      : '<span class="tag no">—</span>';
+    let hear;
+    if(a.hear==="details") hear = '<span class="tag det">Ze szczegółami</span>';
+    else if(a.hear==="general") hear = '<span class="tag gen">Ogólnie</span>';
+    else hear = '<span class="tag no">Nie mówić</span>';
+    const tr=document.createElement("tr");
+    tr.innerHTML = `<td>${LABEL[c.id]}</td><td class="c">${heads}</td><td class="c">${hear}</td>`;
+    body.appendChild(tr);
+  });
+}
+
+/* ---------- events ---------- */
+document.getElementById("start").addEventListener("click",()=>{
+  state.listener = document.getElementById("listener").value.trim();
+  state.idx = 0; saveState();
+  show("scr-card"); renderCard();
+});
+document.getElementById("optsHear").addEventListener("click",e=>{
+  const b=e.target.closest(".opt"); if(b) setAnswer("hear", b.dataset.v);
+});
+document.getElementById("optsHeads").addEventListener("click",e=>{
+  const b=e.target.closest(".opt"); if(b) setAnswer("heads", b.dataset.v);
+});
+document.getElementById("back").addEventListener("click",()=>{
+  if(state.idx>0){ state.idx--; saveState(); renderCard(); }
+});
+document.getElementById("next").addEventListener("click",()=>{
+  if(state.idx < DECK.length-1){ state.idx++; saveState(); renderCard(); }
+  else { renderSummary(); show("scr-sum"); }
+});
+document.getElementById("print").addEventListener("click",()=>window.print());
+document.getElementById("again").addEventListener("click",()=>{
+  state = {listener:"", idx:0, answers:{}}; saveState();
+  document.getElementById("listener").value=""; show("scr-intro");
+});
+document.getElementById("restart").addEventListener("click",()=>{
+  state = {listener:"", idx:0, answers:{}}; saveState();
+  document.getElementById("listener").value=""; show("scr-intro");
+});
+
+/* ---------- init ---------- */
+(async function(){
+  await loadState();
+  if(state.listener || Object.keys(state.answers).length){
+    document.getElementById("listener").value = state.listener || "";
+  }
+})();
+</script>
+</body>
+</html>

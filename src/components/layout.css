@@ -1,0 +1,71 @@
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+/* ---------- Header ---------- */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: saturate(1.4) blur(8px);
+  background: color-mix(in srgb, var(--paper) 82%, transparent);
+  border-bottom: 1px solid var(--line);
+}
+.app-header__inner {
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: 12px var(--space-page);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+}
+.brand__mark {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 50%, transparent 42%, var(--teal) 44%, var(--teal) 50%, transparent 52%),
+    radial-gradient(circle at 70% 50%, transparent 42%, var(--amber) 44%, var(--amber) 50%, transparent 52%);
+}
+.brand__name {
+  font-family: var(--font-serif);
+  font-size: 19px;
+  letter-spacing: -0.01em;
+}
+
+/* ---------- Main ---------- */
+.app-main {
+  flex: 1;
+  width: 100%;
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: var(--space-page);
+}
+
+/* ---------- Footer ---------- */
+.app-footer {
+  border-top: 1px solid var(--line);
+  margin-top: 40px;
+}
+.app-footer__inner {
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: 28px var(--space-page) 48px;
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+.app-footer__inner p {
+  margin: 0 0 6px;
+  max-width: 60ch;
+}
+.app-footer__meta {
+  color: var(--ink-faint);
+}

@@ -1,0 +1,52 @@
+/*
+ * Design tokens — wspólny system dla wszystkich narzędzi.
+ * Paleta i typografia przeniesione z prototypów (ciepły papier, Fraunces + Inter),
+ * uzupełnione o tokeny stanu i odstępów. To jest źródło prawdy dla wyglądu.
+ */
+:root {
+  /* --- powierzchnie --- */
+  --paper: #f4efea;
+  --paper-tint: #f9f4ee;
+  --surface: #ffffff;
+  --surface-sunken: #faf6f1;
+
+  /* --- tekst --- */
+  --ink: #2d2530;
+  --ink-soft: #6b6069;
+  --ink-faint: #9a8f96;
+
+  /* --- linie --- */
+  --line: #e5dbd3;
+  --line-strong: #d8ccc2;
+
+  /* --- akcenty (semantyka z tabeli) --- */
+  /* „może się wydarzyć" — wyczekiwanie, ochra */
+  --amber: #be7e33;
+  --amber-bg: #f6ecdc;
+  /* „się wydarzyło" — domknięcie, stonowana zieleń */
+  --teal: #3f7e72;
+  --teal-bg: #e2eeea;
+  /* poziom szczegółu — przygaszony fiolet */
+  --mauve: #9c4f68;
+  --mauve-bg: #f3e5ea;
+
+  --accent: var(--teal);
+  --focus: var(--teal);
+
+  /* --- promienie / cienie --- */
+  --radius-sm: 10px;
+  --radius: 14px;
+  --radius-lg: 20px;
+  --shadow-sm: 0 1px 2px rgba(45, 37, 48, 0.04);
+  --shadow: 0 1px 2px rgba(45, 37, 48, 0.04), 0 8px 28px rgba(45, 37, 48, 0.06);
+  --shadow-lg: 0 1px 2px rgba(44, 36, 48, 0.04), 0 18px 50px rgba(44, 36, 48, 0.1);
+
+  /* --- typografia --- */
+  --font-sans: 'Inter Variable', 'Inter', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Fraunces Variable', 'Fraunces', Georgia, serif;
+
+  /* --- odstępy / layout --- */
+  --wrap: 1080px;
+  --wrap-narrow: 720px;
+  --space-page: clamp(20px, 4vw, 56px);
+}

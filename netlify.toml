@@ -1,0 +1,27 @@
+# Konfiguracja deploymentu na Netlify.
+# Strona jest statyczna (Vite SPA + PWA) — Netlify buduje i serwuje katalog dist/.
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# SPA fallback: każda ścieżka trafia do index.html, routing obsługuje React Router.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Service worker i manifest nie mogą być agresywnie cache'owane —
+# inaczej użytkownik utknie na starym buildzie.
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/manifest.webmanifest"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
