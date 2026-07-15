@@ -18,8 +18,8 @@ Narzędzia (docelowe, treści i wersje PDF gotowe — patrz `poly-helper-dump.md
 
 | Narzędzie | Slug | Status |
 |---|---|---|
-| Tabela granic informowania | `tabela-granic` | w budowie (placeholder) |
-| Gra karciana | `gra-karciana` | w budowie (placeholder) |
+| Tabela granic informowania | `tabela-granic` | wypełnianie online + eksport PDF |
+| Gra karciana | `gra-karciana` | tryb online (mechanizm `[imię]`) |
 
 ## Stack
 
@@ -113,7 +113,7 @@ Uwaga: produkcyjna gałąź to `main` — pracę z `claude/...` trzeba najpierw 
 - [x] Model danych (kanon 25 pozycji + teksty kart) jako typowane dane — `src/data/`.
 - [x] Interaktywna **Tabela granic informowania** (wypełnianie + zapis lokalny, wiele egzemplarzy).
 - [x] Eksport tabeli do PDF (pusty szablon + wersja wypełniona) — pdfmake, 1×A4, pełne PL znaki.
-- [ ] Teksty i talia **Gry karcianej** + tryb online (mechanizm `[imię]`).
+- [x] **Gra karciana** — tryb online: zasady, pseudonim `[imię]`, karty z odsłanianiem szczegółów.
 - [ ] Eksport talii do PDF (grid 2×3, crop marks) — odtworzenie layoutu z ReportLab.
 - [ ] Kolejne narzędzia dla relacji (poli i mono).
 

@@ -29,7 +29,7 @@ export const tools: Tool[] = [
       tagline:
         'Scenki czytane na głos, które pomagają poczuć, ile naprawdę chcesz usłyszeć.',
       icon: '🂠',
-      status: 'wip',
+      status: 'ready',
       audience: ['poly'],
     },
     Component: lazy(() => import('./cards-game/index')),
