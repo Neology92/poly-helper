@@ -110,7 +110,7 @@ Uwaga: produkcyjna gałąź to `main` — pracę z `claude/...` trzeba najpierw 
 ## Roadmapa
 
 - [x] Szkielet: rejestr narzędzi, routing, PWA, deploy na Netlify.
-- [ ] Model danych tabeli (25 pozycji + puste) jako typowane dane — przeniesienie z dumpa.
+- [x] Model danych (kanon 25 pozycji + teksty kart) jako typowane dane — `src/data/`.
 - [ ] Interaktywna **Tabela granic informowania** (wypełnianie + zapis lokalny).
 - [ ] Eksport tabeli do PDF (pusty szablon + wersja wypełniona).
 - [ ] Teksty i talia **Gry karcianej** + tryb online (mechanizm `[imię]`).
