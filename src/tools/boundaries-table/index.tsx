@@ -1,22 +1,44 @@
-import { ToolPlaceholder } from '../../components/ToolPlaceholder'
+import { items, EMPTY_ROWS } from '../../data'
+import './preview.css'
 
 /**
- * Tabela granic informowania — placeholder.
+ * Tabela granic informowania — na razie podgląd modelu danych (tylko do odczytu).
  *
- * Docelowo: interaktywna tabela (25 pozycji + puste wiersze) do wypełniania online
- * z zapisem lokalnym i eksportem do PDF (pusty szablon oraz wersja wypełniona).
- * Model danych i treści przenosimy z `poly-helper-dump.md` w kolejnym kroku.
+ * Docelowo: interaktywna tabela do wypełniania online z zapisem lokalnym i eksportem PDF.
+ * Ten ekran renderuje już KANONICZNE 25 pozycji z modelu (`src/data`), więc treść jest
+ * podpięta — dokładamy warstwę wypełniania i eksportu w kolejnym kroku.
  */
 export default function BoundariesTable() {
   return (
-    <ToolPlaceholder
-      title="Tabela granic informowania"
-      lede="Formularz do wspólnego ustalenia, o czym z równoległych relacji chcecie się nawzajem informować — i jak szczegółowo."
-      points={[
-        'Wypełnianie online z zapisem w tej przeglądarce (bez konta, offline).',
-        'Eksport do PDF: pusty szablon do druku oraz wersja z Waszymi odpowiedziami.',
-        '25 pozycji + puste wiersze na własne; pola tekstowe tam, gdzie „do ustalenia".',
-      ]}
-    />
+    <article className="bt">
+      <span className="badge badge--wip">W budowie — podgląd treści</span>
+      <h1>Tabela granic informowania</h1>
+      <p className="bt__lede">
+        Ustalcie razem, o czym z równoległych relacji chcecie się nawzajem informować — i jak
+        szczegółowo. Poniżej pełna lista {items.length} pozycji z modelu. Wypełnianie online i
+        eksport do PDF dokładamy w kolejnym kroku.
+      </p>
+
+      <ol className="bt__list">
+        {items.map((item) => (
+          <li key={item.number} className="bt__row">
+            <span className="bt__num">{item.number}</span>
+            <div className="bt__body">
+              <p className="bt__name">
+                {item.name}
+                {item.kind === 'field' && <span className="bt__pill">do ustalenia</span>}
+              </p>
+              {item.clarification && <p className="bt__note">{item.clarification}</p>}
+              {item.note && <p className="bt__note">{item.note}</p>}
+              {item.kind === 'field' && <p className="bt__prompt">{item.fieldPrompt}</p>}
+            </div>
+          </li>
+        ))}
+      </ol>
+
+      <p className="bt__footer">
+        + {EMPTY_ROWS} puste wiersze na dopisanie własnych pozycji.
+      </p>
+    </article>
   )
 }
