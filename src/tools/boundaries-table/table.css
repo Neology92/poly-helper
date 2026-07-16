@@ -333,6 +333,31 @@
   color: #fff;
 }
 
+/* ---------- Stany warunkowe (blokada / wymagane) ---------- */
+.marker:disabled,
+.check:disabled,
+.detail__opt:disabled {
+  cursor: not-allowed;
+}
+.marker:disabled {
+  opacity: 0.32;
+}
+.check:disabled .check__box {
+  opacity: 0.32;
+}
+.detail.is-disabled .detail__opt {
+  opacity: 0.32;
+}
+/* Poziom szczegółu wymagany (mówienie włączone, ale nie wybrano) — podpowiedź wizualna. */
+.detail.is-required {
+  border-radius: 9px;
+  box-shadow: 0 0 0 2px var(--mauve-bg);
+}
+.detail.is-required .detail__opt {
+  border-color: var(--mauve);
+  color: var(--mauve);
+}
+
 /* ---------- Wiersze własne ---------- */
 .row__name-input {
   width: 100%;

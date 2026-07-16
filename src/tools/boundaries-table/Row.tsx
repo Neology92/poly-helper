@@ -8,18 +8,30 @@ import type {
 } from '../../data'
 import { columns } from '../../data'
 import { CheckToggle, DetailControl, Marker } from './controls'
+import { rowFlags, type RowFlags } from './rules'
 
 function isFieldAnswer(a: ItemAnswer): a is FieldAnswer {
   return 'text' in a
 }
 
+const HINT_DONT_TELL = 'Odznacz „nie mów mi o tym”, aby wybrać'
+const HINT_NEED_TELLING =
+  'Najpierw zaznacz, kiedy informować (może się wydarzyć / wydarzyło się)'
+
+/** Podpowiedź dla zablokowanego must-say / poziomu szczegółu. */
+function lockHint(flags: RowFlags): string {
+  return flags.lockedByDontTell ? HINT_DONT_TELL : HINT_NEED_TELLING
+}
+
 /** Zestaw kontrolek wspólny dla zwykłej pozycji i wiersza własnego. */
 function CheckboxControls({
   answer,
+  flags,
   onCheckbox,
   onDetail,
 }: {
   answer: CheckboxAnswer
+  flags: RowFlags
   onCheckbox: (field: keyof Omit<CheckboxAnswer, 'detail'>, v: boolean) => void
   onDetail: (level: DetailLevel) => void
 }) {
@@ -42,6 +54,8 @@ function CheckboxControls({
           onChange={(v) => onCheckbox('headsUp', v)}
           label={columns.headsUp.label}
           accent="amber"
+          disabled={!flags.canTell}
+          hint={HINT_DONT_TELL}
         />
       </div>
       <div className="cell cell--after">
@@ -51,11 +65,19 @@ function CheckboxControls({
           onChange={(v) => onCheckbox('afterFact', v)}
           label={columns.afterFact.label}
           accent="teal"
+          disabled={!flags.canTell}
+          hint={HINT_DONT_TELL}
         />
       </div>
       <div className="cell cell--detail">
         <span className="cell__label">{columns.detail.label}</span>
-        <DetailControl value={answer.detail} onChange={onDetail} />
+        <DetailControl
+          value={answer.detail}
+          onChange={onDetail}
+          disabled={!flags.canDetail}
+          required={flags.detailRequired}
+          hint={lockHint(flags)}
+        />
       </div>
     </>
   )
@@ -78,18 +100,22 @@ export function ItemRow({
   onFieldText: (text: string) => void
 }) {
   const isField = item.kind === 'field'
+  const checkAnswer = isFieldAnswer(answer) ? null : (answer as CheckboxAnswer)
+  const flags = checkAnswer ? rowFlags(checkAnswer) : null
 
   return (
     <div className={`row ${isField ? 'row--field' : ''}`}>
       <div className="cell cell--mustsay">
-        {!isField && (
+        {checkAnswer && flags && (
           <>
             <span className="cell__label">{columns.mustSay.label}</span>
             <Marker
               glyph={columns.mustSay.glyph!}
-              active={(answer as CheckboxAnswer).mustSay}
+              active={checkAnswer.mustSay}
               onChange={onMustSay}
               label={columns.mustSay.label}
+              disabled={!flags.canMustSay}
+              hint={lockHint(flags)}
             />
           </>
         )}
@@ -120,7 +146,8 @@ export function ItemRow({
         </div>
       ) : (
         <CheckboxControls
-          answer={answer as CheckboxAnswer}
+          answer={checkAnswer!}
+          flags={flags!}
           onCheckbox={onCheckbox}
           onDetail={onDetail}
         />
@@ -145,6 +172,7 @@ export function CustomRowView({
   onDetail: (level: DetailLevel) => void
   onRemove: () => void
 }) {
+  const flags = rowFlags(row.answer)
   return (
     <div className="row row--custom">
       <div className="cell cell--mustsay">
@@ -154,6 +182,8 @@ export function CustomRowView({
           active={row.answer.mustSay}
           onChange={(v) => onCheckbox('mustSay', v)}
           label={columns.mustSay.label}
+          disabled={!flags.canMustSay}
+          hint={lockHint(flags)}
         />
       </div>
 
@@ -174,7 +204,12 @@ export function CustomRowView({
         </button>
       </div>
 
-      <CheckboxControls answer={row.answer} onCheckbox={onCheckbox} onDetail={onDetail} />
+      <CheckboxControls
+        answer={row.answer}
+        flags={flags}
+        onCheckbox={onCheckbox}
+        onDetail={onDetail}
+      />
     </div>
   )
 }

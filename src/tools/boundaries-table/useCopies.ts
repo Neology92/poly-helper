@@ -19,6 +19,7 @@ import {
   type CopiesStore,
   type StoredCopy,
 } from './storage'
+import { normalizeAnswer, normalizeDocument } from './rules'
 
 /** Znacznik czasu (wydzielony, by łatwo testować/mokować). */
 const now = () => Date.now()
@@ -29,7 +30,14 @@ const now = () => Date.now()
  */
 export function useCopies() {
   const [store, setStore] = useState<CopiesStore>(() => {
-    const loaded = loadStore()
+    const raw = loadStore()
+    // Normalizuj wczytane dokumenty pod reguły (spójność starszych zapisów).
+    const loaded: CopiesStore = {
+      ...raw,
+      docs: Object.fromEntries(
+        Object.entries(raw.docs).map(([id, c]) => [id, { ...c, doc: normalizeDocument(c.doc) }]),
+      ),
+    }
     // Zawsze miej przynajmniej jeden egzemplarz gotowy do wypełnienia.
     if (loaded.order.length === 0) return createCopy(loaded, now())
     if (!loaded.activeId || !loaded.docs[loaded.activeId]) {
@@ -82,13 +90,13 @@ export function useCopies() {
 
   const setCheckbox = useCallback(
     (number: number, field: keyof Omit<CheckboxAnswer, 'detail'>, value: boolean) =>
-      patchAnswer(number, (a) => ({ ...(a as CheckboxAnswer), [field]: value })),
+      patchAnswer(number, (a) => normalizeAnswer({ ...(a as CheckboxAnswer), [field]: value })),
     [patchAnswer],
   )
 
   const setDetail = useCallback(
     (number: number, level: DetailLevel) =>
-      patchAnswer(number, (a) => ({ ...(a as CheckboxAnswer), detail: level })),
+      patchAnswer(number, (a) => normalizeAnswer({ ...(a as CheckboxAnswer), detail: level })),
     [patchAnswer],
   )
 
@@ -116,7 +124,9 @@ export function useCopies() {
             ? {
                 ...row,
                 ...(patch.name !== undefined ? { name: patch.name } : {}),
-                answer: patch.answer ? { ...row.answer, ...patch.answer } : row.answer,
+                answer: patch.answer
+                  ? normalizeAnswer({ ...row.answer, ...patch.answer })
+                  : row.answer,
               }
             : row,
         ),
