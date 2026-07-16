@@ -1,5 +1,10 @@
+/*
+ * Tabela granic — style MOBILE-FIRST.
+ * Baza = układ mobilny (każdy wiersz to karta z etykietami przy kontrolkach).
+ * Od `min-width: 760px` włącza się układ tabelaryczny (grid) + sticky nagłówek kolumn.
+ */
+
 .table-tool {
-  /* Szersza kolumna robocza niż domyślny wrap narzędzia — tabela potrzebuje miejsca. */
   max-width: 960px;
   margin: 0 auto;
 }
@@ -41,12 +46,12 @@
   background: var(--surface);
   color: var(--ink-soft);
   border-radius: 999px;
-  padding: 6px 14px;
+  padding: 8px 16px;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.15s ease;
-  max-width: 220px;
+  max-width: 70vw;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -61,13 +66,14 @@
 }
 .copies__actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
 }
 
 /* ---------- Przyciski ---------- */
 .btn {
   border-radius: var(--radius-sm);
-  padding: 8px 14px;
+  padding: 10px 16px;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
@@ -104,6 +110,255 @@
   cursor: default;
 }
 
+/* ---------- Nagłówek egzemplarza ---------- */
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+.meta__field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1 1 100%;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  font-weight: 600;
+}
+.meta__field input {
+  font-family: inherit;
+  font-size: 16px;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 11px 12px;
+  text-transform: none;
+  letter-spacing: normal;
+  font-weight: 400;
+}
+
+/* ================= TABELA — baza mobilna (stos kart) ================= */
+.table {
+  --c-mustsay: 46px;
+  --c-num: 30px;
+  --c-donttell: 56px;
+  --c-heads: 60px;
+  --c-after: 60px;
+  --c-detail: 152px;
+
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  /* UWAGA: bez overflow:hidden — psuje position:sticky nagłówka (patrz media desktop). */
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px 14px;
+  border-top: 1px solid var(--line);
+}
+.row--header {
+  display: none; /* mobilnie brak nagłówka — etykiety są przy kontrolkach */
+}
+.row--header + .row {
+  border-top: none; /* pierwszy widoczny wiersz przylega do góry tabeli */
+}
+
+.cell {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 0;
+  min-width: 0;
+}
+.cell--mustsay,
+.cell--donttell,
+.cell--heads,
+.cell--after,
+.cell--detail {
+  border-top: 1px dashed var(--line);
+}
+.cell--mustsay:empty {
+  display: none;
+}
+.cell--num {
+  display: none;
+}
+.cell--name {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding: 0 0 4px;
+}
+.row__name {
+  margin: 0;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.35;
+}
+.row__note {
+  margin: 0;
+  font-size: 12.5px;
+  color: var(--ink-faint);
+  font-style: italic;
+  line-height: 1.35;
+}
+.cell--fieldinput {
+  flex-direction: column;
+  align-items: stretch;
+  padding: 8px 0 4px;
+}
+.cell--fieldinput label {
+  display: block;
+  width: 100%;
+}
+.row__prompt {
+  display: block;
+  font-size: 13px;
+  color: var(--mauve);
+  margin-bottom: 6px;
+}
+.field-input {
+  width: 100%;
+  font-family: inherit;
+  font-size: 16px;
+  color: var(--ink);
+  background: var(--surface-sunken);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px;
+  resize: vertical;
+}
+
+/* Etykiety kolumn wewnątrz komórek — widoczne mobilnie, ukryte gdy jest nagłówek (desktop). */
+.cell__label {
+  display: block;
+  font-size: 14px;
+  color: var(--ink-soft);
+  font-weight: 500;
+  text-align: left;
+}
+
+/* ---------- Kontrolki (touch-friendly) ---------- */
+.marker {
+  width: 34px;
+  height: 34px;
+  flex: none;
+  border-radius: 8px;
+  border: 1.5px solid var(--line-strong);
+  background: var(--surface);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  color: color-mix(in srgb, var(--ink) 30%, transparent);
+  display: grid;
+  place-items: center;
+  transition: all 0.12s ease;
+}
+.marker:hover {
+  border-color: var(--ink-soft);
+}
+.marker.is-on {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
+}
+.marker--danger.is-on {
+  background: var(--mauve);
+  border-color: var(--mauve);
+}
+
+.check {
+  width: 34px;
+  height: 34px;
+  flex: none;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+.check__box {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  border: 1.5px solid var(--line-strong);
+  background: var(--surface);
+  transition: all 0.12s ease;
+}
+.check:hover .check__box {
+  border-color: var(--ink-soft);
+}
+.check--amber.is-on .check__box {
+  background: var(--amber);
+  border-color: var(--amber);
+  box-shadow: inset 0 0 0 2px var(--surface);
+}
+.check--teal.is-on .check__box {
+  background: var(--teal);
+  border-color: var(--teal);
+  box-shadow: inset 0 0 0 2px var(--surface);
+}
+
+.detail {
+  display: flex;
+  gap: 6px;
+  flex: none;
+}
+.detail__opt {
+  font-size: 13px;
+  padding: 7px 12px;
+  border-radius: 8px;
+  border: 1.5px solid var(--line-strong);
+  background: var(--surface);
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+.detail__opt:hover {
+  border-color: var(--mauve);
+}
+.detail__opt.is-on {
+  background: var(--mauve);
+  border-color: var(--mauve);
+  color: #fff;
+}
+
+/* ---------- Wiersze własne ---------- */
+.row__name-input {
+  width: 100%;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--ink);
+  background: transparent;
+  border: none;
+  border-bottom: 1px dashed var(--line-strong);
+  padding: 4px 0;
+}
+.row__remove {
+  align-self: flex-start;
+  margin-top: 4px;
+  font-size: 13px;
+  color: var(--ink-faint);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 0;
+}
+.row__remove:hover {
+  color: var(--mauve);
+}
+
 /* ---------- Pasek eksportu ---------- */
 .export {
   margin-top: 22px;
@@ -129,267 +384,6 @@
   gap: 10px;
 }
 
-/* ---------- Nagłówek egzemplarza ---------- */
-.meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
-  margin-bottom: 22px;
-}
-.meta__field {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  flex: 1 1 150px;
-  min-width: 140px;
-  font-size: 12px;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  font-weight: 600;
-}
-.meta__field--wide {
-  flex: 2 1 260px;
-}
-.meta__field input {
-  font-family: inherit;
-  font-size: 15px;
-  color: var(--ink);
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  padding: 10px 12px;
-  text-transform: none;
-  letter-spacing: normal;
-  font-weight: 400;
-}
-
-/* ---------- Tabela (grid) ---------- */
-.table {
-  --c-mustsay: 46px;
-  --c-num: 30px;
-  --c-donttell: 56px;
-  --c-heads: 60px;
-  --c-after: 60px;
-  --c-detail: 152px;
-
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  overflow: hidden;
-  background: var(--surface);
-  box-shadow: var(--shadow-sm);
-}
-
-.row {
-  display: grid;
-  grid-template-columns:
-    var(--c-mustsay) var(--c-num) minmax(0, 1fr)
-    var(--c-donttell) var(--c-heads) var(--c-after) var(--c-detail);
-  align-items: center;
-  border-top: 1px solid var(--line);
-}
-.row:first-child {
-  border-top: none;
-}
-
-.row--header {
-  position: sticky;
-  top: 56px;
-  z-index: 2;
-  background: var(--surface-sunken);
-  border-bottom: 1px solid var(--line-strong);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  color: var(--ink-soft);
-  line-height: 1.2;
-}
-.row--header .cell {
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-
-.row--field {
-  grid-template-columns:
-    var(--c-mustsay) var(--c-num) minmax(0, 1fr)
-    calc(var(--c-donttell) + var(--c-heads) + var(--c-after) + var(--c-detail));
-}
-.row--field .cell--fieldinput {
-  grid-column: auto;
-}
-
-.cell {
-  padding: 12px 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 0;
-}
-.cell--num {
-  color: var(--ink-faint);
-  font-size: 13px;
-  font-variant-numeric: tabular-nums;
-}
-.cell--name {
-  justify-content: flex-start;
-  padding-left: 12px;
-  padding-right: 12px;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 2px;
-}
-.row__name {
-  margin: 0;
-  font-weight: 500;
-  font-size: 15px;
-  line-height: 1.35;
-}
-.row__note {
-  margin: 0;
-  font-size: 12.5px;
-  color: var(--ink-faint);
-  font-style: italic;
-  line-height: 1.35;
-}
-.cell--fieldinput {
-  justify-content: stretch;
-  padding: 10px 12px;
-}
-.cell--fieldinput label {
-  display: block;
-  width: 100%;
-}
-.row__prompt {
-  display: block;
-  font-size: 13px;
-  color: var(--mauve);
-  margin-bottom: 6px;
-}
-.field-input {
-  width: 100%;
-  font-family: inherit;
-  font-size: 14px;
-  color: var(--ink);
-  background: var(--surface-sunken);
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 8px 10px;
-  resize: vertical;
-}
-
-/* Etykiety kolumn wewnątrz komórek — ukryte na desktopie (jest nagłówek), widoczne mobilnie. */
-.cell__label {
-  display: none;
-}
-
-/* ---------- Kontrolki ---------- */
-.marker {
-  width: 30px;
-  height: 30px;
-  border-radius: 8px;
-  border: 1.5px solid var(--line-strong);
-  background: var(--surface);
-  font-size: 17px;
-  font-weight: 700;
-  line-height: 1;
-  cursor: pointer;
-  color: color-mix(in srgb, var(--ink) 18%, transparent);
-  display: grid;
-  place-items: center;
-  transition: all 0.12s ease;
-}
-.marker:hover {
-  border-color: var(--ink-soft);
-}
-.marker.is-on {
-  background: var(--ink);
-  border-color: var(--ink);
-  color: #fff;
-}
-.marker--danger.is-on {
-  background: var(--mauve);
-  border-color: var(--mauve);
-}
-
-.check {
-  width: 30px;
-  height: 30px;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  display: grid;
-  place-items: center;
-}
-.check__box {
-  width: 20px;
-  height: 20px;
-  border-radius: 6px;
-  border: 1.5px solid var(--line-strong);
-  background: var(--surface);
-  transition: all 0.12s ease;
-}
-.check:hover .check__box {
-  border-color: var(--ink-soft);
-}
-.check--amber.is-on .check__box {
-  background: var(--amber);
-  border-color: var(--amber);
-  box-shadow: inset 0 0 0 2px var(--surface);
-}
-.check--teal.is-on .check__box {
-  background: var(--teal);
-  border-color: var(--teal);
-  box-shadow: inset 0 0 0 2px var(--surface);
-}
-
-.detail {
-  display: flex;
-  gap: 4px;
-}
-.detail__opt {
-  font-size: 12px;
-  padding: 5px 8px;
-  border-radius: 7px;
-  border: 1.5px solid var(--line-strong);
-  background: var(--surface);
-  color: var(--ink-soft);
-  cursor: pointer;
-  transition: all 0.12s ease;
-}
-.detail__opt:hover {
-  border-color: var(--mauve);
-}
-.detail__opt.is-on {
-  background: var(--mauve);
-  border-color: var(--mauve);
-  color: #fff;
-}
-
-/* ---------- Wiersze własne ---------- */
-.row__name-input {
-  width: 100%;
-  font-family: inherit;
-  font-size: 15px;
-  font-weight: 500;
-  color: var(--ink);
-  background: transparent;
-  border: none;
-  border-bottom: 1px dashed var(--line-strong);
-  padding: 4px 0;
-}
-.row__remove {
-  margin-top: 4px;
-  font-size: 12px;
-  color: var(--ink-faint);
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-}
-.row__remove:hover {
-  color: var(--mauve);
-}
-
 /* ---------- Stopka narzędzia ---------- */
 .table-tool__foot {
   display: flex;
@@ -405,54 +399,94 @@
   margin: 0;
 }
 
-/* ================= MOBILE: stos zamiast tabeli ================= */
-@media (max-width: 760px) {
-  .row--header {
-    display: none;
+/* ================= DESKTOP: układ tabelaryczny (grid) ================= */
+@media (min-width: 760px) {
+  .meta__field {
+    flex: 1 1 150px;
   }
-  .row,
+  .meta__field--wide {
+    flex: 2 1 260px;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns:
+      var(--c-mustsay) var(--c-num) minmax(0, 1fr)
+      var(--c-donttell) var(--c-heads) var(--c-after) var(--c-detail);
+    align-items: center;
+    gap: 0;
+    padding: 0;
+  }
   .row--field {
-    grid-template-columns: 1fr;
-    gap: 4px;
-    padding: 16px 14px;
-    align-items: stretch;
+    grid-template-columns:
+      var(--c-mustsay) var(--c-num) minmax(0, 1fr)
+      calc(var(--c-donttell) + var(--c-heads) + var(--c-after) + var(--c-detail));
   }
+
+  .row--header {
+    display: grid;
+    /* Sticky działa względem viewportu, bo .table NIE ma już overflow:hidden.
+       Przykleja się tuż pod app-headerem (≈54px). */
+    position: sticky;
+    top: 54px;
+    z-index: 2;
+    background: var(--surface-sunken);
+    border-bottom: 1px solid var(--line-strong);
+    border-top-left-radius: var(--radius);
+    border-top-right-radius: var(--radius);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--ink-soft);
+    line-height: 1.2;
+  }
+  .row:first-child {
+    border-top: none;
+  }
+  .row--header + .row {
+    border-top: 1px solid var(--line);
+  }
+
   .cell {
-    justify-content: space-between;
-    padding: 6px 0;
-    gap: 12px;
+    padding: 12px 8px;
+    justify-content: center;
   }
+  /* zdejmij mobilne przerywane obramowania i etykiety */
   .cell--mustsay,
   .cell--donttell,
   .cell--heads,
   .cell--after,
   .cell--detail {
-    border-top: 1px dashed var(--line);
-  }
-  .cell--num {
-    display: none;
-  }
-  .cell--name {
-    padding: 0 0 4px;
-  }
-  .cell--name .row__name {
-    font-size: 16px;
+    border-top: none;
   }
   .cell__label {
-    display: block;
-    font-size: 13px;
-    color: var(--ink-soft);
-    font-weight: 500;
-    text-align: left;
-  }
-  .cell--mustsay:empty {
     display: none;
   }
-  .cell--fieldinput {
-    flex-direction: column;
-    align-items: stretch;
+  /* Na desktopie pusta komórka must-say (wiersze-pola) MUSI zajmować swoją kolumnę,
+     inaczej pozostałe komórki przesuwają się o kolumnę i nazwa się ściska. */
+  .cell--mustsay:empty {
+    display: flex;
   }
-  .row--header {
-    top: 0;
+  .cell--num {
+    display: flex;
+    color: var(--ink-faint);
+    font-size: 13px;
+    font-variant-numeric: tabular-nums;
+  }
+  .cell--name {
+    justify-content: flex-start;
+    padding: 12px;
+  }
+  .row__name {
+    font-size: 15px;
+  }
+  .row--header .cell {
+    padding: 10px 8px;
+  }
+  .cell--fieldinput {
+    padding: 10px 12px;
+  }
+  .row__remove {
+    align-self: center;
   }
 }
