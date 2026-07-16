@@ -17,7 +17,7 @@ export const tools: Tool[] = [
       tagline:
         'Ustalcie razem, o czym z równoległych relacji chcecie się informować — i jak szczegółowo.',
       icon: '▦',
-      status: 'wip',
+      status: 'ready',
       audience: ['poly'],
     },
     Component: lazy(() => import('./boundaries-table/index')),
@@ -29,7 +29,7 @@ export const tools: Tool[] = [
       tagline:
         'Scenki czytane na głos, które pomagają poczuć, ile naprawdę chcesz usłyszeć.',
       icon: '🂠',
-      status: 'wip',
+      status: 'ready',
       audience: ['poly'],
     },
     Component: lazy(() => import('./cards-game/index')),

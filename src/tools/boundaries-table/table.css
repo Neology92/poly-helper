@@ -1,0 +1,458 @@
+.table-tool {
+  /* Szersza kolumna robocza niż domyślny wrap narzędzia — tabela potrzebuje miejsca. */
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.table-tool__head .badge {
+  display: inline-block;
+  margin-bottom: 14px;
+}
+.table-tool__head h1 {
+  font-size: clamp(28px, 5vw, 40px);
+  margin: 0 0 14px;
+}
+.table-tool__lede {
+  color: var(--ink-soft);
+  font-size: clamp(15px, 1.6vw, 17px);
+  max-width: 64ch;
+  margin: 0 0 26px;
+}
+
+/* ---------- Pasek egzemplarzy ---------- */
+.copies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.copies__list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+}
+.chip {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink-soft);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.chip:hover {
+  border-color: var(--line-strong);
+}
+.chip.is-active {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: #fff;
+}
+.copies__actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* ---------- Przyciski ---------- */
+.btn {
+  border-radius: var(--radius-sm);
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.15s ease;
+}
+.btn--ghost {
+  background: var(--surface);
+  border-color: var(--line);
+  color: var(--ink);
+}
+.btn--ghost:hover {
+  border-color: var(--line-strong);
+  background: var(--surface-sunken);
+}
+.btn--danger-ghost {
+  background: transparent;
+  border-color: transparent;
+  color: var(--mauve);
+}
+.btn--danger-ghost:hover {
+  background: var(--mauve-bg);
+}
+.btn--solid {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: #fff;
+}
+.btn--solid:hover {
+  background: color-mix(in srgb, var(--teal) 88%, #000);
+}
+.btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+/* ---------- Pasek eksportu ---------- */
+.export {
+  margin-top: 22px;
+  padding: 18px 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+.export__label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.export__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* ---------- Nagłówek egzemplarza ---------- */
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+.meta__field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1 1 150px;
+  min-width: 140px;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  font-weight: 600;
+}
+.meta__field--wide {
+  flex: 2 1 260px;
+}
+.meta__field input {
+  font-family: inherit;
+  font-size: 15px;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 12px;
+  text-transform: none;
+  letter-spacing: normal;
+  font-weight: 400;
+}
+
+/* ---------- Tabela (grid) ---------- */
+.table {
+  --c-mustsay: 46px;
+  --c-num: 30px;
+  --c-donttell: 56px;
+  --c-heads: 60px;
+  --c-after: 60px;
+  --c-detail: 152px;
+
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.row {
+  display: grid;
+  grid-template-columns:
+    var(--c-mustsay) var(--c-num) minmax(0, 1fr)
+    var(--c-donttell) var(--c-heads) var(--c-after) var(--c-detail);
+  align-items: center;
+  border-top: 1px solid var(--line);
+}
+.row:first-child {
+  border-top: none;
+}
+
+.row--header {
+  position: sticky;
+  top: 56px;
+  z-index: 2;
+  background: var(--surface-sunken);
+  border-bottom: 1px solid var(--line-strong);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--ink-soft);
+  line-height: 1.2;
+}
+.row--header .cell {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.row--field {
+  grid-template-columns:
+    var(--c-mustsay) var(--c-num) minmax(0, 1fr)
+    calc(var(--c-donttell) + var(--c-heads) + var(--c-after) + var(--c-detail));
+}
+.row--field .cell--fieldinput {
+  grid-column: auto;
+}
+
+.cell {
+  padding: 12px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+}
+.cell--num {
+  color: var(--ink-faint);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+.cell--name {
+  justify-content: flex-start;
+  padding-left: 12px;
+  padding-right: 12px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+.row__name {
+  margin: 0;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 1.35;
+}
+.row__note {
+  margin: 0;
+  font-size: 12.5px;
+  color: var(--ink-faint);
+  font-style: italic;
+  line-height: 1.35;
+}
+.cell--fieldinput {
+  justify-content: stretch;
+  padding: 10px 12px;
+}
+.cell--fieldinput label {
+  display: block;
+  width: 100%;
+}
+.row__prompt {
+  display: block;
+  font-size: 13px;
+  color: var(--mauve);
+  margin-bottom: 6px;
+}
+.field-input {
+  width: 100%;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--ink);
+  background: var(--surface-sunken);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 10px;
+  resize: vertical;
+}
+
+/* Etykiety kolumn wewnątrz komórek — ukryte na desktopie (jest nagłówek), widoczne mobilnie. */
+.cell__label {
+  display: none;
+}
+
+/* ---------- Kontrolki ---------- */
+.marker {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  border: 1.5px solid var(--line-strong);
+  background: var(--surface);
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  color: color-mix(in srgb, var(--ink) 18%, transparent);
+  display: grid;
+  place-items: center;
+  transition: all 0.12s ease;
+}
+.marker:hover {
+  border-color: var(--ink-soft);
+}
+.marker.is-on {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
+}
+.marker--danger.is-on {
+  background: var(--mauve);
+  border-color: var(--mauve);
+}
+
+.check {
+  width: 30px;
+  height: 30px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+.check__box {
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  border: 1.5px solid var(--line-strong);
+  background: var(--surface);
+  transition: all 0.12s ease;
+}
+.check:hover .check__box {
+  border-color: var(--ink-soft);
+}
+.check--amber.is-on .check__box {
+  background: var(--amber);
+  border-color: var(--amber);
+  box-shadow: inset 0 0 0 2px var(--surface);
+}
+.check--teal.is-on .check__box {
+  background: var(--teal);
+  border-color: var(--teal);
+  box-shadow: inset 0 0 0 2px var(--surface);
+}
+
+.detail {
+  display: flex;
+  gap: 4px;
+}
+.detail__opt {
+  font-size: 12px;
+  padding: 5px 8px;
+  border-radius: 7px;
+  border: 1.5px solid var(--line-strong);
+  background: var(--surface);
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+.detail__opt:hover {
+  border-color: var(--mauve);
+}
+.detail__opt.is-on {
+  background: var(--mauve);
+  border-color: var(--mauve);
+  color: #fff;
+}
+
+/* ---------- Wiersze własne ---------- */
+.row__name-input {
+  width: 100%;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink);
+  background: transparent;
+  border: none;
+  border-bottom: 1px dashed var(--line-strong);
+  padding: 4px 0;
+}
+.row__remove {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--ink-faint);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+.row__remove:hover {
+  color: var(--mauve);
+}
+
+/* ---------- Stopka narzędzia ---------- */
+.table-tool__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+.table-tool__saved {
+  font-size: 13px;
+  color: var(--ink-faint);
+  margin: 0;
+}
+
+/* ================= MOBILE: stos zamiast tabeli ================= */
+@media (max-width: 760px) {
+  .row--header {
+    display: none;
+  }
+  .row,
+  .row--field {
+    grid-template-columns: 1fr;
+    gap: 4px;
+    padding: 16px 14px;
+    align-items: stretch;
+  }
+  .cell {
+    justify-content: space-between;
+    padding: 6px 0;
+    gap: 12px;
+  }
+  .cell--mustsay,
+  .cell--donttell,
+  .cell--heads,
+  .cell--after,
+  .cell--detail {
+    border-top: 1px dashed var(--line);
+  }
+  .cell--num {
+    display: none;
+  }
+  .cell--name {
+    padding: 0 0 4px;
+  }
+  .cell--name .row__name {
+    font-size: 16px;
+  }
+  .cell__label {
+    display: block;
+    font-size: 13px;
+    color: var(--ink-soft);
+    font-weight: 500;
+    text-align: left;
+  }
+  .cell--mustsay:empty {
+    display: none;
+  }
+  .cell--fieldinput {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .row--header {
+    top: 0;
+  }
+}
