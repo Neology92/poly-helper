@@ -126,7 +126,8 @@ npx netlify-cli deploy --prod --dir=dist
 - [x] Eksport tabeli do PDF (pusty szablon + wersja wypełniona) — pdfmake, 1×A4, pełne PL znaki.
 - [x] **Gra karciana** — tryb online: zasady, pseudonim `[imię]`, karty z odsłanianiem szczegółów.
 - [x] Eksport talii do PDF (30 kart, 5×A4, grid 2×3, crop marks, linie cięcia).
-- [x] Sekcja **Wiedza** + artykuł „Czym jest poliamoria?" (ze źródłami, słowniczkiem, mitami).
+- [x] Sekcja **Wiedza** + artykuły „Czym jest poliamoria?" i „Zazdrość i kompersja"
+  (ze źródłami, słowniczkiem, mitami; wspólne komponenty w `src/knowledge/components.tsx`).
 - [ ] Kolejne narzędzia dla relacji (poli i mono) oraz artykuły Wiedzy.
 - [ ] (nice-to-have) warianty rodzajowe tekstów, odmiana `[imię]`, font serif w PDF kart.
 

@@ -21,6 +21,17 @@ export const articles: Article[] = [
     },
     Component: lazy(() => import('./czym-jest-poliamoria/index')),
   },
+  {
+    meta: {
+      slug: 'zazdrosc-i-kompersja',
+      title: 'Zazdrość i kompersja',
+      summary:
+        'Skąd bierze się zazdrość, czym jest kompersja i jak pracować z jednym i drugim — bez udawania.',
+      icon: '☯',
+      readingMinutes: 8,
+    },
+    Component: lazy(() => import('./zazdrosc-i-kompersja/index')),
+  },
 ]
 
 export function findArticle(slug: string | undefined): Article | undefined {
