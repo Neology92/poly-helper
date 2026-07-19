@@ -70,6 +70,15 @@ poly-helper-dump.md       # ⬅ ŹRÓDŁO PRAWDY treści: pozycje tabeli, teksty
 
 Strona główna (karty) i routing zbudują się automatycznie z rejestru.
 
+### Jak dodać artykuł (sekcja „Wiedza")
+
+Analogicznie, ale w module `src/knowledge/`:
+
+1. Utwórz `src/knowledge/<slug>/index.tsx` z domyślnym eksportem komponentu artykułu.
+2. Dopisz wpis do `articles` w `src/knowledge/registry.tsx`.
+
+Artykuły mają trasę `/w/:slug` i sekcję „Wiedza" na stronie głównej (narzędzia: `/n/:slug`).
+
 ## Źródła prawdy
 
 - **Treści** (pozycje tabeli, teksty kart, wytyczne redakcyjne, decyzje designerskie):
@@ -117,7 +126,8 @@ npx netlify-cli deploy --prod --dir=dist
 - [x] Eksport tabeli do PDF (pusty szablon + wersja wypełniona) — pdfmake, 1×A4, pełne PL znaki.
 - [x] **Gra karciana** — tryb online: zasady, pseudonim `[imię]`, karty z odsłanianiem szczegółów.
 - [x] Eksport talii do PDF (30 kart, 5×A4, grid 2×3, crop marks, linie cięcia).
-- [ ] Kolejne narzędzia dla relacji (poli i mono).
+- [x] Sekcja **Wiedza** + artykuł „Czym jest poliamoria?" (ze źródłami, słowniczkiem, mitami).
+- [ ] Kolejne narzędzia dla relacji (poli i mono) oraz artykuły Wiedzy.
 - [ ] (nice-to-have) warianty rodzajowe tekstów, odmiana `[imię]`, font serif w PDF kart.
 
 ## Filozofia

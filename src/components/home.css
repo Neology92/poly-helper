@@ -8,7 +8,7 @@
 }
 
 .hero {
-  padding: clamp(16px, 4vw, 40px) 0 clamp(28px, 5vw, 48px);
+  padding: clamp(16px, 4vw, 40px) 0 clamp(20px, 4vw, 36px);
   max-width: 40ch;
 }
 .hero h1 {
@@ -22,17 +22,35 @@
   margin: 0;
 }
 
-/* ---------- Grid ---------- */
-.tool-grid {
+/* ---------- Sekcje ---------- */
+.section {
+  margin-top: clamp(28px, 5vw, 46px);
+}
+.section__head {
+  margin-bottom: 18px;
+}
+.section__title {
+  font-size: clamp(22px, 3.4vw, 30px);
+  margin: 0;
+}
+.section__desc {
+  color: var(--ink-soft);
+  font-size: 15px;
+  margin: 6px 0 0;
+  max-width: 60ch;
+}
+
+/* ---------- Siatka kart ---------- */
+.card-grid {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  gap: 18px;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
 }
 
-.tool-card {
+.card {
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -43,33 +61,33 @@
   box-shadow: var(--shadow-sm);
   transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
 }
-.tool-card:hover {
+.card:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow);
   border-color: var(--line-strong);
 }
-
-.tool-card__top {
+.card__top {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 10px;
   margin-bottom: 16px;
 }
-.tool-card__icon {
-  font-size: 26px;
+.card__icon {
+  font-size: 24px;
   line-height: 1;
 }
-.tool-card__title {
-  font-size: 21px;
+.card__title {
+  font-size: 20px;
   margin: 0 0 8px;
 }
-.tool-card__tagline {
+.card__tagline {
   color: var(--ink-soft);
   font-size: 15px;
   margin: 0;
   flex: 1;
 }
-.tool-card__audience {
+.card__meta {
   margin: 16px 0 0;
   display: flex;
   gap: 6px;
@@ -83,6 +101,7 @@
   text-transform: uppercase;
   padding: 3px 9px;
   border-radius: 999px;
+  white-space: nowrap;
 }
 .badge--ready {
   color: var(--teal);
@@ -96,6 +115,14 @@
   color: var(--ink-soft);
   background: var(--surface-sunken);
   border: 1px solid var(--line);
+}
+.badge--read {
+  color: var(--ink-faint);
+  background: var(--surface-sunken);
+  border: 1px solid var(--line);
+  text-transform: none;
+  letter-spacing: normal;
+  font-weight: 500;
 }
 
 .tag {

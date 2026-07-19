@@ -1,0 +1,211 @@
+.article-page {
+  max-width: 720px;
+  margin: 0 auto;
+}
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink-soft);
+  margin-bottom: 8px;
+  transition: color 0.15s ease;
+}
+.back-link:hover {
+  color: var(--ink);
+}
+.article-page__loading {
+  color: var(--ink-soft);
+  padding: 40px 0;
+}
+
+/* ---------- Nagłówek artykułu ---------- */
+.article__eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  font-weight: 600;
+  margin: 8px 0 12px;
+}
+.article h1 {
+  font-size: clamp(28px, 5vw, 42px);
+  margin: 0 0 14px;
+  max-width: 20ch;
+}
+.article__lede {
+  font-size: clamp(16px, 2vw, 19px);
+  color: var(--ink-soft);
+  line-height: 1.5;
+  margin: 0 0 12px;
+  max-width: 60ch;
+}
+.article__byline {
+  font-size: 13px;
+  color: var(--ink-faint);
+  margin: 0 0 28px;
+}
+
+/* ---------- Proza ---------- */
+.prose {
+  font-size: 16.5px;
+  line-height: 1.68;
+  color: var(--ink);
+}
+.prose h2 {
+  font-size: clamp(21px, 3vw, 27px);
+  margin: 40px 0 12px;
+  scroll-margin-top: 70px;
+}
+.prose h3 {
+  font-size: 18px;
+  margin: 26px 0 8px;
+}
+.prose p {
+  margin: 0 0 16px;
+  max-width: 66ch;
+}
+.prose ul,
+.prose ol {
+  margin: 0 0 16px;
+  padding-left: 22px;
+  max-width: 66ch;
+}
+.prose li {
+  margin: 0 0 7px;
+}
+.prose a {
+  color: var(--teal);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
+}
+.prose a:hover {
+  color: color-mix(in srgb, var(--teal) 80%, #000);
+}
+.prose strong {
+  font-weight: 600;
+}
+/* odnośnik do przypisu, np. „…prawda[3].” */
+.ref {
+  font-size: 0.72em;
+  vertical-align: super;
+  line-height: 0;
+  color: var(--teal);
+  font-weight: 600;
+  margin-left: 1px;
+}
+
+/* ---------- „W skrócie" ---------- */
+.tldr {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--teal);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  margin: 0 0 32px;
+  box-shadow: var(--shadow-sm);
+}
+.tldr__label {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--teal);
+  font-weight: 700;
+  margin: 0 0 8px;
+}
+.tldr p {
+  margin: 0;
+  font-size: 15.5px;
+  line-height: 1.6;
+}
+
+/* ---------- Słowniczek ---------- */
+.glossary {
+  margin: 8px 0 16px;
+  padding: 4px 0 0;
+  border-top: 1px solid var(--line);
+}
+.glossary div {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+}
+.glossary dt {
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 3px;
+}
+.glossary dd {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 15px;
+  line-height: 1.55;
+  max-width: 62ch;
+}
+
+/* ---------- Mit / Fakt ---------- */
+.myth {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  margin: 0 0 16px;
+  box-shadow: var(--shadow-sm);
+}
+.myth__tag {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 3px 10px;
+}
+.myth__tag--mit {
+  color: var(--mauve);
+  background: var(--mauve-bg);
+}
+.myth__claim {
+  margin: 10px 0 14px;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.45;
+}
+.myth__tag--fakt {
+  color: var(--teal);
+  background: var(--teal-bg);
+}
+.myth__fact {
+  margin: 10px 0 0;
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+/* ---------- Źródła ---------- */
+.sources {
+  margin: 8px 0 0;
+  padding-left: 20px;
+  font-size: 14px;
+  color: var(--ink-soft);
+  line-height: 1.55;
+}
+.sources li {
+  margin: 0 0 10px;
+  scroll-margin-top: 70px;
+}
+.sources a {
+  color: var(--teal);
+}
+
+/* ---------- Nota / zastrzeżenie ---------- */
+.article-note {
+  margin: 32px 0 0;
+  padding: 16px 18px;
+  background: var(--surface-sunken);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  font-size: 14px;
+  color: var(--ink-soft);
+  line-height: 1.6;
+}
