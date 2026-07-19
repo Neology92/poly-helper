@@ -130,8 +130,24 @@ npx netlify-cli deploy --prod --dir=dist
   (ze źródłami, słowniczkiem, mitami; wspólne komponenty w `src/knowledge/components.tsx`).
 - [x] Profile osób partnerskich + checklista zakresu pozycji (tabela); zmiana nazwy profilu.
 - [x] Tryb ciemny (przełącznik w nagłówku, zapamiętywany; start z preferencji systemu).
-- [ ] Kolejne narzędzia dla relacji (poli i mono) oraz artykuły Wiedzy.
-- [ ] (nice-to-have) warianty rodzajowe tekstów, odmiana `[imię]`, font serif w PDF kart.
+
+### Backlog i kierunek
+
+Większe zadania są prowadzone jako **GitHub Issues** (epiki + kluczowe zadania) — to źródło prawdy:
+
+- [#1](https://github.com/Neology92/poly-helper/issues/1) Epik: Check-in relacyjny + żywa umowa
+  (→ [#7](https://github.com/Neology92/poly-helper/issues/7) check-in, [#8](https://github.com/Neology92/poly-helper/issues/8) umowa)
+- [#2](https://github.com/Neology92/poly-helper/issues/2) Epik: Onboarding i treść
+  (→ [#9](https://github.com/Neology92/poly-helper/issues/9) O projekcie, [#10](https://github.com/Neology92/poly-helper/issues/10) słowniczek, [#11](https://github.com/Neology92/poly-helper/issues/11) onboarding)
+- [#3](https://github.com/Neology92/poly-helper/issues/3) Epik: Trwałość i przenośność danych
+  (→ [#12](https://github.com/Neology92/poly-helper/issues/12) eksport/import; sync przez Supabase = przyszłość)
+- [#4](https://github.com/Neology92/poly-helper/issues/4) Epik: Ujednolicenie polskiego nazewnictwa
+- [#5](https://github.com/Neology92/poly-helper/issues/5) Epik: Inkluzywność treści
+  (→ [#13](https://github.com/Neology92/poly-helper/issues/13) warianty rodzajowe, odmiana `[imię]`)
+- [#6](https://github.com/Neology92/poly-helper/issues/6) Epik: Koordynacja zdrowia (STI)
+
+Analiza produktowa i wyniki researchu (bolączki społeczności, istniejące narzędzia, polskie
+nazewnictwo): **`docs/research/`**.
 
 ## Filozofia
 
