@@ -47,7 +47,7 @@ export default function ZazdroscIKompersja() {
         </p>
         <p>
           Zazdrość nie jest też niczym „poliamorycznym". Czują ją ludzie w każdej konfiguracji
-          relacji — także monogamicznej. Badania nad niemonogamią za zgodą nie pokazują, by
+          relacji — także monogamicznej. Badania nad etyczną niemonogamią nie pokazują, by
           zazdrość była tam z natury silniejsza; różnica bywa raczej w tym, że{' '}
           <strong>traktuje się ją wprost, jako temat do rozmowy</strong>, a nie jako coś, czego
           nie wypada nazwać.
@@ -172,7 +172,7 @@ export default function ZazdroscIKompersja() {
             {' '}(2000); zazdrość jako emocja kształtowana też przez przywiązanie i kulturę.
           </li>
           <li id="zrodlo-3">
-            Zazdrość w niemonogamii za zgodą: T. D. Conley i in., przegląd w <em>Perspectives on
+            Zazdrość w etycznej niemonogamii: T. D. Conley i in., przegląd w <em>Perspectives on
             Psychological Science</em> (2017); A. C. Moors i in. — zazdrość obecna, ale
             zarządzana, nie z natury wyższa.
           </li>

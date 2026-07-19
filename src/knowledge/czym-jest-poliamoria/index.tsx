@@ -51,7 +51,7 @@ export default function CzymJestPoliamoria() {
       <div className="tldr">
         <p className="tldr__label">W skrócie</p>
         <p>
-          Poliamoria jest jedną z form <strong>niemonogamii za zgodą</strong>. Jej sercem nie
+          Poliamoria jest jedną z form <strong>etycznej niemonogamii</strong>. Jej sercem nie
           jest liczba partnerów ani seks, lecz <strong>jawność i zgoda</strong> — tym różni się
           od zdrady. Badania z ostatnich kilkunastu lat wskazują, że relacje niemonogamiczne
           bywają równie satysfakcjonujące jak monogamiczne, a osoby je praktykujące często dbają
@@ -71,8 +71,9 @@ export default function CzymJestPoliamoria() {
           <Ref n={1} />
         </p>
         <p>
-          Poliamoria to jedna z odmian <strong>niemonogamii za zgodą</strong> (ang. consensual
-          / ethical non-monogamy, CNM/ENM) — parasola obejmującego wszystkie relacje, w których
+          Poliamoria to jedna z odmian <strong>etycznej niemonogamii</strong> (ang. consensual
+          / ethical non-monogamy, CNM/ENM; też: niemonogamia za zgodą, konsensualna) — parasola
+          obejmującego wszystkie relacje, w których
           osoby świadomie i dobrowolnie umawiają się, że wyłączność nie jest warunkiem.
           Kluczowe słowo to <strong>zgoda</strong>: wszyscy wiedzą i wszyscy się godzą. To
           właśnie odróżnia poliamorię od zdrady, która polega na złamaniu ustalonych zasad.
@@ -89,7 +90,7 @@ export default function CzymJestPoliamoria() {
         <p>
           Jak wiele osób tego doświadcza? W dwóch reprezentatywnych badaniach <em>samotnych</em>
           {' '}dorosłych w USA mniej więcej <strong>co piąta osoba</strong> (ok. 21%) przyznała,
-          że kiedykolwiek była w jakiejś formie niemonogamii za zgodą; inne badanie z 2021 r.
+          że kiedykolwiek była w jakiejś formie etycznej niemonogamii; inne badanie z 2021 r.
           wskazało, że samej poliamorii doświadczyło ok. 1 na 9 samotnych dorosłych. To niszowa,
           ale wcale nie marginalna praktyka — choć warto pamiętać, że dane dotyczą osób
           samotnych, nie całej populacji.
@@ -105,11 +106,11 @@ export default function CzymJestPoliamoria() {
           <Term term="Monogamia">
             Relacja, w której dwie osoby umawiają się na wyłączność — romantyczną i seksualną.
           </Term>
-          <Term term="Niemonogamia za zgodą (CNM/ENM)">
+          <Term term="Etyczna niemonogamia (CNM/ENM)">
             Parasol na wszystkie relacje, w których — jawnie i dobrowolnie — wyłączność nie
-            obowiązuje: poliamoria, swinging, relacje otwarte i inne. Bywa też nazywana „etyczną
-            niemonogamią" (część osób woli słowo „za zgodą", by nie sugerować, że inne formy są
-            nieetyczne).
+            obowiązuje: poliamoria, swinging, relacje otwarte i inne. Bywa też nazywana
+            „konsensualną niemonogamią" albo „niemonogamią za zgodą" (część osób woli te formy, by
+            nie sugerować, że inne układy są nieetyczne).
           </Term>
           <Term term="Poliamoria">
             Bycie (lub gotowość do bycia) w więcej niż jednej relacji miłosnej naraz, za wiedzą
@@ -185,7 +186,7 @@ export default function CzymJestPoliamoria() {
         </Myth>
 
         <Myth claim="Osoby poliamoryczne roznoszą choroby.">
-          Badania sugerują coś przeciwnego: osoby w jawnej niemonogamii za zgodą częściej się
+          Badania sugerują coś przeciwnego: osoby w jawnej, etycznej niemonogamii częściej się
           testują i używają zabezpieczeń, a osoby zdradzające w „monogamii" robią to rzadziej i
           zwykle bez wiedzy partnera.
           <Ref n={7} />
