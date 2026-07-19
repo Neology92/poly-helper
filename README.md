@@ -128,6 +128,8 @@ npx netlify-cli deploy --prod --dir=dist
 - [x] Eksport talii do PDF (30 kart, 5×A4, grid 2×3, crop marks, linie cięcia).
 - [x] Sekcja **Wiedza** + artykuły „Czym jest poliamoria?" i „Zazdrość i kompersja"
   (ze źródłami, słowniczkiem, mitami; wspólne komponenty w `src/knowledge/components.tsx`).
+- [x] Profile osób partnerskich + checklista zakresu pozycji (tabela); zmiana nazwy profilu.
+- [x] Tryb ciemny (przełącznik w nagłówku, zapamiętywany; start z preferencji systemu).
 - [ ] Kolejne narzędzia dla relacji (poli i mono) oraz artykuły Wiedzy.
 - [ ] (nice-to-have) warianty rodzajowe tekstów, odmiana `[imię]`, font serif w PDF kart.
 

@@ -1,4 +1,5 @@
 import { Link, Outlet } from 'react-router-dom'
+import { ThemeToggle } from './ThemeToggle'
 import './layout.css'
 
 /** Wspólny szkielet strony: nagłówek z logo + stopka. Treść przez <Outlet/>. */
@@ -11,6 +12,7 @@ export function Layout() {
             <span className="brand__mark" aria-hidden="true" />
             <span className="brand__name">poly-helper</span>
           </Link>
+          <ThemeToggle />
         </div>
       </header>
 

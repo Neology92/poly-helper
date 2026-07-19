@@ -33,6 +33,11 @@
   --accent: var(--teal);
   --focus: var(--teal);
 
+  /* tekst czytelny na wypełnieniach akcentowych (teal/mauve/ink) */
+  --on-accent: #ffffff;
+
+  color-scheme: light;
+
   /* --- promienie / cienie --- */
   --radius-sm: 10px;
   --radius: 14px;
@@ -49,4 +54,40 @@
   --wrap: 1080px;
   --wrap-narrow: 720px;
   --space-page: clamp(20px, 4vw, 56px);
+}
+
+/*
+ * DARK MODE — ciepła ciemność (nie czysta czerń), akcenty rozjaśnione dla kontrastu.
+ * Motyw ustawia atrybut data-theme na <html> (inline-skrypt w index.html + przełącznik).
+ * Native kontrolki (data, checkboxy) dostosowuje color-scheme.
+ */
+:root[data-theme='dark'] {
+  --paper: #1b191d;
+  --paper-tint: #221f26;
+  --surface: #26232b;
+  --surface-sunken: #201d25;
+
+  --ink: #ece7ea;
+  --ink-soft: #b4aab2;
+  --ink-faint: #8b8189;
+
+  --line: #38333f;
+  --line-strong: #4a4451;
+
+  --amber: #d99f5a;
+  --amber-bg: #362b1d;
+  --teal: #6fb0a1;
+  --teal-bg: #1e302c;
+  --mauve: #c9829a;
+  --mauve-bg: #382431;
+
+  --accent: var(--teal);
+  --focus: var(--teal);
+  --on-accent: #17151a;
+
+  color-scheme: dark;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 28px rgba(0, 0, 0, 0.36);
+  --shadow-lg: 0 1px 2px rgba(0, 0, 0, 0.3), 0 18px 50px rgba(0, 0, 0, 0.46);
 }

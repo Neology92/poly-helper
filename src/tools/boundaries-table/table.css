@@ -62,7 +62,16 @@
 .chip.is-active {
   background: var(--teal);
   border-color: var(--teal);
-  color: #fff;
+  color: var(--on-accent);
+}
+.chip-rename {
+  cursor: text;
+  color: var(--ink);
+  background: var(--surface);
+  border-color: var(--teal);
+  box-shadow: 0 0 0 2px var(--teal-bg);
+  width: 12rem;
+  max-width: 70vw;
 }
 .copies__actions {
   display: flex;
@@ -100,7 +109,7 @@
 .btn--solid {
   background: var(--teal);
   border-color: var(--teal);
-  color: #fff;
+  color: var(--on-accent);
 }
 .btn--solid:hover {
   background: color-mix(in srgb, var(--teal) 88%, #000);
@@ -270,7 +279,7 @@
 .marker.is-on {
   background: var(--ink);
   border-color: var(--ink);
-  color: #fff;
+  color: var(--on-accent);
 }
 .marker--danger.is-on {
   background: var(--mauve);
@@ -330,7 +339,7 @@
 .detail__opt.is-on {
   background: var(--mauve);
   border-color: var(--mauve);
-  color: #fff;
+  color: var(--on-accent);
 }
 
 /* ---------- Stany warunkowe (blokada / wymagane) ---------- */

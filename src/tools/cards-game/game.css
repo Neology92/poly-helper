@@ -121,7 +121,7 @@
 .btn--solid {
   background: var(--teal);
   border-color: var(--teal);
-  color: #fff;
+  color: var(--on-accent);
 }
 .btn--solid:hover {
   background: color-mix(in srgb, var(--teal) 88%, #000);

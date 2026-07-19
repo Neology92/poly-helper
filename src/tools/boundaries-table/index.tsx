@@ -26,6 +26,7 @@ export default function BoundariesTable() {
   const [pdfBusy, setPdfBusy] = useState<null | 'blank' | 'filled'>(null)
   const [focus, setFocus] = useState(false)
   const [onlySelectedPdf, setOnlySelectedPdf] = useState(false)
+  const [renaming, setRenaming] = useState(false)
 
   const off = useMemo(() => new Set(doc?.deselected ?? []), [doc?.deselected])
   const selectedNumbers = useMemo(
@@ -73,23 +74,62 @@ export default function BoundariesTable() {
       {/* Pasek profili */}
       <div className="copies" role="group" aria-label="Profile">
         <ul className="copies__list">
-          {c.copies.map((copy, i) => (
-            <li key={copy.id}>
-              <button
-                type="button"
-                className={`chip ${copy.id === c.activeId ? 'is-active' : ''}`}
-                aria-current={copy.id === c.activeId}
-                onClick={() => c.selectCopy(copy.id)}
-              >
-                {profileLabel(copy.doc.meta.osobaInformowana, i)}
-              </button>
-            </li>
-          ))}
+          {c.copies.map((copy, i) => {
+            const active = copy.id === c.activeId
+            if (active && renaming) {
+              return (
+                <li key={copy.id}>
+                  {/* eslint-disable-next-line jsx-a11y/no-autofocus */}
+                  <input
+                    className="chip chip-rename"
+                    autoFocus
+                    value={doc.meta.osobaInformowana}
+                    onChange={(e) => c.setMeta('osobaInformowana', e.target.value)}
+                    onBlur={() => setRenaming(false)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === 'Escape') {
+                        e.preventDefault()
+                        setRenaming(false)
+                      }
+                    }}
+                    placeholder={`Profil ${i + 1}`}
+                    aria-label="Nazwa profilu"
+                  />
+                </li>
+              )
+            }
+            return (
+              <li key={copy.id}>
+                <button
+                  type="button"
+                  className={`chip ${active ? 'is-active' : ''}`}
+                  aria-current={active}
+                  onClick={() => c.selectCopy(copy.id)}
+                  onDoubleClick={() => {
+                    c.selectCopy(copy.id)
+                    setRenaming(true)
+                  }}
+                  title="Kliknij, by wybrać · dwuklik, by zmienić nazwę"
+                >
+                  {profileLabel(copy.doc.meta.osobaInformowana, i)}
+                </button>
+              </li>
+            )
+          })}
         </ul>
         <div className="copies__actions">
           <button type="button" className="btn btn--ghost" onClick={c.addCopy}>
             + Nowy profil
           </button>
+          {c.activeId && (
+            <button
+              type="button"
+              className="btn btn--ghost"
+              onClick={() => setRenaming(true)}
+            >
+              Zmień nazwę
+            </button>
+          )}
           {c.copies.length > 1 && c.activeId && (
             <button
               type="button"

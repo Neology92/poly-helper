@@ -10,6 +10,18 @@
       content="Narzędzia wspierające budowanie relacji (poliamorycznych i monogamicznych) — do wypełniania online i druku."
     />
     <title>poly-helper — narzędzia dla relacji</title>
+    <script>
+      // Ustaw motyw przed renderem (bez mignięcia). Wybór użytkownika lub preferencja systemu.
+      (function () {
+        try {
+          var t = localStorage.getItem('poly-helper:theme');
+          if (t !== 'light' && t !== 'dark') {
+            t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          }
+          document.documentElement.setAttribute('data-theme', t);
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
