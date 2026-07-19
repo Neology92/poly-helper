@@ -61,5 +61,6 @@ export function normalizeDocument(doc: BoundaryDocument): BoundaryDocument {
     ...doc,
     answers,
     customRows: doc.customRows.map((r) => ({ ...r, answer: normalizeAnswer(r.answer) })),
+    deselected: Array.isArray(doc.deselected) ? doc.deselected : [],
   }
 }

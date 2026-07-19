@@ -140,6 +140,23 @@ export function useCopies() {
     [patchDoc],
   )
 
+  // --- zakres (checklista pozycji) ---
+  const toggleItemScope = useCallback(
+    (number: number) =>
+      patchDoc((doc) => {
+        const off = new Set(doc.deselected)
+        if (off.has(number)) off.delete(number)
+        else off.add(number)
+        return { ...doc, deselected: [...off] }
+      }),
+    [patchDoc],
+  )
+
+  const setAllScope = useCallback(
+    (numbers: number[]) => patchDoc((doc) => ({ ...doc, deselected: numbers })),
+    [patchDoc],
+  )
+
   const copies = useMemo(
     () => store.order.map((id) => store.docs[id]).filter(Boolean),
     [store.order, store.docs],
@@ -159,5 +176,7 @@ export function useCopies() {
     addCustomRow,
     updateCustomRow,
     removeCustomRow,
+    toggleItemScope,
+    setAllScope,
   }
 }

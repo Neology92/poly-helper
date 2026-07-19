@@ -1,31 +1,47 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { columns, copyHeaderFields, items } from '../../data'
 import type { BoundaryDocument, CheckboxAnswer } from '../../data'
 import { useCopies } from './useCopies'
 import { ItemRow, CustomRowView } from './Row'
+import { ScopePanel } from './ScopePanel'
 import { downloadTablePdf } from './pdf'
 import './table.css'
 
-/** Etykieta egzemplarza na pasku wyboru. */
-function copyLabel(osoba: string, index: number): string {
+/** Etykieta profilu na pasku wyboru. */
+function profileLabel(osoba: string, index: number): string {
   const trimmed = osoba.trim()
-  return trimmed || `Egzemplarz ${index + 1}`
+  return trimmed || `Profil ${index + 1}`
 }
+
+const ALL_NUMBERS = items.map((it) => it.number)
 
 /**
  * Tabela granic informowania — interaktywna.
- * Wypełnianie online z autozapisem lokalnym (bez konta, offline). Obsługuje wiele egzemplarzy
- * (jeden na „Osobę informowaną"). Eksport do PDF dokładamy w kolejnym kroku.
+ * Wypełnianie online z autozapisem lokalnym (bez konta, offline). Obsługuje wiele PROFILI
+ * (jeden na osobę partnerską) oraz checklistę zakresu (które pozycje są teraz w użyciu / w PDF).
  */
 export default function BoundariesTable() {
   const c = useCopies()
   const doc = c.activeDoc
   const [pdfBusy, setPdfBusy] = useState<null | 'blank' | 'filled'>(null)
+  const [focus, setFocus] = useState(false)
+  const [onlySelectedPdf, setOnlySelectedPdf] = useState(false)
+
+  const off = useMemo(() => new Set(doc?.deselected ?? []), [doc?.deselected])
+  const selectedNumbers = useMemo(
+    () => ALL_NUMBERS.filter((n) => !off.has(n)),
+    [off],
+  )
+  const visibleItems = focus ? items.filter((it) => !off.has(it.number)) : items
 
   async function exportPdf(kind: 'blank' | 'filled', activeDoc: BoundaryDocument) {
     setPdfBusy(kind)
     try {
-      await downloadTablePdf(kind === 'blank' ? { kind: 'blank' } : { kind: 'filled', doc: activeDoc })
+      const only = onlySelectedPdf ? selectedNumbers : undefined
+      await downloadTablePdf(
+        kind === 'blank' ? { kind: 'blank' } : { kind: 'filled', doc: activeDoc },
+        only,
+      )
     } catch (err) {
       console.error('Nie udało się wygenerować PDF:', err)
       alert('Nie udało się wygenerować PDF. Spróbuj ponownie.')
@@ -49,13 +65,13 @@ export default function BoundariesTable() {
         <h1>Tabela granic informowania</h1>
         <p className="table-tool__lede">
           Ustalcie razem, o czym z równoległych relacji chcecie się nawzajem informować — i jak
-          szczegółowo. Wypełnia się osobny egzemplarz dla każdej osoby informowanej. Zmiany
-          zapisują się na bieżąco w tej przeglądarce.
+          szczegółowo. Osobny profil dla każdej osoby partnerskiej; zmiany zapisują się na bieżąco
+          w tej przeglądarce.
         </p>
       </header>
 
-      {/* Pasek egzemplarzy */}
-      <div className="copies" role="group" aria-label="Egzemplarze">
+      {/* Pasek profili */}
+      <div className="copies" role="group" aria-label="Profile">
         <ul className="copies__list">
           {c.copies.map((copy, i) => (
             <li key={copy.id}>
@@ -65,39 +81,39 @@ export default function BoundariesTable() {
                 aria-current={copy.id === c.activeId}
                 onClick={() => c.selectCopy(copy.id)}
               >
-                {copyLabel(copy.doc.meta.osobaInformowana, i)}
+                {profileLabel(copy.doc.meta.osobaInformowana, i)}
               </button>
             </li>
           ))}
         </ul>
         <div className="copies__actions">
           <button type="button" className="btn btn--ghost" onClick={c.addCopy}>
-            + Nowy egzemplarz
+            + Nowy profil
           </button>
           {c.copies.length > 1 && c.activeId && (
             <button
               type="button"
               className="btn btn--danger-ghost"
               onClick={() => {
-                if (confirm('Usunąć ten egzemplarz? Tej operacji nie da się cofnąć.')) {
+                if (confirm('Usunąć ten profil? Tej operacji nie da się cofnąć.')) {
                   c.removeCopy(c.activeId!)
                 }
               }}
             >
-              Usuń egzemplarz
+              Usuń profil
             </button>
           )}
         </div>
       </div>
 
-      {/* Nagłówek egzemplarza */}
+      {/* Nagłówek profilu */}
       <div className="meta">
         <label className="meta__field meta__field--wide">
           <span>{copyHeaderFields.osobaInformowana}</span>
           <input
             value={doc.meta.osobaInformowana}
             onChange={(e) => c.setMeta('osobaInformowana', e.target.value)}
-            placeholder="np. imię lub pseudonim osoby, dla której wypełniacie"
+            placeholder="np. imię lub pseudonim osoby partnerskiej"
           />
         </label>
         <label className="meta__field">
@@ -117,6 +133,17 @@ export default function BoundariesTable() {
           />
         </label>
       </div>
+
+      {/* Checklista zakresu */}
+      <ScopePanel
+        items={items}
+        deselected={doc.deselected}
+        onToggle={c.toggleItemScope}
+        onSelectAll={() => c.setAllScope([])}
+        onSelectNone={() => c.setAllScope(ALL_NUMBERS)}
+        focus={focus}
+        onFocusChange={setFocus}
+      />
 
       {/* Tabela */}
       <div className="table" role="table" aria-label="Pozycje granic informowania">
@@ -140,7 +167,7 @@ export default function BoundariesTable() {
           </div>
         </div>
 
-        {items.map((item) => (
+        {visibleItems.map((item) => (
           <ItemRow
             key={item.number}
             item={item}
@@ -151,6 +178,10 @@ export default function BoundariesTable() {
             onFieldText={(text) => c.setFieldText(item.number, text)}
           />
         ))}
+
+        {focus && visibleItems.length === 0 && (
+          <p className="table__empty">Żadna pozycja nie jest w zakresie — zaznacz coś powyżej.</p>
+        )}
 
         {doc.customRows.map((row, i) => (
           <CustomRowView
@@ -177,7 +208,17 @@ export default function BoundariesTable() {
       </div>
 
       <div className="export">
-        <div className="export__label">Pobierz PDF do druku</div>
+        <div className="export__head">
+          <div className="export__label">Pobierz PDF do druku</div>
+          <label className="export__only">
+            <input
+              type="checkbox"
+              checked={onlySelectedPdf}
+              onChange={(e) => setOnlySelectedPdf(e.target.checked)}
+            />
+            Tylko wybrane pozycje ({selectedNumbers.length})
+          </label>
+        </div>
         <div className="export__actions">
           <button
             type="button"
@@ -193,7 +234,7 @@ export default function BoundariesTable() {
             disabled={pdfBusy !== null}
             onClick={() => exportPdf('filled', doc)}
           >
-            {pdfBusy === 'filled' ? 'Generuję…' : 'Ten egzemplarz (wypełniony)'}
+            {pdfBusy === 'filled' ? 'Generuję…' : 'Ten profil (wypełniony)'}
           </button>
         </div>
       </div>

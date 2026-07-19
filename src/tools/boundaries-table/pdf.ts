@@ -114,8 +114,10 @@ function ruleLine(width: number): Content {
   }
 }
 
-function buildRows(mode: Mode): TableCell[][] {
+function buildRows(mode: Mode, onlyNumbers?: number[]): TableCell[][] {
   const rows: TableCell[][] = []
+  const inScope = onlyNumbers ? new Set(onlyNumbers) : null
+  const list = inScope ? items.filter((it) => inScope.has(it.number)) : items
 
   // Nagłówek kolumn.
   const head = (t: string): TableCell => ({
@@ -137,7 +139,7 @@ function buildRows(mode: Mode): TableCell[][] {
 
   const filled = mode.kind === 'filled' ? mode.doc : null
 
-  for (const item of items) {
+  for (const item of list) {
     if (item.kind === 'field') {
       const value = filled ? (filled.answers[item.number] as { text: string }).text : ''
       const area: Content = value
@@ -235,7 +237,7 @@ function metaHeader(mode: Mode): Content {
   }
 }
 
-function buildDocDefinition(mode: Mode): TDocumentDefinitions {
+function buildDocDefinition(mode: Mode, onlyNumbers?: number[]): TDocumentDefinitions {
   return {
     pageSize: 'A4',
     pageMargins: [22, 20, 22, 16],
@@ -254,7 +256,7 @@ function buildDocDefinition(mode: Mode): TDocumentDefinitions {
         table: {
           headerRows: 1,
           widths: [W.mustSay, W.num, '*', W.dontTell, W.heads, W.after, W.detail],
-          body: buildRows(mode),
+          body: buildRows(mode, onlyNumbers),
         },
         layout: {
           hLineWidth: (i: number) => (i === 1 ? 0.9 : 0.5),
@@ -283,8 +285,11 @@ function filename(mode: Mode): string {
   return `tabela-granic-informowania${osoba ? '_' + osoba : ''}.pdf`
 }
 
-/** Pobiera PDF (pusty szablon lub wypełniony egzemplarz). */
-export async function downloadTablePdf(mode: Mode): Promise<void> {
+/**
+ * Pobiera PDF (pusty szablon lub wypełniony profil).
+ * `onlyNumbers` — jeśli podane, PDF zawiera tylko te pozycje kanoniczne (zakres z checklisty).
+ */
+export async function downloadTablePdf(mode: Mode, onlyNumbers?: number[]): Promise<void> {
   const pdfMake = await getPdfMake()
-  pdfMake.createPdf(buildDocDefinition(mode)).download(filename(mode))
+  pdfMake.createPdf(buildDocDefinition(mode, onlyNumbers)).download(filename(mode))
 }

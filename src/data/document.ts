@@ -41,13 +41,19 @@ export interface DocumentMeta {
   notatka: string
 }
 
-/** Kompletny zapisany dokument. `version` na potrzeby przyszłych migracji. */
+/** Kompletny zapisany dokument (jeden profil osoby partnerskiej). */
 export interface BoundaryDocument {
   version: 1
   meta: DocumentMeta
   /** Odpowiedzi wg numeru pozycji (item.number). */
   answers: Record<number, ItemAnswer>
   customRows: CustomRow[]
+  /**
+   * Numery pozycji WYŁĄCZONYCH z bieżącego zakresu (checklista). Puste = wszystkie w zakresie.
+   * Przechowujemy wykluczenia, nie zaznaczenia — dzięki temu nowe pozycje są domyślnie w zakresie
+   * i nie trzeba migrować starszych zapisów.
+   */
+  deselected: number[]
 }
 
 export function emptyCheckboxAnswer(): CheckboxAnswer {
@@ -80,6 +86,7 @@ export function emptyDocument(): BoundaryDocument {
     meta: { osobaInformowana: '', data: '', notatka: '' },
     answers,
     customRows: [],
+    deselected: [],
   }
 }
 
