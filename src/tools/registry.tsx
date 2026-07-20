@@ -34,6 +34,18 @@ export const tools: Tool[] = [
     },
     Component: lazy(() => import('./cards-game/index')),
   },
+  {
+    meta: {
+      slug: 'check-in',
+      title: 'Check-in relacyjny',
+      tagline:
+        'Regularna, zapisywana rozmowa: co działa, co poprawić, co razem ustalić.',
+      icon: '🧭',
+      status: 'ready',
+      audience: ['poly', 'mono'],
+    },
+    Component: lazy(() => import('./check-in/index')),
+  },
 ]
 
 /** Szybkie wyszukanie narzędzia po slug-u (dla routera). */

@@ -20,6 +20,7 @@ Narzędzia (docelowe, treści i wersje PDF gotowe — patrz `poly-helper-dump.md
 |---|---|---|
 | Tabela granic informowania | `tabela-granic` | wypełnianie online + eksport PDF |
 | Gra karciana | `gra-karciana` | tryb online + eksport talii do druku |
+| Check-in relacyjny | `check-in` | wypełnianie online + historia wpisów + eksport PDF |
 
 ## Stack
 
@@ -125,11 +126,14 @@ npx netlify-cli deploy --prod --dir=dist
 - [x] Interaktywna **Tabela granic informowania** (wypełnianie + zapis lokalny, wiele egzemplarzy).
 - [x] Eksport tabeli do PDF (pusty szablon + wersja wypełniona) — pdfmake, 1×A4, pełne PL znaki.
 - [x] **Gra karciana** — tryb online: zasady, pseudonim `[imię]`, karty z odsłanianiem szczegółów.
-- [x] Eksport talii do PDF (30 kart, 5×A4, grid 2×3, crop marks, linie cięcia).
+- [x] Eksport talii do PDF (29 kart, 5×A4, grid 2×3, crop marks, linie cięcia).
 - [x] Sekcja **Wiedza** + artykuły „Czym jest poliamoria?" i „Zazdrość i kompersja"
   (ze źródłami, słowniczkiem, mitami; wspólne komponenty w `src/knowledge/components.tsx`).
 - [x] Profile osób partnerskich + checklista zakresu pozycji (tabela); zmiana nazwy profilu.
 - [x] Tryb ciemny (przełącznik w nagłówku, zapamiętywany; start z preferencji systemu).
+- [x] **Check-in relacyjny** ([#7](https://github.com/Neology92/poly-helper/issues/7)) — RADAR
+  (Radość/Uznanie/Do poprawy/Ustalenia/randka), profile lokalne, historia wpisów, eksport PDF.
+- [x] Poszerzenie widoku na desktopie do ~16:9 (mobile-first bez zmian; 21:9 jako nice-to-have).
 
 ### Backlog i kierunek
 

@@ -27,6 +27,10 @@ Każde narzędzie ma tryb online (wypełnianie, zapis lokalny) i eksport do PDF.
 
 - Język UI i komentarzy: **polski**. Pisownia „seksting" przez „ks"; unikać słowa „związek"
   (preferować „relacja"); unikać kalek brzmiących cringe'owo.
+- **Język inkluzywny:** przymiotniki/imiesłowy odnoszące się do osoby o nieznanej płci pisz
+  z końcówką **„-x"** (np. „ważnx", „gotowx", „wysłuchanx"), **nie** w formie męskoosobowej ani
+  z podkreśleniem („ważn_a"). Gdy naturalne — formy bezosobowe/neutralne („Zapisano", „Dodaj wpis").
+  Uwaga: teksty kart Gry (narracja w 1. os. czasu przeszłego) to osobny, głębszy problem — Epik #5.
 - Typografia w tekstach: cudzysłowy „ " — **nie** wstawiaj prostego `"` wewnątrz atrybutu
   JSX `attr="..."` (zamyka atrybut). W razie potrzeby użyj `attr={'...'}`.
 - Prywatność domyślna: nie dodawaj kont/telemetrii/backendu bez wyraźnej decyzji.

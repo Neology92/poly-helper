@@ -5,7 +5,8 @@
  */
 
 .table-tool {
-  max-width: 960px;
+  /* Poszerzone na desktopie (16:9); dodatkowa szerokość trafia w elastyczne kolumny nazwy/uwag. */
+  max-width: var(--wrap);
   margin: 0 auto;
 }
 

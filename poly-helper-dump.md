@@ -2,7 +2,7 @@
 
 > Dokument przekazania wiedzy. Zawiera cele, założenia, finalne treści, decyzje designerskie
 > i wnioski z iteracji nad dwoma narzędziami: **tabelą granic informowania** oraz **grą karcianą**
-> wspierającą jej wypełnianie. Stan na: 2026-07-15.
+> wspierającą jej wypełnianie. Stan na: 2026-07-20.
 
 ---
 
@@ -46,8 +46,10 @@ gdy coś się zmienia.
 | **Gdy myślę, że może się wydarzyć** | checkbox | uprzedzenie z wyprzedzeniem (heads-up) |
 | **Gdy się wydarzyło** | checkbox | informacja po fakcie |
 | **Poziom szczegółu** | `□ ogólnie / szczegóły □` | dwa checkboxy w jednej linii, po lewej i prawej |
+| **uwagi** | tekst (wolny) | dodatkowe notatki do pozycji (per wiersz); w PDF jako kursywna podlinijka „✎ …" pod nazwą, nie osobna kolumna — chroni układ 1×A4 |
 
 Nagłówek egzemplarza: **Osoba informowana** (nie „egzemplarz dla…"), Data, Notatka / kontekst.
+Kolumna „uwagi" (per wiersz) to co innego niż per-egzemplarzowa „Notatka / kontekst".
 
 ### 3.2 Pozycje (25 + 3 puste do dopisania)
 
@@ -61,7 +63,7 @@ zmiana statusu po „kocham Cię".
 2. Trzymanie za rękę
 3. Całowanie
 4. Pieszczoty / inne formy dotyku
-5. Znaczenia na ciele (malinki itp.)
+5. Znaczenia na ciele (malinki itp.) — **pole „Twoje granice co do śladów na ciele:" z sugestiami (klikalne chipy wstawiające tekst: „W miejscach niewidocznych — ok", „Nie chcę w ogóle", „Obojętne") zamiast checkboxów** (granica do opisania własnymi słowami, nie zdarzenie do informowania)
 6. Randki / umawianie się
 7. Prezenty (dawanie / otrzymywanie)
 8. Głęboka bliskość emocjonalna, zwierzanie się z ważnych rzeczy
@@ -83,7 +85,7 @@ zmiana statusu po „kocham Cię".
 24. Początek zupełnie nowej relacji z inną osobą
 25. Zmiana statusu relacji (wejście w oficjalną relację partnerską)
 
-- Pozycje 12, 21, 22 mają w tabeli pola do wypisania/ustalenia i **nie mają kart w talii**.
+- Pozycje 5, 12, 21, 22 mają w tabeli pola do wypisania/ustalenia i **nie mają kart w talii**.
 - 3 dodatkowe puste wiersze z kropkowaną linią na dopisanie własnych pozycji.
 
 ### 3.3 Odrzucone / nieużyte pomysły na pozycje
@@ -114,11 +116,11 @@ ale świadomie odpadły.)
 - Karta „Imiona na czas gry" ma pola: „Gdy odpowiada ___ … [imię] = ___" ×2 (po jednej parze
   na osobę). W talii są **3 kopie** tej karty (na zapisywanie długopisem przy kolejnych rozgrywkach).
 
-### 4.3 Skład talii (30 kart, 5 stron A4)
+### 4.3 Skład talii (29 kart, 5 stron A4)
 
 - 1× „Jak grać"
 - 3× „Imiona na czas gry"
-- 22× karty-scenki (pozycje 1–11, 13–20, 23–25 — patrz teksty w §5)
+- 21× kart-scenek (pozycje 1–4, 6–11, 13–20, 23–25 — patrz teksty w §5; poz. 5 jest polem tekstowym w tabeli, bez karty)
 - 4× szablony pustych kart (nr 26–29) — tylko blade podpowiedzi „opis ogólny (wprost o czynności)"
   / „szczegóły (kontekst, jak wyglądało)", separator ze strzałką i odwrócony numer z kropkami
 
@@ -159,10 +161,6 @@ S: Staliśmy blisko, rozmowa się urwała i jakoś sami się do siebie nachylili
 **4 — Pieszczoty / inne formy dotyku**
 O: Z [imię] było sporo zmysłowego dotyku i pieszczot — choć bez seksu.
 S: Zaczęło się od przytulania i z minuty na minutę robiło się coraz cieplej — buziaki w szyję, ręce pod ubraniem, raz wolniej, raz szybciej. Dużo dotyku i takiego sprawdzania, gdzie są granice, bez spinki. Seks świadomie odpuściliśmy, ale i tak leżeliśmy tak ze sobą jeszcze długo, nieźle rozgrzani.
-
-**5 — Znaczenia na ciele (malinki itp.)**
-O: Zostały mi po [imię] ślady na ciele — malinki.
-S: Zorientowałem się dopiero rano przed lustrem — kilka śladów na szyi i obojczyku. Trochę mnie to rozbawiło, trochę zawstydziło, bo ciężko je ukryć pod kołnierzem. Taka pamiątka po naprawdę namiętnym wieczorze z [imię].
 
 **6 — Randki / umawianie się**
 O: Umówiliśmy się z [imię] na kolejną randkę.
@@ -257,6 +255,13 @@ S: Po jednej z rozmów nazwaliśmy wprost, czym dla siebie jesteśmy, i ustalili
   chciał X-a blisko środka.
 - Wiersze niebędące „zdarzeniami" (czas, no-go spaces/talks) mają **pola tekstowe** zamiast
   checkboxów — semantyka „do ustalenia/wypisania", nie „informować czy nie".
+- Pozycja 5 (znaczenia na ciele / malinki) też jest **polem tekstowym z sugestiami** — klikalne
+  chipy podpowiadają wpis („W miejscach niewidocznych — ok" / „Nie chcę w ogóle" / „Obojętne"). To
+  granica do opisania własnymi słowami, nie zdarzenie „informować czy nie" — dlatego wypadła z talii.
+- Kolumna **„uwagi"** (wolny tekst, per wiersz) na dodatkowe notatki. W trybie online to osobna
+  kolumna; w PDF renderowana jako kursywna podlinijka „✎ …" pod nazwą (tylko gdy wypełniona), żeby
+  nie rozbić układu 1×A4.
+- W trybie online można też **dopisać własny wiersz** jako checkboxy **albo** jako pole tekstowe.
 
 ### Karty
 - Grid **2×3 stykających się kart** = najmniej cięć; wspólna krawędź to jedno cięcie.
@@ -267,7 +272,8 @@ S: Po jednej z rozmów nazwaliśmy wprost, czym dla siebie jesteśmy, i ustalili
   naprzeciwko / przy odkładaniu karty, nie zakłóca czytania scenki.
 - Historia iteracji (czego NIE robić): nagłówki kategorii na kartach (usunięte);
   checkboxy na kartach (usunięte — karty wielokrotnego użytku); napis „ZA ZGODĄ — CZYTAJ DALEJ"
-  (usunięty — sama strzałka wystarcza); duża ciemna strzałka (zmieniona na bladą zespoloną z linią).
+  (usunięty — sama strzałka wystarcza); duża ciemna strzałka (zmieniona na bladą zespoloną z linią);
+  karta „malinek" (poz. 5) usunięta z talii — poz. 5 stała się polem tekstowym w tabeli (22→21 scenek).
 
 ### Techniczne (obecna implementacja)
 - PDF-y generowane w **Pythonie / ReportLab**; czcionki **DejaVu** (pełne polskie znaki).
@@ -287,6 +293,7 @@ S: Po jednej z rozmów nazwaliśmy wprost, czym dla siebie jesteśmy, i ustalili
 - Karta 16 (badania STI/STD) zakłada żeńską osobę trzecią („zrobiła", „pokazała") — j.w.
 - Szablony kart mają numery 26–29 „na sztywno" — jeśli tabela urośnie, numeracja się rozjedzie.
 - Brak wariantów scenek (po 1 na pozycję) — przy powtórnym graniu talia jest przewidywalna.
+- Talia liczy teraz 29 kart, a siatka 2×3 mieści 30 — na 5. stronie zostaje jeden pusty slot.
 
 ## 8. 10 pytań poszerzających (do zebrania kontekstu przed dalszym rozwojem)
 
@@ -314,7 +321,7 @@ S: Po jednej z rozmów nazwaliśmy wprost, czym dla siebie jesteśmy, i ustalili
    Jeśli powstanie wersja cyfrowa — jakie są wymagania (offline-only? brak kont? szyfrowanie
    lokalne? eksport bez danych)?
 10. **Testy z użytkownikami**: czy narzędzie było już używane w praktyce? Co zadziałało,
-    co zgrzytało (np. długość rozgrywki ~22 kart, czytelność bladych znaczników po wydruku,
+    co zgrzytało (np. długość rozgrywki ~21 kart, czytelność bladych znaczników po wydruku,
     rozmiar kart w dłoni)? To dane, które najlepiej ukierunkują kolejną iterację.
 
 ## 9. Pliki w archiwum
@@ -323,6 +330,6 @@ S: Po jednej z rozmów nazwaliśmy wprost, czym dla siebie jesteśmy, i ustalili
 |---|---|
 | `poly-helper-dump.md` | ten dokument |
 | `tabela-granice-informowania.pdf` | finalna tabela (1×A4, B&W, 25 pozycji + 3 puste) |
-| `gra-karty.pdf` | finalna talia (5×A4, 30 kart: zasady, 3× imiona, 22 scenki, 4 szablony) |
+| `gra-karty.pdf` | finalna talia (5×A4, 29 kart: zasady, 3× imiona, 21 scenek, 4 szablony) |
 | `tabela-granice-informowania.html` | prototyp interaktywnej tabeli (NIEaktualny — 17 pozycji) |
 | `gra-karciana.html` | prototyp interaktywnej gry (NIEaktualny — 17 scenek, stare teksty) |

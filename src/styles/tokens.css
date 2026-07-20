@@ -51,7 +51,10 @@
   --font-serif: 'Fraunces Variable', 'Fraunces', Georgia, serif;
 
   /* --- odstępy / layout --- */
-  --wrap: 1080px;
+  /* Mobile-first, ale na desktopie widok poszerza się wygodnie na ekrany 16:9 (np. 1920×1080).
+     --wrap-narrow zostaje dla treści czytanej (artykuły trzymają miarę w ch). 21:9 = nice-to-have. */
+  --wrap: 1440px;
+  --wrap-wide: 1680px;
   --wrap-narrow: 720px;
   --space-page: clamp(20px, 4vw, 56px);
 }

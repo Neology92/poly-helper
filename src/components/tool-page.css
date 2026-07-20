@@ -1,5 +1,7 @@
 .tool-page {
-  max-width: var(--wrap-narrow);
+  /* Kontener narzędzi może wypełnić desktop (16:9); węższe narzędzia same się zawężają
+     (np. Gra karciana trzyma --wrap-narrow). */
+  max-width: var(--wrap);
   margin: 0 auto;
 }
 .back-link {

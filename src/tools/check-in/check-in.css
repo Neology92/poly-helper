@@ -1,0 +1,339 @@
+/*
+ * Check-in relacyjny — style MOBILE-FIRST.
+ * Baza = pojedyncza kolumna (formularz nad historią). Od `min-width: 900px` układ 2-kolumnowy,
+ * który wypełnia szersze ekrany (16:9). Kolory wyłącznie z tokenów → tryb ciemny „za darmo".
+ */
+
+.checkin {
+  max-width: var(--wrap);
+  margin: 0 auto;
+}
+
+.checkin__head .badge {
+  display: inline-block;
+  margin-bottom: 14px;
+}
+.checkin__head h1 {
+  font-size: clamp(28px, 5vw, 40px);
+  margin: 0 0 14px;
+}
+.checkin__lede {
+  color: var(--ink-soft);
+  font-size: clamp(15px, 1.6vw, 17px);
+  max-width: 70ch;
+  margin: 0 0 26px;
+}
+
+/* ---------- Pasek profili (jak w tabeli) ---------- */
+.copies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+.copies__list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+}
+.chip {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink-soft);
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  max-width: 70vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.chip:hover {
+  border-color: var(--line-strong);
+}
+.chip.is-active {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: var(--on-accent);
+}
+.chip--soft.is-active {
+  background: var(--teal-bg);
+  border-color: var(--teal);
+  color: var(--ink);
+}
+.chip-rename {
+  cursor: text;
+  color: var(--ink);
+  background: var(--surface);
+  border-color: var(--teal);
+  box-shadow: 0 0 0 2px var(--teal-bg);
+  width: 12rem;
+  max-width: 70vw;
+}
+.copies__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* ---------- Przyciski (jak w tabeli) ---------- */
+.btn {
+  border-radius: var(--radius-sm);
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.15s ease;
+}
+.btn--ghost {
+  background: var(--surface);
+  border-color: var(--line);
+  color: var(--ink);
+}
+.btn--ghost:hover {
+  border-color: var(--line-strong);
+  background: var(--surface-sunken);
+}
+.btn--danger-ghost {
+  background: transparent;
+  border-color: transparent;
+  color: var(--mauve);
+}
+.btn--danger-ghost:hover {
+  background: var(--mauve-bg);
+}
+.btn--solid {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: var(--on-accent);
+}
+.btn--solid:hover {
+  background: color-mix(in srgb, var(--teal) 88%, #000);
+}
+.btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+/* ---------- Notatka profilu ---------- */
+.checkin__note {
+  display: block;
+  margin-bottom: 22px;
+}
+.checkin__note span {
+  display: block;
+  font-size: 13px;
+  color: var(--ink-soft);
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+.checkin__note input {
+  width: 100%;
+  font-family: inherit;
+  font-size: 16px;
+  color: var(--ink);
+  background: var(--surface-sunken);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px;
+}
+
+/* ---------- Układ dwukolumnowy (desktop) ---------- */
+.checkin__cols {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 26px;
+}
+@media (min-width: 900px) {
+  .checkin__cols {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 34px;
+    align-items: start;
+  }
+}
+
+.checkin__section-title {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  margin: 0 0 14px;
+}
+
+/* ---------- Formularz ---------- */
+.checkin__form {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md, 14px);
+  padding: 20px;
+}
+.triforce {
+  border: none;
+  padding: 0;
+  margin: 0 0 18px;
+}
+.triforce legend {
+  font-size: 13px;
+  color: var(--ink-soft);
+  font-weight: 600;
+  padding: 0;
+}
+.triforce__hint {
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin: 4px 0 10px;
+}
+.triforce__opts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.field {
+  display: block;
+  margin-bottom: 16px;
+}
+.field__label {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.field__hint {
+  display: block;
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin: 2px 0 6px;
+}
+.field-input {
+  width: 100%;
+  font-family: inherit;
+  font-size: 16px;
+  color: var(--ink);
+  background: var(--surface-sunken);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px;
+  resize: vertical;
+}
+.field--inline {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.field--inline .field__label {
+  margin: 0;
+}
+.field--inline input {
+  font-family: inherit;
+  font-size: 16px;
+  color: var(--ink);
+  background: var(--surface-sunken);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+
+.checkin__form-foot {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+.checkin__saved {
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+/* ---------- Historia ---------- */
+.checkin__history-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.checkin__empty {
+  color: var(--ink-soft);
+  font-size: 15px;
+  background: var(--surface-sunken);
+  border: 1px dashed var(--line);
+  border-radius: 12px;
+  padding: 20px;
+}
+.entries {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.entry {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px;
+}
+.entry__head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+.entry__date {
+  font-weight: 700;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.entry__cel {
+  font-size: 13px;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+.entry__remove {
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: var(--mauve);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 2px 4px;
+}
+.entry__remove:hover {
+  text-decoration: underline;
+}
+.entry__body {
+  margin: 0;
+}
+.entry__row {
+  margin-bottom: 8px;
+}
+.entry__row dt {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+.entry__row dd {
+  margin: 1px 0 0;
+  color: var(--ink);
+  white-space: pre-wrap;
+}
+.entry__randka {
+  margin: 6px 0 0;
+  font-size: 13px;
+  font-style: italic;
+  color: var(--ink-soft);
+}

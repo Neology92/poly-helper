@@ -100,7 +100,7 @@ export default function ZazdroscIKompersja() {
           </li>
           <li>
             <strong>Zajrzyj pod spód.</strong> Czego tak naprawdę dotyczy? Lęku przed utratą?
-            Braku czasu i uwagi? Porównywania się? Potrzeby zapewnienia, że nadal jesteś ważn_a?
+            Braku czasu i uwagi? Porównywania się? Potrzeby zapewnienia, że nadal jesteś ważnx?
           </li>
           <li>
             <strong>Rozdziel, co czyje.</strong> Część zazdrości to coś do <em>ukojenia w
@@ -113,7 +113,7 @@ export default function ZazdroscIKompersja() {
           </li>
           <li>
             <strong>Zadbaj o poczucie bezpieczeństwa.</strong> Teoria przywiązania podpowiada, że
-            bezpieczna więź łagodzi zazdrość; nad poczuciem bezpieczeństwa można pracować — sam_a
+            bezpieczna więź łagodzi zazdrość; nad poczuciem bezpieczeństwa można pracować — samx
             i razem.
             <Ref n={6} />
           </li>
