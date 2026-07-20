@@ -51,6 +51,8 @@ export interface FieldItem extends BaseItem {
   kind: 'field'
   /** Etykieta pola tekstowego (np. „Wypisz miejsca tylko dla was:"). */
   fieldPrompt: string
+  /** Opcjonalne sugestie do szybkiego wpisania (chipy wstawiające tekst). */
+  suggestions?: string[]
 }
 
 /** Kanoniczna pozycja listy. */

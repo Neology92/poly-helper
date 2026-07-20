@@ -2,7 +2,7 @@ import { items } from './items'
 import { NAME_PLACEHOLDER, hasCard } from './types'
 
 /** Numery pozycji, które są polami „do wypisania/ustalenia" (bez kart). */
-const FIELD_NUMBERS = [12, 21, 22]
+const FIELD_NUMBERS = [5, 12, 21, 22]
 const EXPECTED_COUNT = 25
 
 /**

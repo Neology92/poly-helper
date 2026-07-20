@@ -18,20 +18,31 @@ export interface CheckboxAnswer {
   /** „Gdy się wydarzyło" (po fakcie). */
   afterFact: boolean
   detail: DetailLevel
+  /** Wolny tekst — kolumna „uwagi". */
+  uwagi: string
 }
 
-/** Odpowiedź dla pozycji „do wypisania/ustalenia" (kind: 'field' — poz. 12/21/22). */
+/** Odpowiedź dla pozycji „do wypisania/ustalenia" (kind: 'field' — poz. 5/12/21/22). */
 export interface FieldAnswer {
   text: string
+  /** Wolny tekst — kolumna „uwagi". */
+  uwagi: string
 }
 
 export type ItemAnswer = CheckboxAnswer | FieldAnswer
 
-/** Własna pozycja dopisana przez użytkownika (puste wiersze tabeli). */
+/**
+ * Własna pozycja dopisana przez użytkownika. Może być typu 'checkbox' (jak zwykły wiersz)
+ * albo 'field' (pole tekstowe). Oba pola stanu (`answer`, `text`) są zawsze obecne —
+ * używane zależnie od `kind`.
+ */
 export interface CustomRow {
   id: string
   name: string
+  kind: 'checkbox' | 'field'
   answer: CheckboxAnswer
+  text: string
+  uwagi: string
 }
 
 /** Nagłówek egzemplarza. */
@@ -63,11 +74,12 @@ export function emptyCheckboxAnswer(): CheckboxAnswer {
     headsUp: false,
     afterFact: false,
     detail: 'unset',
+    uwagi: '',
   }
 }
 
 export function emptyFieldAnswer(): FieldAnswer {
-  return { text: '' }
+  return { text: '', uwagi: '' }
 }
 
 /** Pusta odpowiedź dopasowana do rodzaju pozycji. */

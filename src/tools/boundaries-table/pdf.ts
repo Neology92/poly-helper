@@ -1,5 +1,5 @@
 import type { Content, TableCell, TDocumentDefinitions } from 'pdfmake/interfaces'
-import type { BoundaryDocument, CheckboxAnswer, DetailLevel } from '../../data'
+import type { BoundaryDocument, CheckboxAnswer, DetailLevel, FieldAnswer } from '../../data'
 import { EMPTY_ROWS, columns, copyHeaderFields, items } from '../../data'
 import { getPdfMake } from '../../lib/pdfmake'
 
@@ -96,11 +96,21 @@ function detailCell(level: DetailLevel): TableCell {
   }
 }
 
-/** Komórka z nazwą pozycji + doprecyzowaniem/uwagą. */
-function nameCell(name: string, sub?: string, sub2?: string): TableCell {
+/** Podlinijka „uwagi" pod nazwą (kursywą, tylko gdy wypełnione) — chroni układ 1×A4. */
+function uwagiLine(uwagi?: string): Content | null {
+  const t = (uwagi ?? '').trim()
+  return t
+    ? { text: '✎ ' + t, fontSize: 6.5, italics: true, color: ACCENT, margin: [0, 0.5, 0, 0] }
+    : null
+}
+
+/** Komórka z nazwą pozycji + doprecyzowaniem/uwagą + ewentualną podlinijką „uwagi". */
+function nameCell(name: string, sub?: string, sub2?: string, uwagi?: string): TableCell {
   const stack: Content[] = [{ text: name, fontSize: 8, bold: false, color: INK }]
   if (sub) stack.push({ text: sub, fontSize: 6, italics: true, color: ACCENT, margin: [0, 0.5, 0, 0] })
   if (sub2) stack.push({ text: sub2, fontSize: 6, italics: true, color: ACCENT, margin: [0, 0.5, 0, 0] })
+  const u = uwagiLine(uwagi)
+  if (u) stack.push(u)
   return { stack }
 }
 
@@ -141,10 +151,12 @@ function buildRows(mode: Mode, onlyNumbers?: number[]): TableCell[][] {
 
   for (const item of list) {
     if (item.kind === 'field') {
-      const value = filled ? (filled.answers[item.number] as { text: string }).text : ''
+      const ans = filled ? (filled.answers[item.number] as FieldAnswer) : null
+      const value = ans?.text ?? ''
       const area: Content = value
         ? { text: value, fontSize: 8, margin: [0, 2, 0, 0] }
         : ruleLine(480)
+      const u = uwagiLine(ans?.uwagi)
       rows.push([
         { text: '' },
         { text: item.number, fontSize: 7, alignment: 'center', color: FAINT, margin: [0, 2, 0, 0] },
@@ -161,6 +173,7 @@ function buildRows(mode: Mode, onlyNumbers?: number[]): TableCell[][] {
               ? [{ text: item.clarification, fontSize: 6.5, italics: true, color: ACCENT } as Content]
               : []),
             area,
+            ...(u ? [u] : []),
           ],
         },
         {},
@@ -175,7 +188,7 @@ function buildRows(mode: Mode, onlyNumbers?: number[]): TableCell[][] {
     rows.push([
       mark(a?.mustSay ?? false, columns.mustSay.glyph!),
       { text: item.number, fontSize: 7, alignment: 'center', color: FAINT, margin: [0, 3, 0, 0] },
-      nameCell(item.name, item.clarification, item.note),
+      nameCell(item.name, item.clarification, item.note, a?.uwagi),
       mark(a?.dontTell ?? false, columns.dontTell.glyph!),
       checkbox(a?.headsUp ?? false, W.heads),
       checkbox(a?.afterFact ?? false, W.after),
@@ -186,10 +199,29 @@ function buildRows(mode: Mode, onlyNumbers?: number[]): TableCell[][] {
   // Wiersze własne (tylko w wersji wypełnionej, jeśli są).
   if (filled) {
     for (const row of filled.customRows) {
+      if (row.kind === 'field') {
+        const area: Content = row.text.trim()
+          ? { text: row.text, fontSize: 8, margin: [0, 2, 0, 0] }
+          : ruleLine(480)
+        const u = uwagiLine(row.uwagi)
+        rows.push([
+          { text: '' },
+          { text: '•', fontSize: 8, alignment: 'center', color: FAINT, margin: [0, 2, 0, 0] },
+          {
+            colSpan: 5,
+            stack: [{ text: row.name || '—', fontSize: 8.5, bold: true }, area, ...(u ? [u] : [])],
+          },
+          {},
+          {},
+          {},
+          {},
+        ])
+        continue
+      }
       rows.push([
         mark(row.answer.mustSay, columns.mustSay.glyph!),
         { text: '•', fontSize: 8, alignment: 'center', color: FAINT, margin: [0, 2, 0, 0] },
-        nameCell(row.name || '—'),
+        nameCell(row.name || '—', undefined, undefined, row.uwagi),
         mark(row.answer.dontTell, columns.dontTell.glyph!),
         checkbox(row.answer.headsUp, W.heads),
         checkbox(row.answer.afterFact, W.after),

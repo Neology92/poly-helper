@@ -37,7 +37,7 @@ const FAINT = '#b9aea4'
 const LINE = '#c9beb4'
 const CUT = '#9a8f96'
 
-// --- skład talii: 1× zasady, 3× imiona, 22× scenki, 4× szablony = 30 kart (5 stron) ---
+// --- skład talii: 1× zasady, 3× imiona, 21× scenek, 4× szablony = 29 kart (5 stron) ---
 type DeckCard =
   | { kind: 'rules' }
   | { kind: 'names' }

@@ -89,7 +89,7 @@ export function useCopies() {
   )
 
   const setCheckbox = useCallback(
-    (number: number, field: keyof Omit<CheckboxAnswer, 'detail'>, value: boolean) =>
+    (number: number, field: keyof Omit<CheckboxAnswer, 'detail' | 'uwagi'>, value: boolean) =>
       patchAnswer(number, (a) => normalizeAnswer({ ...(a as CheckboxAnswer), [field]: value })),
     [patchAnswer],
   )
@@ -101,22 +101,37 @@ export function useCopies() {
   )
 
   const setFieldText = useCallback(
-    (number: number, text: string) => patchAnswer(number, () => ({ text })),
+    (number: number, text: string) =>
+      patchAnswer(number, (a) => ({ text, uwagi: a.uwagi ?? '' })),
+    [patchAnswer],
+  )
+
+  const setUwagi = useCallback(
+    (number: number, text: string) =>
+      patchAnswer(number, (a) => ({ ...a, uwagi: text })),
     [patchAnswer],
   )
 
   // --- własne wiersze (puste pozycje) ---
   const addCustomRow = useCallback(
-    () =>
+    (kind: 'checkbox' | 'field' = 'checkbox') =>
       patchDoc((doc) => ({
         ...doc,
-        customRows: [...doc.customRows, { id: newId(), name: '', answer: emptyCheckboxAnswer() }],
+        customRows: [
+          ...doc.customRows,
+          { id: newId(), name: '', kind, answer: emptyCheckboxAnswer(), text: '', uwagi: '' },
+        ],
       })),
     [patchDoc],
   )
 
   const updateCustomRow = useCallback(
-    (id: string, patch: Partial<Pick<CustomRow, 'name'>> & { answer?: Partial<CheckboxAnswer> }) =>
+    (
+      id: string,
+      patch: Partial<Pick<CustomRow, 'name' | 'text' | 'uwagi'>> & {
+        answer?: Partial<CheckboxAnswer>
+      },
+    ) =>
       patchDoc((doc) => ({
         ...doc,
         customRows: doc.customRows.map((row) =>
@@ -124,6 +139,8 @@ export function useCopies() {
             ? {
                 ...row,
                 ...(patch.name !== undefined ? { name: patch.name } : {}),
+                ...(patch.text !== undefined ? { text: patch.text } : {}),
+                ...(patch.uwagi !== undefined ? { uwagi: patch.uwagi } : {}),
                 answer: patch.answer
                   ? normalizeAnswer({ ...row.answer, ...patch.answer })
                   : row.answer,
@@ -173,6 +190,7 @@ export function useCopies() {
     setCheckbox,
     setDetail,
     setFieldText,
+    setUwagi,
     addCustomRow,
     updateCustomRow,
     removeCustomRow,

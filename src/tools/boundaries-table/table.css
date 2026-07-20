@@ -158,6 +158,7 @@
   --c-heads: 60px;
   --c-after: 60px;
   --c-detail: 152px;
+  --c-uwagi: minmax(120px, 0.7fr);
 
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -192,7 +193,8 @@
 .cell--donttell,
 .cell--heads,
 .cell--after,
-.cell--detail {
+.cell--detail,
+.cell--uwagi {
   border-top: 1px dashed var(--line);
 }
 .cell--mustsay:empty {
@@ -220,7 +222,8 @@
   font-style: italic;
   line-height: 1.35;
 }
-.cell--fieldinput {
+.cell--fieldinput,
+.cell--uwagi {
   flex-direction: column;
   align-items: stretch;
   padding: 8px 0 4px;
@@ -573,7 +576,7 @@
     display: grid;
     grid-template-columns:
       var(--c-mustsay) var(--c-num) minmax(0, 1fr)
-      var(--c-donttell) var(--c-heads) var(--c-after) var(--c-detail);
+      var(--c-donttell) var(--c-heads) var(--c-after) var(--c-detail) var(--c-uwagi);
     align-items: center;
     gap: 0;
     padding: 0;
@@ -581,7 +584,7 @@
   .row--field {
     grid-template-columns:
       var(--c-mustsay) var(--c-num) minmax(0, 1fr)
-      calc(var(--c-donttell) + var(--c-heads) + var(--c-after) + var(--c-detail));
+      calc(var(--c-donttell) + var(--c-heads) + var(--c-after) + var(--c-detail)) var(--c-uwagi);
   }
 
   .row--header {
@@ -617,7 +620,8 @@
   .cell--donttell,
   .cell--heads,
   .cell--after,
-  .cell--detail {
+  .cell--detail,
+  .cell--uwagi {
     border-top: none;
   }
   .cell__label {
@@ -647,7 +651,40 @@
   .cell--fieldinput {
     padding: 10px 12px;
   }
+  .cell--uwagi {
+    padding: 8px;
+  }
   .row__remove {
     align-self: center;
   }
+}
+
+/* ---------- Sugestie (chipy wstawiające tekst) ---------- */
+.suggest {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+.suggest__chip {
+  font-size: 12.5px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+.suggest__chip:hover {
+  border-color: var(--teal);
+  color: var(--teal);
+  background: var(--teal-bg);
+}
+
+/* Grupa przycisków dodawania w stopce */
+.table-tool__add {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }

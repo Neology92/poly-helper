@@ -56,12 +56,14 @@ export const items: BoundaryItem[] = [
   {
     number: 5,
     name: 'Znaczenia na ciele (malinki itp.)',
-    kind: 'checkbox',
-    card: {
-      general: 'Zostały mi po [imię] ślady na ciele — malinki.',
-      detail:
-        'Zorientowałem się dopiero rano przed lustrem — kilka śladów na szyi i obojczyku. Trochę mnie to rozbawiło, trochę zawstydziło, bo ciężko je ukryć pod kołnierzem. Taka pamiątka po naprawdę namiętnym wieczorze z [imię].',
-    },
+    clarification: 'To raczej granica do ustalenia niż zdarzenie do informowania.',
+    kind: 'field',
+    fieldPrompt: 'Twoje granice co do śladów na ciele:',
+    suggestions: [
+      'W miejscach niewidocznych — ok',
+      'Nie chcę w ogóle',
+      'Obojętne',
+    ],
   },
   {
     number: 6,
@@ -268,7 +270,7 @@ export function getItem(number: number): BoundaryItem | undefined {
   return items.find((it) => it.number === number)
 }
 
-/** Tylko pozycje z kartami-scenkami (22 karty — dla Gry karcianej). */
+/** Tylko pozycje z kartami-scenkami (21 kart — dla Gry karcianej). */
 export function cardItems() {
   return items.filter((it) => it.kind === 'checkbox')
 }

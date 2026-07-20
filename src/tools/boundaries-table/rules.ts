@@ -40,14 +40,16 @@ export function rowFlags(a: CheckboxAnswer): RowFlags {
  * blokuje niedozwolone akcje, ale to gwarantuje, że zapis nigdy nie jest niespójny).
  */
 export function normalizeAnswer(a: CheckboxAnswer): CheckboxAnswer {
+  const uwagi = a.uwagi ?? ''
   if (a.dontTell) {
-    return { mustSay: false, dontTell: true, headsUp: false, afterFact: false, detail: 'unset' }
+    return { mustSay: false, dontTell: true, headsUp: false, afterFact: false, detail: 'unset', uwagi }
   }
   const telling = a.headsUp || a.afterFact
   return {
     ...a,
     mustSay: telling ? a.mustSay : false,
     detail: telling ? a.detail : 'unset',
+    uwagi,
   }
 }
 
@@ -55,12 +57,19 @@ export function normalizeAnswer(a: CheckboxAnswer): CheckboxAnswer {
 export function normalizeDocument(doc: BoundaryDocument): BoundaryDocument {
   const answers: Record<number, ItemAnswer> = {}
   for (const [key, a] of Object.entries(doc.answers)) {
-    answers[Number(key)] = 'text' in a ? a : normalizeAnswer(a)
+    answers[Number(key)] =
+      'text' in a ? { ...a, uwagi: a.uwagi ?? '' } : normalizeAnswer(a)
   }
   return {
     ...doc,
     answers,
-    customRows: doc.customRows.map((r) => ({ ...r, answer: normalizeAnswer(r.answer) })),
+    customRows: doc.customRows.map((r) => ({
+      ...r,
+      kind: r.kind === 'field' ? 'field' : 'checkbox',
+      text: typeof r.text === 'string' ? r.text : '',
+      uwagi: typeof r.uwagi === 'string' ? r.uwagi : '',
+      answer: normalizeAnswer(r.answer),
+    })),
     deselected: Array.isArray(doc.deselected) ? doc.deselected : [],
   }
 }

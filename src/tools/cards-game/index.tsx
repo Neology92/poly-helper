@@ -106,7 +106,7 @@ export default function CardsGame() {
           <div>
             <div className="game__print-title">Wolicie na papierze?</div>
             <p className="game__print-desc">
-              Pobierz całą talię (30 kart, 5×A4, grid 2×3 ze znacznikami cięcia). Karty są
+              Pobierz całą talię (29 kart, 5×A4, grid 2×3 ze znacznikami cięcia). Karty są
               wielokrotnego użytku — pseudonim „[imię]" wpisujecie kartą „Imiona na czas gry".
             </p>
           </div>

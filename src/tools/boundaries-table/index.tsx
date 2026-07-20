@@ -205,6 +205,7 @@ export default function BoundariesTable() {
           <div className="cell cell--detail" title={columns.detail.hint}>
             {columns.detail.label}
           </div>
+          <div className="cell cell--uwagi">Uwagi</div>
         </div>
 
         {visibleItems.map((item) => (
@@ -216,6 +217,7 @@ export default function BoundariesTable() {
             onCheckbox={(field, v) => c.setCheckbox(item.number, field, v)}
             onDetail={(level) => c.setDetail(item.number, level)}
             onFieldText={(text) => c.setFieldText(item.number, text)}
+            onUwagi={(text) => c.setUwagi(item.number, text)}
           />
         ))}
 
@@ -233,15 +235,22 @@ export default function BoundariesTable() {
               c.updateCustomRow(row.id, { answer: { [field]: v } as Partial<CheckboxAnswer> })
             }
             onDetail={(level) => c.updateCustomRow(row.id, { answer: { detail: level } })}
+            onText={(text) => c.updateCustomRow(row.id, { text })}
+            onUwagi={(text) => c.updateCustomRow(row.id, { uwagi: text })}
             onRemove={() => c.removeCustomRow(row.id)}
           />
         ))}
       </div>
 
       <div className="table-tool__foot">
-        <button type="button" className="btn btn--ghost" onClick={c.addCustomRow}>
-          + Dopisz własną pozycję
-        </button>
+        <div className="table-tool__add">
+          <button type="button" className="btn btn--ghost" onClick={() => c.addCustomRow('checkbox')}>
+            + Dopisz pozycję
+          </button>
+          <button type="button" className="btn btn--ghost" onClick={() => c.addCustomRow('field')}>
+            + Dopisz pole tekstowe
+          </button>
+        </div>
         <p className="table-tool__saved" aria-live="polite">
           Zapisano lokalnie
         </p>
