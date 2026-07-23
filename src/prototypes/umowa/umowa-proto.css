@@ -1,0 +1,373 @@
+/*
+ * PROTOTYP „Żywej umowy" — style MOBILE-FIRST.
+ * Baza = pojedyncza kolumna; od `min-width: 900px` układ 2-kolumnowy (edytor + historia),
+ * który wypełnia szersze ekrany (16:9). Kolory wyłącznie z tokenów → tryb ciemny „za darmo".
+ */
+
+.umowa-proto {
+  max-width: var(--wrap);
+  margin: 0 auto;
+}
+
+/* ---------- Baner prototypu ---------- */
+.proto-banner {
+  background: var(--amber-bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  font-size: 14px;
+  color: var(--ink);
+  margin-bottom: 22px;
+}
+
+.proto-head h1 {
+  font-size: clamp(26px, 4.5vw, 38px);
+  margin: 0 0 10px;
+}
+.proto-sub {
+  color: var(--ink-soft);
+  font-size: clamp(15px, 1.6vw, 17px);
+  max-width: 72ch;
+  margin: 0 0 8px;
+}
+.proto-crosslink {
+  font-size: 14px;
+  color: var(--ink-soft);
+  margin: 0 0 20px;
+}
+.proto-crosslink a {
+  color: var(--teal);
+  font-weight: 600;
+}
+
+/* ---------- Przełącznik wariantów ---------- */
+.proto-switch {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.proto-switch__tab {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink-soft);
+  border-radius: 999px;
+  padding: 8px 18px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.proto-switch__tab:hover {
+  border-color: var(--line-strong);
+}
+.proto-switch__tab.is-active {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: var(--on-accent);
+}
+.proto-switch__desc {
+  color: var(--ink-soft);
+  font-size: 14px;
+  margin: 0 0 22px;
+}
+
+/* ---------- Dwie kolumny ---------- */
+.proto-cols {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 26px;
+}
+@media (min-width: 900px) {
+  .proto-cols {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    gap: 34px;
+    align-items: start;
+  }
+}
+.proto-lede {
+  color: var(--ink-soft);
+  font-size: 15px;
+  margin: 0 0 18px;
+  max-width: 66ch;
+}
+
+/* ---------- Pola / inputy ---------- */
+.proto-input {
+  width: 100%;
+  font-family: inherit;
+  font-size: 16px;
+  color: var(--ink);
+  background: var(--surface-sunken);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 9px 10px;
+}
+.proto-input--title {
+  font-weight: 600;
+  font-size: 16px;
+}
+.proto-input--note {
+  font-size: 14px;
+}
+.proto-textarea {
+  resize: vertical;
+  margin-top: 8px;
+}
+
+/* ---------- Sekcje (A, C) ---------- */
+.proto-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.proto-section {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 14px;
+}
+.proto-section__head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.proto-section__head .proto-input--title {
+  flex: 1;
+}
+
+/* ---------- Bufet ---------- */
+.proto-buffet {
+  margin-top: 10px;
+}
+.proto-buffet__label {
+  display: block;
+  font-size: 13px;
+  color: var(--ink-soft);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.proto-buffet__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* ---------- Grupy / pozycje (B, C) ---------- */
+.proto-group {
+  margin-bottom: 22px;
+}
+.proto-group__title {
+  font-size: 16px;
+  font-family: var(--font-serif);
+  margin: 0 0 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--line);
+}
+.proto-items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.proto-item {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+.proto-item__row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.proto-item__label {
+  flex: 1;
+  font-weight: 500;
+}
+.proto-input--itemtext {
+  flex: 1;
+}
+.proto-additem {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+.proto-additem .proto-input {
+  flex: 1;
+}
+
+/* ---------- Segmentowany wybór poziomu ---------- */
+.levels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+.levels__opt {
+  border: 1px solid var(--line);
+  background: var(--surface-sunken);
+  color: var(--ink-soft);
+  border-radius: 999px;
+  padding: 5px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.levels__opt:hover {
+  border-color: var(--line-strong);
+}
+.levels__opt.is-active {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: var(--on-accent);
+}
+.levels__opt--granica.is-active {
+  background: var(--mauve);
+  border-color: var(--mauve);
+}
+
+/* ---------- Historia wersji ---------- */
+.proto-side {
+  position: relative;
+}
+.proto-history {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 16px;
+}
+.proto-history__title {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  margin: 0 0 4px;
+}
+.proto-history__hint {
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin: 0 0 12px;
+}
+.proto-history__save {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.proto-versions {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.proto-version {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: var(--surface-sunken);
+}
+.proto-version__head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.proto-version__date {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.proto-version__label {
+  font-size: 13px;
+  color: var(--ink-soft);
+  font-style: italic;
+}
+.proto-version__actions {
+  margin-left: auto;
+  display: flex;
+  gap: 10px;
+}
+.proto-version__summary {
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+.proto-empty {
+  color: var(--ink-soft);
+  font-size: 14px;
+  margin: 0;
+}
+
+/* ---------- Drobne przyciski-linki ---------- */
+.proto-linkbtn {
+  background: none;
+  border: none;
+  color: var(--teal);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 2px 4px;
+}
+.proto-linkbtn:hover {
+  text-decoration: underline;
+}
+.proto-linkbtn--danger {
+  color: var(--mauve);
+}
+
+/* ---------- Przyciski / chipy (skopiowane — brak wspólnego arkusza) ---------- */
+.btn {
+  border-radius: var(--radius-sm);
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.15s ease;
+}
+.btn--ghost {
+  background: var(--surface);
+  border-color: var(--line);
+  color: var(--ink);
+}
+.btn--ghost:hover {
+  border-color: var(--line-strong);
+  background: var(--surface-sunken);
+}
+.btn--solid {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: var(--on-accent);
+}
+.btn--solid:hover {
+  background: color-mix(in srgb, var(--teal) 88%, #000);
+}
+.btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+.chip {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink-soft);
+  border-radius: 999px;
+  padding: 7px 14px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.chip:hover {
+  border-color: var(--line-strong);
+}
+.chip--soft:hover {
+  background: var(--teal-bg);
+  border-color: var(--teal);
+  color: var(--ink);
+}
