@@ -27,7 +27,10 @@ export function Layout() {
             coś się zmienia.
           </p>
           <p className="app-footer__meta">
-            Dane zostają w tej przeglądarce. Działa offline.
+            Dane zostają w tej przeglądarce. Działa offline.{' '}
+            <Link to="/dane" className="app-footer__link">
+              Kopia danych
+            </Link>
           </p>
         </div>
       </footer>

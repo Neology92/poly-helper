@@ -134,6 +134,9 @@ npx netlify-cli deploy --prod --dir=dist
 - [x] **Check-in relacyjny** ([#7](https://github.com/Neology92/poly-helper/issues/7)) — RADAR
   (Radość/Uznanie/Do poprawy/Ustalenia/randka), profile lokalne, historia wpisów, eksport PDF.
 - [x] Poszerzenie widoku na desktopie do ~16:9 (mobile-first bez zmian; 21:9 jako nice-to-have).
+- [x] **Kopia danych** ([#12](https://github.com/Neology92/poly-helper/issues/12)) — eksport/import
+  wszystkich danych do pliku JSON (backup + przenoszenie między urządzeniami), strona `/dane`
+  (link w stopce), tryb zastąp/scal. Czysto lokalnie.
 
 ### Backlog i kierunek
 

@@ -1,0 +1,151 @@
+/*
+ * Strona „Kopia danych" (/dane) — mobile-first, węższa kolumna (to formularz/treść).
+ * Kolory wyłącznie z tokenów → tryb ciemny „za darmo".
+ */
+
+.databackup {
+  max-width: var(--wrap-narrow);
+  margin: 0 auto;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink-soft);
+  margin-bottom: 12px;
+  transition: color 0.15s ease;
+}
+.back-link:hover {
+  color: var(--ink);
+}
+
+.databackup__head h1 {
+  font-size: clamp(26px, 4.5vw, 36px);
+  margin: 0 0 10px;
+}
+.databackup__lede {
+  color: var(--ink-soft);
+  font-size: clamp(15px, 1.6vw, 17px);
+  max-width: 62ch;
+  margin: 0 0 20px;
+}
+
+.databackup__warn {
+  background: var(--amber-bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  font-size: 14px;
+  color: var(--ink);
+  margin-bottom: 22px;
+}
+
+.databackup__card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px;
+  margin-bottom: 18px;
+}
+.databackup__card h2 {
+  font-family: var(--font-serif);
+  font-size: 19px;
+  margin: 0 0 8px;
+}
+.databackup__now,
+.databackup__hint {
+  color: var(--ink-soft);
+  font-size: 14px;
+  margin: 0 0 14px;
+}
+.databackup__file {
+  display: block;
+  font-size: 14px;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+.databackup__file::file-selector-button {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  background: var(--surface-sunken);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 8px 14px;
+  margin-right: 12px;
+  cursor: pointer;
+}
+.databackup__file::file-selector-button:hover {
+  border-color: var(--line-strong);
+}
+
+.databackup__preview {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  font-size: 14px;
+}
+.databackup__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 12px 0;
+}
+.databackup__modehint {
+  color: var(--ink-soft);
+  font-size: 13px;
+  margin: 0;
+}
+
+.databackup__msg {
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  font-size: 14px;
+  margin: 0 0 12px;
+}
+.databackup__msg--error {
+  background: var(--mauve-bg);
+  color: var(--mauve);
+  border: 1px solid var(--mauve);
+}
+.databackup__msg--ok {
+  background: var(--teal-bg);
+  color: var(--ink);
+  border: 1px solid var(--teal);
+}
+
+/* ---------- Przyciski (skopiowane — brak wspólnego arkusza) ---------- */
+.btn {
+  border-radius: var(--radius-sm);
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.15s ease;
+}
+.btn--ghost {
+  background: var(--surface);
+  border-color: var(--line);
+  color: var(--ink);
+}
+.btn--ghost:hover {
+  border-color: var(--line-strong);
+  background: var(--surface-sunken);
+}
+.btn--solid {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: var(--on-accent);
+}
+.btn--solid:hover {
+  background: color-mix(in srgb, var(--teal) 88%, #000);
+}
+.btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}

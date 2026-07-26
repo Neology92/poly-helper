@@ -89,3 +89,11 @@
 .app-footer__meta {
   color: var(--ink-faint);
 }
+.app-footer__link {
+  color: var(--ink-soft);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.app-footer__link:hover {
+  color: var(--ink);
+}
