@@ -4,6 +4,7 @@ import { Layout } from './components/Layout'
 import { Home } from './components/Home'
 import { ToolPage } from './components/ToolPage'
 import { ArticlePage } from './components/ArticlePage'
+import { About } from './components/About'
 import { DataBackup } from './components/DataBackup'
 import { NotFound } from './components/NotFound'
 
@@ -20,6 +21,7 @@ export default function App() {
         <Route path="n/:slug" element={<ToolPage />} />
         <Route path="w/:slug" element={<ArticlePage />} />
         <Route path="dane" element={<DataBackup />} />
+        <Route path="o-projekcie" element={<About />} />
         <Route
           path="proto/umowa"
           element={

@@ -137,6 +137,9 @@ npx netlify-cli deploy --prod --dir=dist
 - [x] **Kopia danych** ([#12](https://github.com/Neology92/poly-helper/issues/12)) — eksport/import
   wszystkich danych do pliku JSON (backup + przenoszenie między urządzeniami), strona `/dane`
   (link w stopce), tryb zastąp/scal. Czysto lokalnie.
+- [x] **Strona „O projekcie" + prywatność** ([#9](https://github.com/Neology92/poly-helper/issues/9))
+  — misja, dla kogo, prywatność wprost, zgoda osób nie-korzystających, kontakt; strona `/o-projekcie`
+  (link w stopce).
 
 ### Backlog i kierunek
 

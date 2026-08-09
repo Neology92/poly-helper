@@ -28,6 +28,10 @@ export function Layout() {
           </p>
           <p className="app-footer__meta">
             Dane zostają w tej przeglądarce. Działa offline.{' '}
+            <Link to="/o-projekcie" className="app-footer__link">
+              O projekcie
+            </Link>{' '}
+            ·{' '}
             <Link to="/dane" className="app-footer__link">
               Kopia danych
             </Link>
