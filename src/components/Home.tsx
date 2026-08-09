@@ -24,6 +24,45 @@ export function Home() {
         </p>
       </section>
 
+      {/* ---------- Od czego zacząć ---------- */}
+      <section className="section" aria-labelledby="sekcja-start">
+        <div className="section__head">
+          <h2 id="sekcja-start" className="section__title">
+            Od czego zacząć?
+          </h2>
+          <p className="section__desc">Dwie ścieżki — wybierz bliższą Tobie. Nic na siłę.</p>
+        </div>
+        <div className="onboarding">
+          <div className="onboarding__lane">
+            <h3 className="onboarding__title">Dopiero poznaję</h3>
+            <p className="onboarding__desc">
+              Chcesz oswoić pojęcia i emocje, zanim sięgniesz po narzędzia.
+            </p>
+            <ol className="onboarding__steps">
+              <li>
+                <Link to="/w/czym-jest-poliamoria">Czym jest poliamoria?</Link>
+              </li>
+              <li>
+                <Link to="/w/zazdrosc-i-kompersja">Zazdrość i kompersja</Link>
+              </li>
+              <li>
+                <a href="#sekcja-narzedzia">Narzędzia do rozmowy</a>
+              </li>
+            </ol>
+          </div>
+          <div className="onboarding__lane">
+            <h3 className="onboarding__title">Już wiem, szukam narzędzi</h3>
+            <p className="onboarding__desc">
+              Znasz podstawy i chcesz od razu coś wspólnie wypełnić albo wydrukować.
+            </p>
+            <a href="#sekcja-narzedzia" className="onboarding__cta">
+              Przejdź do narzędzi ↓
+            </a>
+            <p className="onboarding__hint">np. Tabela granic albo Check-in relacyjny.</p>
+          </div>
+        </div>
+      </section>
+
       {/* ---------- Narzędzia ---------- */}
       <section className="section" aria-labelledby="sekcja-narzedzia">
         <div className="section__head">

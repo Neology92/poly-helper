@@ -140,6 +140,8 @@ npx netlify-cli deploy --prod --dir=dist
 - [x] **Strona „O projekcie" + prywatność** ([#9](https://github.com/Neology92/poly-helper/issues/9))
   — misja, dla kogo, prywatność wprost, zgoda osób nie-korzystających, kontakt; strona `/o-projekcie`
   (link w stopce).
+- [x] **Onboarding „Od czego zacząć?"** ([#11](https://github.com/Neology92/poly-helper/issues/11))
+  — sekcja na stronie głównej z dwiema ścieżkami (nowe osoby → artykuły → narzędzia; „szukam narzędzi").
 
 ### Backlog i kierunek
 

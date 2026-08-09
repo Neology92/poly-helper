@@ -40,6 +40,68 @@
   max-width: 60ch;
 }
 
+/* ---------- Onboarding „Od czego zacząć?" ---------- */
+.onboarding {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+@media (min-width: 700px) {
+  .onboarding {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.onboarding__lane {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 22px;
+  box-shadow: var(--shadow-sm);
+}
+.onboarding__title {
+  font-size: 18px;
+  margin: 0 0 6px;
+}
+.onboarding__desc {
+  color: var(--ink-soft);
+  font-size: 15px;
+  margin: 0 0 14px;
+}
+.onboarding__steps {
+  margin: 0;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.onboarding__steps li {
+  font-size: 15px;
+}
+.onboarding__steps a {
+  color: var(--teal);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.onboarding__cta {
+  display: inline-block;
+  background: var(--teal);
+  color: var(--on-accent);
+  font-weight: 600;
+  font-size: 14px;
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
+  transition: background 0.15s ease;
+}
+.onboarding__cta:hover {
+  background: color-mix(in srgb, var(--teal) 88%, #000);
+}
+.onboarding__hint {
+  color: var(--ink-soft);
+  font-size: 13px;
+  margin: 10px 0 0;
+}
+
 /* ---------- Siatka kart ---------- */
 .card-grid {
   list-style: none;
