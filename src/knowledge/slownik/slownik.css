@@ -1,0 +1,151 @@
+/*
+ * Słowniczek (/w/slownik) — mobile-first, czytelna kolumna. Tokeny → tryb ciemny „za darmo".
+ */
+
+.slownik {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.slownik__eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  font-weight: 600;
+  margin: 0 0 10px;
+}
+.slownik h1 {
+  font-size: clamp(28px, 5vw, 42px);
+  margin: 0 0 12px;
+}
+.slownik__lede {
+  color: var(--ink-soft);
+  font-size: clamp(15px, 1.7vw, 18px);
+  line-height: 1.55;
+  max-width: 66ch;
+  margin: 0 0 22px;
+}
+
+/* ---------- Wyszukiwarka ---------- */
+.slownik__search {
+  position: sticky;
+  top: 12px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--paper);
+  padding: 8px 0;
+  margin-bottom: 8px;
+}
+.slownik__search input {
+  flex: 1;
+  font-family: inherit;
+  font-size: 16px;
+  color: var(--ink);
+  background: var(--surface-sunken);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+}
+.slownik__search input:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 1px;
+}
+.slownik__count {
+  font-size: 13px;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+
+.slownik__empty {
+  color: var(--ink-soft);
+  font-size: 15px;
+  padding: 20px 0;
+}
+
+/* ---------- Lista haseł ---------- */
+.slownik__list {
+  margin: 0;
+}
+.slownik__entry {
+  padding: 16px 0;
+  border-top: 1px solid var(--line);
+  scroll-margin-top: 70px;
+}
+.slownik__entry:target .slownik__headword {
+  text-decoration: underline;
+  text-decoration-color: var(--teal);
+  text-underline-offset: 3px;
+}
+.slownik__term {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0 0 6px;
+}
+.slownik__headword {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.slownik__status {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  padding: 2px 8px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.slownik__status--ustalone {
+  color: var(--teal);
+  background: var(--teal-bg);
+}
+.slownik__status--wschodzace {
+  color: var(--amber);
+  background: var(--amber-bg);
+}
+.slownik__status--nieustalone {
+  color: var(--mauve);
+  background: var(--mauve-bg);
+}
+.slownik__status--zwykle-en {
+  color: var(--ink-soft);
+  background: var(--surface-sunken);
+  border: 1px solid var(--line);
+}
+
+.slownik__def {
+  margin: 0;
+}
+.slownik__variants {
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin: 0 0 6px;
+}
+.slownik__text {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--ink);
+  margin: 0;
+  max-width: 66ch;
+}
+.slownik__note {
+  font-size: 14px;
+  font-style: italic;
+  color: var(--ink-soft);
+  margin: 6px 0 0;
+  max-width: 66ch;
+}
+
+.slownik__source {
+  margin-top: 28px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  font-size: 13px;
+  color: var(--ink-soft);
+  max-width: 66ch;
+}

@@ -142,6 +142,9 @@ npx netlify-cli deploy --prod --dir=dist
   (link w stopce).
 - [x] **Onboarding „Od czego zacząć?"** ([#11](https://github.com/Neology92/poly-helper/issues/11))
   — sekcja na stronie głównej z dwiema ścieżkami (nowe osoby → artykuły → narzędzia; „szukam narzędzi").
+- [x] **Słowniczek** ([#10](https://github.com/Neology92/poly-helper/issues/10)) — wspólny model haseł
+  (`src/knowledge/glossary.ts`, jedno źródło prawdy) + strona `/w/slownik` z wyszukiwarką, kotwicami
+  per hasło i statusem nazewnictwa; dedup „kompersji".
 
 ### Backlog i kierunek
 

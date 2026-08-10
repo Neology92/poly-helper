@@ -32,6 +32,16 @@ export const articles: Article[] = [
     },
     Component: lazy(() => import('./zazdrosc-i-kompersja/index')),
   },
+  {
+    meta: {
+      slug: 'slownik',
+      title: 'Słowniczek',
+      summary:
+        'Pojęcia poliamorii w jednym miejscu — z wyszukiwarką, wariantami i statusem polskiego nazewnictwa.',
+      icon: '📖',
+    },
+    Component: lazy(() => import('./slownik/index')),
+  },
 ]
 
 export function findArticle(slug: string | undefined): Article | undefined {
