@@ -159,6 +159,23 @@ export function emptyDocC(): DocC {
 }
 
 // ---------------------------------------------------------------------------
+// Wariant D — miks B+A: prowadzące menu (pozycje × poziom) + wolne sekcje tekstowe
+// ---------------------------------------------------------------------------
+export interface DocDSnapshot {
+  items: ItemB[]
+  sections: SectionA[]
+}
+export interface DocD {
+  items: ItemB[]
+  sections: SectionA[]
+  versions: Version<DocDSnapshot>[]
+}
+
+export function emptyDocD(): DocD {
+  return { items: emptyDocB().items, sections: [], versions: [] }
+}
+
+// ---------------------------------------------------------------------------
 // Lekka normalizacja przy wczytaniu (odporność na częściowe dane w prototypie).
 // ---------------------------------------------------------------------------
 export function normDocA(raw: unknown): DocA {
@@ -179,6 +196,14 @@ export function normDocC(raw: unknown): DocC {
   const d = (raw ?? {}) as Partial<DocC>
   return {
     sections: Array.isArray(d.sections) ? d.sections : emptyDocC().sections,
+    versions: Array.isArray(d.versions) ? d.versions : [],
+  }
+}
+export function normDocD(raw: unknown): DocD {
+  const d = (raw ?? {}) as Partial<DocD>
+  return {
+    items: Array.isArray(d.items) && d.items.length ? d.items : emptyDocD().items,
+    sections: Array.isArray(d.sections) ? d.sections : [],
     versions: Array.isArray(d.versions) ? d.versions : [],
   }
 }

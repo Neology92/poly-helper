@@ -3,11 +3,13 @@ import { Link } from 'react-router-dom'
 import { VariantA } from './VariantA'
 import { VariantB } from './VariantB'
 import { VariantC } from './VariantC'
+import { VariantD } from './VariantD'
 import './umowa-proto.css'
 
-type Wariant = 'A' | 'B' | 'C'
+type Wariant = 'A' | 'B' | 'C' | 'D'
 
 const WARIANTY: { id: Wariant; nazwa: string; opis: string }[] = [
+  { id: 'D', nazwa: 'D · Miks ★', opis: 'Domyślnie prowadzi (menu z podpowiedziami dla nowych osób); przełącznik włącza tryb wolny (pusta kartka, proza) dla doświadczonych. Kandydat na docelowe narzędzie.' },
   { id: 'A', nazwa: 'A · Dokument', opis: 'Sekcje z wolnym tekstem — piszecie ustalenia własnymi słowami.' },
   { id: 'B', nazwa: 'B · Menu', opis: 'Lista komponentów relacji, przy każdym neutralny poziom + notka.' },
   { id: 'C', nazwa: 'C · Hybryda', opis: 'Sekcje złożone z pozycji-ustaleń (tekst + poziom + notka).' },
@@ -28,7 +30,7 @@ export default function UmowaProto() {
         return null
       }
     })()
-    return saved === 'A' || saved === 'B' || saved === 'C' ? saved : 'A'
+    return saved === 'A' || saved === 'B' || saved === 'C' || saved === 'D' ? saved : 'D'
   })
 
   const select = (w: Wariant) => {
@@ -78,6 +80,7 @@ export default function UmowaProto() {
       </div>
       {opis && <p className="proto-switch__desc">{opis}</p>}
 
+      {wariant === 'D' && <VariantD />}
       {wariant === 'A' && <VariantA />}
       {wariant === 'B' && <VariantB />}
       {wariant === 'C' && <VariantC />}

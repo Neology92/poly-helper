@@ -202,6 +202,87 @@
   flex: 1;
 }
 
+/* ---------- Miks (D): wprowadzenie + przełącznik trybu ---------- */
+.proto-intro {
+  background: var(--teal-bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  margin-bottom: 16px;
+}
+.proto-intro p {
+  margin: 0 0 8px;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--ink);
+}
+.proto-intro p:last-child {
+  margin-bottom: 0;
+}
+.proto-intro__how {
+  color: var(--ink-soft) !important;
+}
+
+.proto-mode {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.proto-mode__btn {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  text-align: left;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.proto-mode__btn:hover {
+  border-color: var(--line-strong);
+}
+.proto-mode__btn.is-active {
+  border-color: var(--teal);
+  box-shadow: 0 0 0 1px var(--teal);
+}
+.proto-mode__sub {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink-soft);
+}
+.proto-mode__btn.is-active .proto-mode__sub {
+  color: var(--teal);
+}
+.proto-modehint-inline {
+  font-size: 13px;
+  color: var(--ink-soft);
+  font-style: italic;
+  margin: 6px 0 0;
+}
+.proto-side__now {
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin: 12px 4px 0;
+}
+
+/* ---------- Miks (D): sekcja wolnych ustaleń ---------- */
+.proto-freesections {
+  margin-top: 26px;
+  padding-top: 20px;
+  border-top: 2px solid var(--line);
+}
+.proto-freesections--solo {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
 /* ---------- Segmentowany wybór poziomu ---------- */
 .levels {
   display: flex;

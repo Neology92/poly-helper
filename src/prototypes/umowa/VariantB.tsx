@@ -80,7 +80,7 @@ export function VariantB() {
   )
 }
 
-function CategoryGroup({
+export function CategoryGroup({
   kategoria,
   items,
   onPatch,
