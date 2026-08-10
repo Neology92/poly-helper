@@ -46,6 +46,18 @@ export const tools: Tool[] = [
     },
     Component: lazy(() => import('./check-in/index')),
   },
+  {
+    meta: {
+      slug: 'umowa',
+      title: 'Żywa umowa relacyjna',
+      tagline:
+        'Spiszcie ustalenia własnymi słowami — prowadzone menu albo pusta kartka. Z historią zmian.',
+      icon: '📝',
+      status: 'ready',
+      audience: ['poly', 'mono'],
+    },
+    Component: lazy(() => import('./umowa/index')),
+  },
 ]
 
 /** Szybkie wyszukanie narzędzia po slug-u (dla routera). */

@@ -1,0 +1,471 @@
+/*
+ * Żywa umowa relacyjna — style MOBILE-FIRST.
+ * Baza = pojedyncza kolumna; od `min-width: 900px` układ 2-kolumnowy (edytor + historia),
+ * wypełnia szersze ekrany (16:9). Kolory wyłącznie z tokenów → tryb ciemny „za darmo".
+ */
+
+.umowa {
+  max-width: var(--wrap);
+  margin: 0 auto;
+}
+
+.umowa__head .badge {
+  display: inline-block;
+  margin-bottom: 14px;
+}
+.umowa__head h1 {
+  font-size: clamp(28px, 5vw, 40px);
+  margin: 0 0 12px;
+}
+.umowa__lede {
+  color: var(--ink-soft);
+  font-size: clamp(15px, 1.6vw, 17px);
+  max-width: 72ch;
+  margin: 0 0 8px;
+}
+.umowa__crosslink {
+  font-size: 14px;
+  color: var(--ink-soft);
+  margin: 0 0 20px;
+}
+.umowa__crosslink a {
+  color: var(--teal);
+  font-weight: 600;
+}
+
+/* ---------- Pasek profili ---------- */
+.copies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+.copies__list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+}
+.chip {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink-soft);
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  max-width: 70vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.chip:hover {
+  border-color: var(--line-strong);
+}
+.chip.is-active {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: var(--on-accent);
+}
+.chip--soft:hover {
+  background: var(--teal-bg);
+  border-color: var(--teal);
+  color: var(--ink);
+}
+.chip-rename {
+  cursor: text;
+  color: var(--ink);
+  background: var(--surface);
+  border-color: var(--teal);
+  box-shadow: 0 0 0 2px var(--teal-bg);
+  width: 12rem;
+  max-width: 70vw;
+}
+.copies__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* ---------- Przyciski ---------- */
+.btn {
+  border-radius: var(--radius-sm);
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.15s ease;
+}
+.btn--ghost {
+  background: var(--surface);
+  border-color: var(--line);
+  color: var(--ink);
+}
+.btn--ghost:hover {
+  border-color: var(--line-strong);
+  background: var(--surface-sunken);
+}
+.btn--solid {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: var(--on-accent);
+}
+.btn--solid:hover {
+  background: color-mix(in srgb, var(--teal) 88%, #000);
+}
+.btn--danger-ghost {
+  background: transparent;
+  border-color: transparent;
+  color: var(--mauve);
+}
+.btn--danger-ghost:hover {
+  background: var(--mauve-bg);
+}
+.btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+/* ---------- Notatka ---------- */
+.umowa__note {
+  display: block;
+  margin-bottom: 22px;
+}
+.umowa__note span {
+  display: block;
+  font-size: 13px;
+  color: var(--ink-soft);
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+.umowa__note input {
+  width: 100%;
+  font-family: inherit;
+  font-size: 16px;
+  color: var(--ink);
+  background: var(--surface-sunken);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px;
+}
+
+/* ---------- Układ 2-kolumnowy ---------- */
+.umowa__cols {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 26px;
+}
+@media (min-width: 900px) {
+  .umowa__cols {
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    gap: 34px;
+    align-items: start;
+  }
+  .umowa__side {
+    position: sticky;
+    top: 12px;
+  }
+}
+
+/* ---------- Wprowadzenie + przełącznik trybu ---------- */
+.umowa-intro {
+  background: var(--teal-bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  margin-bottom: 16px;
+}
+.umowa-intro p {
+  margin: 0 0 8px;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--ink);
+}
+.umowa-intro p:last-child {
+  margin-bottom: 0;
+}
+.umowa-intro__how {
+  color: var(--ink-soft) !important;
+}
+.umowa-mode {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.umowa-mode__btn {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  text-align: left;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.umowa-mode__btn:hover {
+  border-color: var(--line-strong);
+}
+.umowa-mode__btn.is-active {
+  border-color: var(--teal);
+  box-shadow: 0 0 0 1px var(--teal);
+}
+.umowa-mode__sub {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink-soft);
+}
+.umowa-mode__btn.is-active .umowa-mode__sub {
+  color: var(--teal);
+}
+.umowa-modehint {
+  font-size: 13px;
+  color: var(--ink-soft);
+  font-style: italic;
+  margin: 6px 0 0;
+}
+
+/* ---------- Menu (kategorie + pozycje) ---------- */
+.umowa-group {
+  margin-bottom: 22px;
+}
+.umowa-group__title {
+  font-size: 16px;
+  font-family: var(--font-serif);
+  margin: 0 0 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--line);
+}
+.umowa-items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.umowa-item {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+.umowa-item__row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.umowa-item__label {
+  flex: 1;
+  font-weight: 500;
+}
+.umowa-additem {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+.umowa-additem .umowa-input {
+  flex: 1;
+}
+
+/* ---------- Inputy ---------- */
+.umowa-input {
+  width: 100%;
+  font-family: inherit;
+  font-size: 16px;
+  color: var(--ink);
+  background: var(--surface-sunken);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 9px 10px;
+}
+.umowa-input--note {
+  font-size: 14px;
+}
+.umowa-input--title {
+  font-weight: 600;
+}
+.umowa-textarea {
+  resize: vertical;
+  margin-top: 8px;
+}
+
+/* ---------- Segmentowany wybór poziomu ---------- */
+.levels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+.levels__opt {
+  border: 1px solid var(--line);
+  background: var(--surface-sunken);
+  color: var(--ink-soft);
+  border-radius: 999px;
+  padding: 5px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.levels__opt:hover {
+  border-color: var(--line-strong);
+}
+.levels__opt.is-active {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: var(--on-accent);
+}
+.levels__opt--granica.is-active {
+  background: var(--mauve);
+  border-color: var(--mauve);
+}
+
+/* ---------- Tryb wolny: sekcje ---------- */
+.umowa-free__lede {
+  color: var(--ink-soft);
+  font-size: 15px;
+  margin: 0 0 16px;
+}
+.umowa-section {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 14px;
+}
+.umowa-section__head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.umowa-section__head .umowa-input--title {
+  flex: 1;
+}
+.umowa-buffet {
+  margin-top: 10px;
+}
+.umowa-buffet__label {
+  display: block;
+  font-size: 13px;
+  color: var(--ink-soft);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.umowa-buffet__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* ---------- Drobne przyciski-linki ---------- */
+.umowa-linkbtn {
+  background: none;
+  border: none;
+  color: var(--teal);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 2px 4px;
+}
+.umowa-linkbtn:hover {
+  text-decoration: underline;
+}
+.umowa-linkbtn--danger {
+  color: var(--mauve);
+}
+
+/* ---------- Historia wersji + eksport ---------- */
+.umowa-history {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 16px;
+}
+.umowa-history__title {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  margin: 0 0 4px;
+}
+.umowa-history__hint {
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin: 0 0 12px;
+}
+.umowa-history__save {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.umowa-versions {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.umowa-version {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: var(--surface-sunken);
+}
+.umowa-version__head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.umowa-version__date {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.umowa-version__label {
+  font-size: 13px;
+  color: var(--ink-soft);
+  font-style: italic;
+}
+.umowa-version__actions {
+  margin-left: auto;
+  display: flex;
+  gap: 10px;
+}
+.umowa-version__summary {
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+.umowa-empty {
+  color: var(--ink-soft);
+  font-size: 14px;
+  margin: 0;
+}
+.umowa__export {
+  margin-top: 16px;
+}
+.umowa__now {
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin: 0 0 10px;
+}
+.umowa__saved {
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin: 10px 0 0;
+}
