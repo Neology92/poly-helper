@@ -23,6 +23,16 @@ export default function Umowa() {
   const [renaming, setRenaming] = useState(false)
   const [tryb, setTryb] = useState<Tryb>('prowadzony')
   const [pdfBusy, setPdfBusy] = useState(false)
+  // Akordeon: zbiór rozwiniętych kategorii (domyślnie wszystko zwinięte — czytelny przegląd).
+  const [openCats, setOpenCats] = useState<Set<string>>(() => new Set())
+
+  const toggleCat = (kat: string) =>
+    setOpenCats((prev) => {
+      const next = new Set(prev)
+      if (next.has(kat)) next.delete(kat)
+      else next.add(kat)
+      return next
+    })
 
   async function exportPdf(d: UmowaDoc) {
     setPdfBusy(true)
@@ -184,11 +194,34 @@ export default function Umowa() {
 
           {tryb === 'prowadzony' ? (
             <>
+              <div className="umowa-expand">
+                <span className="umowa-expand__hint">
+                  Rozwiń temat, który Was dotyczy — nie trzeba wszystkich.
+                </span>
+                <span className="umowa-expand__btns">
+                  <button
+                    type="button"
+                    className="umowa-linkbtn"
+                    onClick={() => setOpenCats(new Set(kategorie))}
+                  >
+                    Rozwiń wszystko
+                  </button>
+                  <button
+                    type="button"
+                    className="umowa-linkbtn"
+                    onClick={() => setOpenCats(new Set())}
+                  >
+                    Zwiń wszystko
+                  </button>
+                </span>
+              </div>
               {kategorie.map((kat) => (
                 <MenuGroup
                   key={kat}
                   kategoria={kat}
                   items={doc.items.filter((it) => it.kategoria === kat)}
+                  open={openCats.has(kat)}
+                  onToggle={() => toggleCat(kat)}
                   onPatch={c.patchItem}
                   onRemove={c.removeItem}
                   onAdd={(label) => c.addItem(kat, label)}

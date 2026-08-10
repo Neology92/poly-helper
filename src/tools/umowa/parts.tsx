@@ -31,24 +31,46 @@ export function LevelPicker({
   )
 }
 
-/** Grupa jednej kategorii menu: pozycje × poziom + notka, z dodawaniem własnych. */
+/** Grupa jednej kategorii menu (akordeon): pozycje × poziom + notka, z dodawaniem własnych. */
 export function MenuGroup({
   kategoria,
   items,
+  open,
+  onToggle,
   onPatch,
   onRemove,
   onAdd,
 }: {
   kategoria: string
   items: MenuItem[]
+  open: boolean
+  onToggle: () => void
   onPatch: (id: string, patch: Partial<MenuItem>) => void
   onRemove: (id: string) => void
   onAdd: (label: string) => void
 }) {
   const [nowa, setNowa] = useState('')
+  const filled = items.filter((it) => it.poziom !== '').length
+  const bodyId = `umowa-grupa-${kategoria.replace(/[^\p{L}\p{N}]+/gu, '-')}`
   return (
-    <div className="umowa-group">
-      <h3 className="umowa-group__title">{kategoria}</h3>
+    <div className={`umowa-group ${open ? 'is-open' : ''}`}>
+      <button
+        type="button"
+        className="umowa-group__toggle"
+        aria-expanded={open}
+        aria-controls={bodyId}
+        onClick={onToggle}
+      >
+        <span className="umowa-group__chevron" aria-hidden="true">
+          {open ? '▾' : '▸'}
+        </span>
+        <span className="umowa-group__name">{kategoria}</span>
+        <span className={`umowa-group__badge ${filled > 0 ? 'is-filled' : ''}`}>
+          {filled}/{items.length}
+        </span>
+      </button>
+      {!open ? null : (
+      <div id={bodyId} className="umowa-group__body">
       <ul className="umowa-items">
         {items.map((it) => (
           <li key={it.id} className="umowa-item">
@@ -99,6 +121,8 @@ export function MenuGroup({
           Dodaj
         </button>
       </form>
+      </div>
+      )}
     </div>
   )
 }
