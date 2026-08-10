@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Myth, Ref, Term } from '../components'
+import { GlossaryTerm, Myth, Ref } from '../components'
 
 /**
  * Artykuł „Zazdrość i kompersja" — czym są, co mówią badania i jak z nimi pracować.
@@ -73,19 +73,14 @@ export default function ZazdroscIKompersja() {
         </p>
 
         <dl className="glossary">
-          <Term term="Zazdrość">
-            Złożona emocja (lęk + złość + smutek) wobec postrzeganego zagrożenia dla ważnej relacji.
-          </Term>
-          <Term term="Zawiść (envy)">
-            Pragnienie czegoś, co ma ktoś inny — inne uczucie niż zazdrość, choć często mylone.
-          </Term>
-          <Term term="Kompersja">
-            Radość/czułość z tego, że osobie partnerskiej jest dobrze z kimś innym.
-          </Term>
-          <Term term="Frubble">
-            Brytyjskie, potoczne słowo na przyjemne odczucie kompersji.
-          </Term>
+          <GlossaryTerm slug="zazdrosc" />
+          <GlossaryTerm slug="zawisc" />
+          <GlossaryTerm slug="kompersja" />
+          <GlossaryTerm slug="frubble" />
         </dl>
+        <p>
+          <Link to="/w/slownik">Pełny słowniczek →</Link>
+        </p>
 
         <h2>Jak pracować z zazdrością?</h2>
         <p>
@@ -199,7 +194,7 @@ export default function ZazdroscIKompersja() {
       <p className="article-note">
         To materiał informacyjny, nie porada terapeutyczna. Jeśli zazdrość jest przytłaczająca
         albo prowadzi do kontrolowania czy krzywdzenia — twojego lub kogoś bliskiego — warto
-        poszukać wsparcia u specjalist_ki. Uczucia są w porządku; liczy się to, co z nimi robimy.
+        poszukać wsparcia u specjalistx. Uczucia są w porządku; liczy się to, co z nimi robimy.
       </p>
     </article>
   )

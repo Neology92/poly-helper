@@ -136,6 +136,15 @@
   font-size: 16px;
   margin-bottom: 3px;
 }
+.glossary__link {
+  color: var(--ink);
+  text-decoration: none;
+}
+.glossary__link:hover {
+  color: var(--teal);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
 .glossary dd {
   margin: 0;
   color: var(--ink-soft);

@@ -75,7 +75,14 @@ export const GLOSSARY: GlossaryTerm[] = [
     en: 'compersion',
     status: 'ustalone',
     definition:
-      'Ciepło albo radość na myśl o tym, że osoba partnerska cieszy się inną relacją. Bywa nazywana „przeciwieństwem zazdrości", choć obie mogą współistnieć.',
+      'Ciepło albo radość na myśl o tym, że osoba partnerska cieszy się inną relacją. Bywa nazywana „przeciwieństwem zazdrości", choć obie mogą współistnieć. Termin ukuto w komunie Kerista (San Francisco, ok. 1980).',
+  },
+  {
+    slug: 'frubble',
+    headword: 'Frubble / frubbly',
+    status: 'zwykle-en',
+    definition:
+      'Brytyjskie, potoczne słowo na przyjemne odczucie kompersji („czuć się frubbly").',
   },
   {
     slug: 'zazdrosc',
@@ -137,7 +144,7 @@ export const GLOSSARY: GlossaryTerm[] = [
     en: 'relationship anarchy',
     status: 'nieustalone',
     definition:
-      'Podejście bez z góry narzuconej hierarchii i gotowych szablonów — każdą relację ustala się indywidualnie, także granicę między przyjaźnią a romansem.',
+      'Podejście bez z góry narzuconej hierarchii i gotowych szablonów — każdą relację ustala się indywidualnie, także granicę między przyjaźnią a romansem. Spopularyzowane manifestem Andie Nordgren (2006).',
   },
   {
     slug: 'poliamoria-solo',

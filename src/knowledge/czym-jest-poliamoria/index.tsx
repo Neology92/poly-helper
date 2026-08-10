@@ -1,40 +1,11 @@
-import type { ReactNode } from 'react'
-
-/** Odnośnik do przypisu (źródła) na dole artykułu. */
-function Ref({ n }: { n: number }) {
-  return (
-    <a className="ref" href={`#zrodlo-${n}`} aria-label={`Źródło ${n}`}>
-      [{n}]
-    </a>
-  )
-}
-
-/** Pozycja słowniczka. */
-function Term({ term, children }: { term: string; children: ReactNode }) {
-  return (
-    <div>
-      <dt>{term}</dt>
-      <dd>{children}</dd>
-    </div>
-  )
-}
-
-/** Karta „mit → fakt". */
-function Myth({ claim, children }: { claim: string; children: ReactNode }) {
-  return (
-    <div className="myth">
-      <span className="myth__tag myth__tag--mit">Mit</span>
-      <p className="myth__claim">„{claim}"</p>
-      <span className="myth__tag myth__tag--fakt">Fakt</span>
-      <p className="myth__fact">{children}</p>
-    </div>
-  )
-}
+import { Link } from 'react-router-dom'
+import { GlossaryTerm, Myth, Ref } from '../components'
 
 /**
  * Artykuł „Czym jest poliamoria?" — wprowadzenie z odwołaniem do źródeł, obaleniem mitów
  * i słowniczkiem podstawowych pojęć. Treść informacyjna, nie orzekająca.
  * Cytowania zweryfikowane; przy danych o rozpowszechnieniu zachowano zastrzeżenia z badań.
+ * Słowniczek renderuje się ze wspólnego modelu `../glossary` (jedno źródło prawdy).
  */
 export default function CzymJestPoliamoria() {
   return (
@@ -103,66 +74,30 @@ export default function CzymJestPoliamoria() {
           nieco inaczej — traktuj to jako punkt wyjścia do rozmowy, nie jako sztywne definicje.
         </p>
         <dl className="glossary">
-          <Term term="Monogamia">
-            Relacja, w której dwie osoby umawiają się na wyłączność — romantyczną i seksualną.
-          </Term>
-          <Term term="Etyczna niemonogamia (CNM/ENM)">
-            Parasol na wszystkie relacje, w których — jawnie i dobrowolnie — wyłączność nie
-            obowiązuje: poliamoria, swinging, relacje otwarte i inne. Bywa też nazywana
-            „konsensualną niemonogamią" albo „niemonogamią za zgodą" (część osób woli te formy, by
-            nie sugerować, że inne układy są nieetyczne).
-          </Term>
-          <Term term="Poliamoria">
-            Bycie (lub gotowość do bycia) w więcej niż jednej relacji miłosnej naraz, za wiedzą
-            i zgodą wszystkich zaangażowanych.
-          </Term>
-          <Term term="Relacja otwarta">
-            Zwykle: para, która dopuszcza kontakty seksualne (rzadziej romantyczne) poza diadą.
-            Bywa używane też szeroko, jako synonim niemonogamii.
-          </Term>
-          <Term term="Kompersja">
-            Radość z tego, że osobie partnerskiej jest dobrze z kimś innym — bywa nazywana
-            „przeciwieństwem zazdrości". Termin ukuty w komunie Kerista (San Francisco, ok. 1980).
+          <GlossaryTerm slug="monogamia" />
+          <GlossaryTerm slug="etyczna-niemonogamia" />
+          <GlossaryTerm slug="poliamoria" />
+          <GlossaryTerm slug="relacja-otwarta" />
+          <GlossaryTerm slug="kompersja">
             <Ref n={4} />
-          </Term>
-          <Term term="Metamour">
-            Partner/ka Twojej osoby partnerskiej, z którą sam/a nie jesteś w relacji.
-          </Term>
-          <Term term="Polycule">
-            Cała sieć osób połączonych relacjami (od „poly" + „molecule") — np. Ty, Twoje osoby
-            partnerskie i ich partnerzy.
-          </Term>
-          <Term term="NRE (new relationship energy)">
-            „Energia nowej relacji" — euforyczne zauroczenie na początku znajomości, które z
-            czasem opada.
-          </Term>
-          <Term term="Poliamoria hierarchiczna i niehierarchiczna">
-            Hierarchiczna: niektóre relacje mają umownie wyższy priorytet (np. „primary" i
-            „secondary"). Niehierarchiczna: relacji się nie ranguje. Język „primary/secondary"
-            bywa krytykowany jako umniejszający osobom „drugorzędnym".
-          </Term>
-          <Term term="Anarchia relacyjna">
-            Podejście, które odrzuca narzucone hierarchie i etykiety; każdą relację (także
-            przyjaźń) ustala się indywidualnie. Spopularyzowane manifestem Andie Nordgren (2006).
+          </GlossaryTerm>
+          <GlossaryTerm slug="metamour" />
+          <GlossaryTerm slug="polikula" />
+          <GlossaryTerm slug="nre" />
+          <GlossaryTerm slug="poliamoria-hierarchiczna" />
+          <GlossaryTerm slug="anarchia-relacyjna">
             <Ref n={5} />
-          </Term>
-          <Term term="Solo poli">
-            Praktykowanie poliamorii bez dążenia do „splatania życia" w parę (wspólny dom,
-            finanse) — autonomia jako wartość.
-          </Term>
-          <Term term="Kitchen table vs parallel">
-            Dwa style sieci: „kuchennego stołu" (metamours się znają i bywają razem) oraz
-            „równoległy" (relacje toczą się osobno, bez wspólnych spotkań).
-          </Term>
-          <Term term="Triada / wachlarz (V)">
-            Triada — troje ludzi połączonych wzajemnie; „V" — jedna osoba (zawias) w relacji z
-            dwiema, które nie są w relacji ze sobą.
-          </Term>
-          <Term term="Fluid bonding">
-            Świadoma decyzja o rezygnacji z zabezpieczeń z konkretną osobą (np. po badaniach) —
-            zwykle przedmiot wyraźnych ustaleń w całej sieci.
-          </Term>
+          </GlossaryTerm>
+          <GlossaryTerm slug="poliamoria-solo" />
+          <GlossaryTerm slug="kitchen-table" />
+          <GlossaryTerm slug="poliamoria-rownolegla" />
+          <GlossaryTerm slug="triada" />
+          <GlossaryTerm slug="wachlarz-v" />
+          <GlossaryTerm slug="fluid-bonding" />
         </dl>
+        <p>
+          <Link to="/w/slownik">Pełny słowniczek →</Link>
+        </p>
 
         <h2>Mity i fakty</h2>
         <p>
