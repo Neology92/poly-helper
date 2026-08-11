@@ -15,24 +15,12 @@ export const tools: Tool[] = [
       slug: 'tabela-granic',
       title: 'Tabela granic informowania',
       tagline:
-        'Ustalcie razem, o czym z równoległych relacji chcecie się informować — i jak szczegółowo.',
+        'Ustalcie razem, o czym z równoległych relacji chcecie się informować — i jak szczegółowo. W środku gra karciana, która wypełnia tabelę.',
       icon: '▦',
       status: 'ready',
       audience: ['poly'],
     },
     Component: lazy(() => import('./boundaries-table/index')),
-  },
-  {
-    meta: {
-      slug: 'gra-karciana',
-      title: 'Gra karciana',
-      tagline:
-        'Scenki czytane na głos, które pomagają poczuć, ile naprawdę chcesz usłyszeć.',
-      icon: '🂠',
-      status: 'ready',
-      audience: ['poly'],
-    },
-    Component: lazy(() => import('./cards-game/index')),
   },
   {
     meta: {

@@ -96,6 +96,12 @@ ale świadomie odpadły.)
 
 ## 4. Gra karciana — zasady i konstrukcja
 
+> **Stan w aplikacji (2026-08):** gra nie jest osobnym narzędziem — to **drugi tryb wypełniania
+> Tabeli granic** (przełącznik „Tabela / Gra karciana" w tym samym narzędziu, ten sam profil).
+> Pod każdą kartą jest panel odpowiedzi, który **zapisuje się wprost do wiersza tabeli**
+> (te same reguły: „nie mów mi" wyklucza resztę, poziom szczegółu tylko gdy informujemy).
+> Zagranie w grę daje w efekcie wypełnioną tabelę. Wersja do druku (talia PDF) bez zmian.
+
 ### 4.1 Mechanika
 
 1. Jedna osoba czyta kartę **na głos, w pierwszej osobie** — jakby sytuacja właśnie wydarzyła

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
-import { applyName, cardItems } from '../../data'
-import type { CheckboxItem } from '../../data'
+import { applyName, cardItems, columns } from '../../data'
+import type { CheckboxAnswer, CheckboxItem, DetailLevel, ItemAnswer } from '../../data'
+import { rowFlags } from '../boundaries-table/rules'
 import { loadSettings, saveSettings } from './storage'
 import { downloadDeckPdf } from './deckPdf'
 import './game.css'
@@ -19,7 +20,21 @@ function shuffled<T>(arr: T[]): T[] {
 
 type Screen = 'intro' | 'cards'
 
-export default function CardsGame() {
+export interface CardsGameProps {
+  /** Odpowiedzi aktywnego profilu tabeli (żeby pokazać stan i pozwolić go zmieniać w grze). */
+  answers: Record<number, ItemAnswer>
+  onCheckbox: (number: number, field: keyof Omit<CheckboxAnswer, 'detail' | 'uwagi'>, v: boolean) => void
+  onDetail: (number: number, level: DetailLevel) => void
+  /** Nazwa profilu, do którego trafiają odpowiedzi (informacyjnie). */
+  profileName: string
+}
+
+/**
+ * Gra karciana — tryb wypełniania Tabeli granic „przez rozmowę".
+ * Scenki czytane na głos; po każdej od razu zaznaczacie odpowiedź, a ona zapisuje się
+ * do wiersza tabeli aktywnego profilu. Zagranie w grę = wypełniona tabela.
+ */
+export default function CardsGame({ answers, onCheckbox, onDetail, profileName }: CardsGameProps) {
   const [screen, setScreen] = useState<Screen>('intro')
   const [pseudonim, setPseudonim] = useState('')
   const [order, setOrder] = useState<number[]>(() => CARDS.map((_, i) => i))
@@ -47,6 +62,16 @@ export default function CardsGame() {
   const card = CARDS[order[pos]]
   const progress = `${pos + 1} / ${CARDS.length}`
 
+  /** Ile kart ma już jakąkolwiek odpowiedź w tabeli (postęp wypełniania, nie „wynik"). */
+  const odpowiedziane = useMemo(
+    () =>
+      CARDS.filter((c) => {
+        const a = answers[c.number] as CheckboxAnswer | undefined
+        return a && (a.dontTell || a.headsUp || a.afterFact)
+      }).length,
+    [answers],
+  )
+
   function start(shuffle: boolean) {
     saveSettings({ pseudonim })
     setOrder(shuffle ? shuffled(CARDS.map((_, i) => i)) : CARDS.map((_, i) => i))
@@ -65,19 +90,23 @@ export default function CardsGame() {
   if (screen === 'intro') {
     return (
       <div className="game">
-        <span className="badge badge--ready">Gra do rozmowy</span>
-        <h1>Gra karciana</h1>
         <p className="game__lede">
           Scenki czytane na głos „jakby wydarzyły się naprawdę". Pomagają poczuć, ile faktycznie
-          chcesz usłyszeć — zanim zaznaczysz to w tabeli granic.
+          chcesz usłyszeć — a Wasze odpowiedzi <strong>zapisują się od razu do tabeli</strong>.
+          Zagranie w grę to po prostu inny sposób jej wypełnienia.
         </p>
 
         <ol className="rules">
           <li>Jedna osoba czyta kartę na głos, w pierwszej osobie — jakby to się właśnie stało.</li>
           <li>Najpierw sam opis ogólny. Potem osoba słuchająca decyduje, czy chce szczegóły.</li>
-          <li>Na tej podstawie zaznaczacie wiersz w tabeli: czy informować, jak szczegółowo.</li>
+          <li>Od razu pod kartą zaznaczacie odpowiedź — trafia do wiersza tabeli.</li>
           <li>Nie ma złych odpowiedzi. Przy każdej karcie można się zatrzymać i porozmawiać.</li>
         </ol>
+
+        <p className="game__target">
+          Odpowiedzi trafią do profilu: <strong>{profileName}</strong> · wypełnione{' '}
+          {odpowiedziane} z {CARDS.length} kart.
+        </p>
 
         <label className="game__field">
           <span>Pseudonim za „[imię]"</span>
@@ -110,12 +139,7 @@ export default function CardsGame() {
               wielokrotnego użytku — pseudonim „[imię]" wpisujecie kartą „Imiona na czas gry".
             </p>
           </div>
-          <button
-            type="button"
-            className="btn btn--ghost"
-            disabled={deckBusy}
-            onClick={exportDeck}
-          >
+          <button type="button" className="btn btn--ghost" disabled={deckBusy} onClick={exportDeck}>
             {deckBusy ? 'Generuję…' : 'Pobierz talię PDF'}
           </button>
         </div>
@@ -159,13 +183,16 @@ export default function CardsGame() {
         </div>
       </article>
 
+      <AnswerPanel
+        number={card.number}
+        answer={answers[card.number] as CheckboxAnswer}
+        onCheckbox={onCheckbox}
+        onDetail={onDetail}
+        profileName={profileName}
+      />
+
       <div className="game__nav">
-        <button
-          type="button"
-          className="btn btn--ghost"
-          onClick={() => go(-1)}
-          disabled={pos === 0}
-        >
+        <button type="button" className="btn btn--ghost" onClick={() => go(-1)} disabled={pos === 0}>
           ← Poprzednia
         </button>
         {pos < CARDS.length - 1 ? (
@@ -174,10 +201,107 @@ export default function CardsGame() {
           </button>
         ) : (
           <button type="button" className="btn btn--solid" onClick={() => setScreen('intro')}>
-            Koniec — do ustawień
+            Koniec — do podsumowania
           </button>
         )}
       </div>
     </div>
+  )
+}
+
+/**
+ * Panel odpowiedzi pod kartą — zapisuje wprost do wiersza tabeli (aktywny profil).
+ * Reguły są te same co w tabeli (normalizacja po stronie hooka): „nie mów mi" wyklucza resztę,
+ * poziom szczegółu i „informuj bezwzględnie" dostępne tylko, gdy w ogóle informujemy.
+ */
+function AnswerPanel({
+  number,
+  answer,
+  onCheckbox,
+  onDetail,
+  profileName,
+}: {
+  number: number
+  answer: CheckboxAnswer | undefined
+  onCheckbox: CardsGameProps['onCheckbox']
+  onDetail: CardsGameProps['onDetail']
+  profileName: string
+}) {
+  if (!answer) return null
+  const flags = rowFlags(answer)
+  const odpowiedziano = answer.dontTell || answer.headsUp || answer.afterFact
+
+  return (
+    <section className="answer" aria-label="Twoja odpowiedź do tabeli">
+      <p className="answer__q">Chcesz o tym wiedzieć?</p>
+
+      <div className="answer__row">
+        <button
+          type="button"
+          className={`answer__opt answer__opt--danger ${answer.dontTell ? 'is-on' : ''}`}
+          aria-pressed={answer.dontTell}
+          onClick={() => onCheckbox(number, 'dontTell', !answer.dontTell)}
+        >
+          ✕ Nie mów mi o tym
+        </button>
+        <button
+          type="button"
+          className={`answer__opt ${answer.headsUp ? 'is-on' : ''}`}
+          aria-pressed={answer.headsUp}
+          disabled={!flags.canTell}
+          title={!flags.canTell ? 'Odznacz „nie mów mi o tym", aby wybrać' : undefined}
+          onClick={() => onCheckbox(number, 'headsUp', !answer.headsUp)}
+        >
+          {columns.headsUp.label}
+        </button>
+        <button
+          type="button"
+          className={`answer__opt ${answer.afterFact ? 'is-on' : ''}`}
+          aria-pressed={answer.afterFact}
+          disabled={!flags.canTell}
+          title={!flags.canTell ? 'Odznacz „nie mów mi o tym", aby wybrać' : undefined}
+          onClick={() => onCheckbox(number, 'afterFact', !answer.afterFact)}
+        >
+          {columns.afterFact.label}
+        </button>
+      </div>
+
+      {flags.canDetail && (
+        <div className="answer__row answer__row--detail">
+          <span className="answer__label">Jak szczegółowo?</span>
+          <button
+            type="button"
+            className={`answer__opt ${answer.detail === 'ogolnie' ? 'is-on' : ''}`}
+            aria-pressed={answer.detail === 'ogolnie'}
+            onClick={() => onDetail(number, answer.detail === 'ogolnie' ? 'unset' : 'ogolnie')}
+          >
+            ogólnie
+          </button>
+          <button
+            type="button"
+            className={`answer__opt ${answer.detail === 'szczegoly' ? 'is-on' : ''}`}
+            aria-pressed={answer.detail === 'szczegoly'}
+            onClick={() => onDetail(number, answer.detail === 'szczegoly' ? 'unset' : 'szczegoly')}
+          >
+            szczegóły
+          </button>
+          <button
+            type="button"
+            className={`answer__opt answer__opt--must ${answer.mustSay ? 'is-on' : ''}`}
+            aria-pressed={answer.mustSay}
+            disabled={!flags.canMustSay}
+            onClick={() => onCheckbox(number, 'mustSay', !answer.mustSay)}
+          >
+            ! informuj bezwzględnie
+          </button>
+        </div>
+      )}
+
+      <p className="answer__saved" aria-live="polite">
+        {odpowiedziano
+          ? `Zapisano do tabeli · profil ${profileName}`
+          : 'Zaznacz odpowiedź — zapisze się do tabeli.'}
+      </p>
+    </section>
   )
 }

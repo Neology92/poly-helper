@@ -25,6 +25,48 @@
   margin: 0 0 26px;
 }
 
+/* ---------- Przełącznik trybu: tabela / gra ---------- */
+.modes {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.modes__btn {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  text-align: left;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.modes__btn:hover {
+  border-color: var(--line-strong);
+}
+.modes__btn.is-active {
+  border-color: var(--teal);
+  box-shadow: 0 0 0 1px var(--teal);
+}
+.modes__sub {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink-soft);
+}
+.modes__btn.is-active .modes__sub {
+  color: var(--teal);
+}
+.table-tool__loading {
+  color: var(--ink-soft);
+  padding: 30px 0;
+}
+
 /* ---------- Pasek egzemplarzy ---------- */
 .copies {
   display: flex;

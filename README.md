@@ -18,8 +18,7 @@ Narzędzia (docelowe, treści i wersje PDF gotowe — patrz `poly-helper-dump.md
 
 | Narzędzie | Slug | Status |
 |---|---|---|
-| Tabela granic informowania | `tabela-granic` | wypełnianie online + eksport PDF |
-| Gra karciana | `gra-karciana` | tryb online + eksport talii do druku |
+| Tabela granic informowania | `tabela-granic` | dwa tryby: tabela **albo gra karciana** (odpowiedzi z gry zapisują się do tabeli) + eksport PDF i talii do druku |
 | Check-in relacyjny | `check-in` | wypełnianie online + historia wpisów + eksport PDF |
 | Żywa umowa relacyjna | `umowa` | prowadzone menu / tryb wolny, profile, historia wersji, eksport PDF |
 
@@ -143,6 +142,10 @@ npx netlify-cli deploy --prod --dir=dist
   (link w stopce).
 - [x] **Onboarding „Od czego zacząć?"** ([#11](https://github.com/Neology92/poly-helper/issues/11))
   — sekcja na stronie głównej z dwiema ścieżkami (nowe osoby → artykuły → narzędzia; „szukam narzędzi").
+- [x] **Gra karciana wpięta w Tabelę granic** — nie jest już osobnym narzędziem, tylko drugim
+  trybem wypełniania tabeli: pod każdą kartą zaznaczacie odpowiedź, która **zapisuje się wprost do
+  wiersza** aktywnego profilu (zagranie w grę = wypełniona tabela). Stary link `/n/gra-karciana`
+  przekierowuje.
 - [x] **Żywa umowa relacyjna** ([#8](https://github.com/Neology92/poly-helper/issues/8)) — edytowalny,
   wersjonowany dokument ustaleń: domyślnie prowadzi (menu z neutralną skalą), tryb wolny (proza),
   profile per relacja, historia wersji, eksport PDF. Domyka Epik #1 (check-in + żywa umowa).

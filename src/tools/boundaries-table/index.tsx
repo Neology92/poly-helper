@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { lazy, Suspense, useMemo, useState } from 'react'
 import { columns, copyHeaderFields, items } from '../../data'
 import type { BoundaryDocument, CheckboxAnswer } from '../../data'
 import { useCopies } from './useCopies'
@@ -6,6 +6,9 @@ import { ItemRow, CustomRowView } from './Row'
 import { ScopePanel } from './ScopePanel'
 import { downloadTablePdf } from './pdf'
 import './table.css'
+
+// Gra karciana to drugi tryb wypełniania TEJ tabeli (nie osobne narzędzie) — leniwie ładowana.
+const CardsGame = lazy(() => import('../cards-game/index'))
 
 /** Etykieta profilu na pasku wyboru. */
 function profileLabel(osoba: string, index: number): string {
@@ -27,6 +30,7 @@ export default function BoundariesTable() {
   const [focus, setFocus] = useState(false)
   const [onlySelectedPdf, setOnlySelectedPdf] = useState(false)
   const [renaming, setRenaming] = useState(false)
+  const [tab, setTab] = useState<'tabela' | 'gra'>('tabela')
 
   const off = useMemo(() => new Set(doc?.deselected ?? []), [doc?.deselected])
   const selectedNumbers = useMemo(
@@ -146,6 +150,44 @@ export default function BoundariesTable() {
         </div>
       </div>
 
+      {/* Tryb: tabela albo gra karciana (oba wypełniają ten sam profil) */}
+      <div className="modes" role="tablist" aria-label="Tryb wypełniania">
+        <button
+          type="button"
+          role="tab"
+          aria-selected={tab === 'tabela'}
+          className={`modes__btn ${tab === 'tabela' ? 'is-active' : ''}`}
+          onClick={() => setTab('tabela')}
+        >
+          Tabela
+          <span className="modes__sub">zaznaczacie samodzielnie</span>
+        </button>
+        <button
+          type="button"
+          role="tab"
+          aria-selected={tab === 'gra'}
+          className={`modes__btn ${tab === 'gra' ? 'is-active' : ''}`}
+          onClick={() => setTab('gra')}
+        >
+          Gra karciana
+          <span className="modes__sub">wypełniacie przez rozmowę</span>
+        </button>
+      </div>
+
+      {tab === 'gra' ? (
+        <Suspense fallback={<p className="table-tool__loading">Ładowanie gry…</p>}>
+          <CardsGame
+            answers={doc.answers}
+            onCheckbox={c.setCheckbox}
+            onDetail={c.setDetail}
+            profileName={profileLabel(
+              doc.meta.osobaInformowana,
+              Math.max(0, c.copies.findIndex((x) => x.id === c.activeId)),
+            )}
+          />
+        </Suspense>
+      ) : (
+        <>
       {/* Nagłówek profilu */}
       <div className="meta">
         <label className="meta__field meta__field--wide">
@@ -287,6 +329,8 @@ export default function BoundariesTable() {
           </button>
         </div>
       </div>
+        </>
+      )}
     </div>
   )
 }
