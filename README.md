@@ -11,8 +11,9 @@ jest **najnowszy build** — łatwiej podać znajomym link niż rozsyłać pliki
 
 ## Status
 
-Wczesny szkielet. Działa: strona główna z rejestrem narzędzi, routing, PWA, deploy.
-Treść i logika poszczególnych narzędzi są dokładane krok po kroku (patrz Roadmapa).
+Działające MVP: trzy narzędzia (Tabela granic z grą karcianą, Check-in, Żywa umowa),
+cztery pozycje Wiedzy (w tym Słowniczek), kopia danych, strona „O projekcie".
+Kolejne kroki — patrz Roadmapa i GitHub Issues.
 
 Narzędzia (docelowe, treści i wersje PDF gotowe — patrz `poly-helper-dump.md`):
 
@@ -25,7 +26,8 @@ Narzędzia (docelowe, treści i wersje PDF gotowe — patrz `poly-helper-dump.md
 ## Stack
 
 - **Vite + React + TypeScript** — SPA z code-splittingiem per narzędzie.
-- **react-router-dom** — routing (`/` + `/n/:slug`).
+- **react-router-dom** — routing: `/`, narzędzia `/n/:slug`, Wiedza `/w/:slug`,
+  plus strony serwisu `/dane` i `/o-projekcie`.
 - **vite-plugin-pwa** (`autoUpdate`) — offline + automatyczna aktualizacja do najnowszego buildu.
 - **@fontsource-variable** (Inter + Fraunces) — fonty self-hosted (działają offline).
 - Dane użytkownika: **lokalnie** (localStorage/IndexedDB) — bez backendu, bez kont.
@@ -49,7 +51,7 @@ Wymagany Node 22+.
 ```
 src/
   main.tsx                # bootstrap: Router + StrictMode
-  App.tsx                 # drzewo tras (Home, /n/:slug, 404)
+  App.tsx                 # drzewo tras (Home, /n/:slug, /w/:slug, /dane, /o-projekcie, 404)
   styles/
     tokens.css            # design tokens (paleta, typografia) — źródło prawdy wyglądu
     global.css            # reset + style globalne + import fontów

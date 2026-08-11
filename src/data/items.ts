@@ -7,8 +7,8 @@ import type { BoundaryItem } from './types'
  * oraz §5 (finalne teksty kart). Kolejność: od najmniej do najdalej posuniętych,
  * z przeplotem fizyczne/emocjonalne/logistyczne (bez nagłówków klastrów).
  *
- * Pozycje 12, 21, 22 to pola „do ustalenia/wypisania" (kind: 'field') — nie mają kart.
- * Pozostałe 22 pozycje mają karty-scenki (kind: 'checkbox').
+ * Pozycje 5, 12, 21, 22 to pola „do ustalenia/wypisania" (kind: 'field') — nie mają kart.
+ * Pozostałe 21 pozycji ma karty-scenki (kind: 'checkbox') — z nich buduje się talia i gra.
  */
 export const items: BoundaryItem[] = [
   {

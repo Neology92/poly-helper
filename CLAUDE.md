@@ -18,7 +18,8 @@ Każde narzędzie ma tryb online (wypełnianie, zapis lokalny) i eksport do PDF.
 
 ## Architektura (skrót)
 
-- Vite + React + TS, SPA (`/` + `/n/:slug`), PWA (`autoUpdate`), fonty self-hosted.
+- Vite + React + TS, SPA (`/`, `/n/:slug`, `/w/:slug`, `/dane`, `/o-projekcie`), PWA
+  (`autoUpdate`), fonty self-hosted.
 - **Rejestr narzędzi**: `src/tools/registry.tsx` — jedyne miejsce, by dodać narzędzie.
   Każde narzędzie to `src/tools/<slug>/index.tsx` (default export, leniwie ładowany).
 - Dane użytkownika: lokalnie (bez kont, offline). PDF: generowane po stronie klienta.
