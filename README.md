@@ -142,6 +142,10 @@ npx netlify-cli deploy --prod --dir=dist
   (link w stopce).
 - [x] **Onboarding „Od czego zacząć?"** ([#11](https://github.com/Neology92/poly-helper/issues/11))
   — sekcja na stronie głównej z dwiema ścieżkami (nowe osoby → artykuły → narzędzia; „szukam narzędzi").
+- [x] **Onboarding emocjonalny Gry** — rama bezpieczeństwa przed grą (stop-słowo, „można przerwać
+  w każdej chwili"), przycisk **Pauza** w trakcie i **check-out** na koniec (dump §8.5, epik #2).
+- [x] **Artykuł „Granice vs zasady"** — czym różni się „nie wolno ci" od „ja tego nie zrobię"
+  (Tier 2 z researchu), z odsyłaczami do narzędzi.
 - [x] **Gra karciana wpięta w Tabelę granic** — nie jest już osobnym narzędziem, tylko drugim
   trybem wypełniania tabeli: pod każdą kartą zaznaczacie odpowiedź, która **zapisuje się wprost do
   wiersza** aktywnego profilu (zagranie w grę = wypełniona tabela). Stary link `/n/gra-karciana`

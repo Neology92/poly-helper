@@ -325,3 +325,93 @@
   color: var(--ink-soft);
   margin: 10px 0 0;
 }
+
+/* ---------- Rama bezpieczeństwa (check-in / stop-słowo / pauza / check-out) ---------- */
+.safety {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  margin: 18px 0;
+}
+.safety__title {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  margin: 0 0 10px;
+}
+.safety__list {
+  margin: 0 0 12px;
+  padding-left: 20px;
+}
+.safety__list li {
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+
+.game__topbar__right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.btn--small {
+  padding: 6px 12px;
+  font-size: 13px;
+}
+
+.pause {
+  background: var(--amber-bg);
+  border: 1px solid var(--amber);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  margin-bottom: 16px;
+}
+.pause__title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 6px;
+}
+.pause__text {
+  font-size: 14px;
+  color: var(--ink-soft);
+  margin: 0 0 12px;
+  max-width: 60ch;
+}
+
+.checkout {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+}
+.checkout__title {
+  font-family: var(--font-serif);
+  font-size: clamp(20px, 3vw, 26px);
+  margin: 0 0 8px;
+}
+.checkout__lede {
+  color: var(--ink-soft);
+  font-size: 15px;
+  margin: 0 0 14px;
+  max-width: 62ch;
+}
+.checkout__list {
+  margin: 0 0 14px;
+  padding-left: 20px;
+}
+.checkout__list li {
+  font-size: 15px;
+  line-height: 1.55;
+  margin-bottom: 8px;
+  max-width: 62ch;
+}
+.checkout__saved {
+  font-size: 14px;
+  color: var(--ink-soft);
+  background: var(--teal-bg);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  margin: 0 0 16px;
+}

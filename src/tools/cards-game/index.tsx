@@ -18,7 +18,7 @@ function shuffled<T>(arr: T[]): T[] {
   return a
 }
 
-type Screen = 'intro' | 'cards'
+type Screen = 'intro' | 'cards' | 'checkout'
 
 export interface CardsGameProps {
   /** Odpowiedzi aktywnego profilu tabeli (żeby pokazać stan i pozwolić go zmieniać w grze). */
@@ -37,10 +37,12 @@ export interface CardsGameProps {
 export default function CardsGame({ answers, onCheckbox, onDetail, profileName }: CardsGameProps) {
   const [screen, setScreen] = useState<Screen>('intro')
   const [pseudonim, setPseudonim] = useState('')
+  const [stopSlowo, setStopSlowo] = useState('')
   const [order, setOrder] = useState<number[]>(() => CARDS.map((_, i) => i))
   const [pos, setPos] = useState(0)
   const [revealed, setRevealed] = useState(false)
   const [deckBusy, setDeckBusy] = useState(false)
+  const [paused, setPaused] = useState(false)
 
   async function exportDeck() {
     setDeckBusy(true)
@@ -54,9 +56,11 @@ export default function CardsGame({ answers, onCheckbox, onDetail, profileName }
     }
   }
 
-  // Wczytaj zapisany pseudonim.
+  // Wczytaj zapisane ustawienia (pseudonim, stop-słowo).
   useEffect(() => {
-    setPseudonim(loadSettings().pseudonim)
+    const s = loadSettings()
+    setPseudonim(s.pseudonim)
+    setStopSlowo(s.stopSlowo)
   }, [])
 
   const card = CARDS[order[pos]]
@@ -73,10 +77,11 @@ export default function CardsGame({ answers, onCheckbox, onDetail, profileName }
   )
 
   function start(shuffle: boolean) {
-    saveSettings({ pseudonim })
+    saveSettings({ pseudonim, stopSlowo })
     setOrder(shuffle ? shuffled(CARDS.map((_, i) => i)) : CARDS.map((_, i) => i))
     setPos(0)
     setRevealed(false)
+    setPaused(false)
     setScreen('cards')
   }
 
@@ -122,6 +127,36 @@ export default function CardsGame({ answers, onCheckbox, onDetail, profileName }
           — w kartach w miejsce „[imię]" pojawi się ten pseudonim.
         </p>
 
+        {/* Rama bezpieczeństwa (check-in): gra bywa intensywna — warto się umówić na zasady. */}
+        <section className="safety" aria-label="Zanim zaczniecie">
+          <h2 className="safety__title">Zanim zaczniecie</h2>
+          <ul className="safety__list">
+            <li>
+              <strong>Umówcie się na stop-słowo.</strong> Kiedy padnie, przerywacie od razu — bez
+              tłumaczenia się i bez dyskusji.
+            </li>
+            <li>
+              <strong>Można przerwać w każdej chwili.</strong> Przycisk „Pauza" jest zawsze pod ręką;
+              nie trzeba przechodzić całej talii za jednym razem.
+            </li>
+            <li>
+              <strong>Trudne emocje to normalne.</strong> Scenki bywają poruszające — to nie znaczy,
+              że coś poszło źle. Zatrzymajcie się i porozmawiajcie.
+            </li>
+            <li>
+              <strong>Nie ma złych odpowiedzi.</strong> Odpowiadacie za siebie, nie „jak wypada".
+            </li>
+          </ul>
+          <label className="game__field">
+            <span>Nasze stop-słowo (opcjonalnie)</span>
+            <input
+              value={stopSlowo}
+              onChange={(e) => setStopSlowo(e.target.value)}
+              placeholder="np. pauza, ananas…"
+            />
+          </label>
+        </section>
+
         <div className="game__actions">
           <button type="button" className="btn btn--solid" onClick={() => start(false)}>
             Zacznij po kolei
@@ -147,16 +182,78 @@ export default function CardsGame({ answers, onCheckbox, onDetail, profileName }
     )
   }
 
+  if (screen === 'checkout') {
+    return (
+      <div className="game">
+        <section className="checkout" aria-label="Check-out">
+          <h2 className="checkout__title">Na koniec — zatrzymajcie się na chwilę</h2>
+          <p className="checkout__lede">
+            Rozmowa o granicach potrafi poruszyć. Zanim wrócicie do zwykłego dnia, zamknijcie ją
+            świadomie.
+          </p>
+          <ul className="checkout__list">
+            <li>Jak się teraz czujecie? Co było najtrudniejsze, a co ulżyło?</li>
+            <li>Czy coś wymaga jeszcze rozmowy — teraz albo umówionej na później?</li>
+            <li>Powiedzcie sobie coś dobrego. To była wspólna praca, nie egzamin.</li>
+            <li>Ustalenia nie są na zawsze — wracacie do nich, gdy coś się zmieni.</li>
+          </ul>
+          <p className="checkout__saved">
+            Wasze odpowiedzi są już w tabeli (profil <strong>{profileName}</strong>) — wypełnione{' '}
+            {odpowiedziane} z {CARDS.length} kart.
+          </p>
+          <div className="game__actions">
+            <button type="button" className="btn btn--solid" onClick={() => setScreen('intro')}>
+              Wróć do ustawień gry
+            </button>
+          </div>
+        </section>
+      </div>
+    )
+  }
+
   return (
     <div className="game">
       <div className="game__topbar">
         <button type="button" className="link-btn" onClick={() => setScreen('intro')}>
           <span aria-hidden="true">←</span> Ustawienia
         </button>
-        <span className="game__progress" aria-live="polite">
-          {progress}
+        <span className="game__topbar__right">
+          <span className="game__progress" aria-live="polite">
+            {progress}
+          </span>
+          <button type="button" className="btn btn--ghost btn--small" onClick={() => setPaused(true)}>
+            Pauza
+          </button>
         </span>
       </div>
+
+      {paused && (
+        <section className="pause" aria-label="Pauza">
+          <p className="pause__title">Zatrzymane. Nie musicie kontynuować.</p>
+          <p className="pause__text">
+            {stopSlowo.trim()
+              ? `Wasze stop-słowo: „${stopSlowo.trim()}". `
+              : ''}
+            Odpowiedzi, które już zaznaczyliście, są zapisane. Możecie wrócić do gry teraz albo
+            kiedy indziej.
+          </p>
+          <div className="game__actions">
+            <button type="button" className="btn btn--solid" onClick={() => setPaused(false)}>
+              Wracamy do gry
+            </button>
+            <button
+              type="button"
+              className="btn btn--ghost"
+              onClick={() => {
+                setPaused(false)
+                setScreen('checkout')
+              }}
+            >
+              Kończymy na dziś
+            </button>
+          </div>
+        </section>
+      )}
 
       <article className="card" aria-label={`Karta ${card.number}: ${card.name}`}>
         <p className="card__general">{applyName(card.card.general, name)}</p>
@@ -200,7 +297,7 @@ export default function CardsGame({ answers, onCheckbox, onDetail, profileName }
             Następna →
           </button>
         ) : (
-          <button type="button" className="btn btn--solid" onClick={() => setScreen('intro')}>
+          <button type="button" className="btn btn--solid" onClick={() => setScreen('checkout')}>
             Koniec — do podsumowania
           </button>
         )}

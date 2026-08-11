@@ -34,6 +34,17 @@ export const articles: Article[] = [
   },
   {
     meta: {
+      slug: 'granice-vs-zasady',
+      title: 'Granice vs zasady',
+      summary:
+        'Czym różni się „nie wolno ci" od „ja tego nie zrobię" — i dlaczego ta różnica decyduje o poczuciu bezpieczeństwa.',
+      icon: '⚖',
+      readingMinutes: 7,
+    },
+    Component: lazy(() => import('./granice-vs-zasady/index')),
+  },
+  {
+    meta: {
       slug: 'slownik',
       title: 'Słowniczek',
       summary:

@@ -315,6 +315,10 @@ S: Po jednej z rozmów nazwaliśmy wprost, czym dla siebie jesteśmy, i ustalili
    miejsce na historię zmian, albo osobny „changelog" ustaleń?
 5. **Onboarding emocjonalny**: czy przed grą potrzebna jest karta/rytuał otwarcia i zamknięcia
    (check-in / check-out, zasada stop-słowa, co robić gdy karta wywoła trudne emocje)?
+   → **ZROBIONE w aplikacji (2026-08):** przed grą rama „Zanim zaczniecie" (stop-słowo zapisywane
+   lokalnie, można przerwać w każdej chwili, trudne emocje są normalne, nie ma złych odpowiedzi),
+   przycisk **Pauza** w trakcie (przypomina stop-słowo) i ekran **check-out** na koniec.
+   W wersji drukowanej wciąż do rozważenia jako osobne karty.
 6. **Zakres talii**: czy dorobić warianty scenek (2–3 na pozycję) na powtórne granie?
    Czy jakieś pozycje z odrzuconych (kink/BDSM, social media, znajomi/rodzina, ciąża)
    powinny jednak wrócić?
